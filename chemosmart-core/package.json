@@ -2,9 +2,10 @@
   "name": "chemosmart-core",
   "version": "1.0.0",
   "description": " core microservice for chemosmart system.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
