@@ -53,6 +53,10 @@ a {
     cursor: pointer
 }
 
+.menu_option1 {
+    display: none;
+}
+
 .header_img {
     width: 25px;
     height: 25px;
