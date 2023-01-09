@@ -1,0 +1,62 @@
+#wrapper{
+    margin-top:6rem;
+}
+#table-infermiere { 
+    width: 80%; 
+    table-layout: fixed;
+    border-collapse: collapse; 
+    margin: 0 auto;
+}
+/* Zebra striping */
+#table-infermiere tr:nth-of-type(odd) { 
+    background: #f2f2f2; 
+}
+#table-infermiere th { 
+    background: #E74C3C; 
+    color: #fff; 
+    font-weight: 600; 
+}
+#table-infermiere td, #table-infermiere th { 
+    padding: 12px; 
+    border: 1px solid #ccc; 
+    text-align: left; 
+    text-align: center
+}
+/*Mobile View*/
+@media 
+only screen and 
+    (max-width: 760px){
+        #table-infermiere td,#table-infermiere tr { 
+        display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	#table-infermiere thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	#table-infermiere tr {
+        border: 1px solid #E74C3C; 
+    }
+    #table-infermiere tr + tr{
+        margin-top: 1.5em;
+    }
+	#table-infermiere td { 
+		/* make like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+        background-color: #daeffb;
+        text-align: left; 
+	}
+	#table-infermiere td:before { 
+        content: attr(data-label);
+        display: inline-block;
+        line-height: 1.5;
+	    margin-left: -100%;
+        width: 100%;
+		white-space: nowrap;
+	}
+}

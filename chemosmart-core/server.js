@@ -12,6 +12,10 @@ app.get('/', (req, res) => {
     res.render(__dirname + "/views/index")
 })
 
+app.get('/infermiere', (req, res) => {
+    res.render(__dirname + "/views/homepage-infermiere")
+})
+
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`)
 })
