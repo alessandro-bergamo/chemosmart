@@ -9,8 +9,10 @@ app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
 app.use('/images', express.static(path.resolve(__dirname, "assets/images")))
 
 app.get('/', (req, res) => {
-    res.render(__dirname + "/views/index")
+    res.render(__dirname + "/views/segretario")
 })
+
+
 
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`)
