@@ -6,6 +6,7 @@ const port = 3000
 app.set('view engine', 'ejs')
 app.use('/css', express.static(path.resolve(__dirname, "assets/css")))
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
+app.use('/images', express.static(path.resolve(__dirname, "assets/images")))
 
 app.get('/', (req, res) => {
     res.render(__dirname + "/views/index")

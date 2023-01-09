@@ -3,9 +3,10 @@
 :root {
     --header-height: 3rem;
     --nav-width: 68px;
-    --first-color: #4723D9;
-    --first-color-light: #AFA5D9;
+    --first-color: #D6EFFF;
+    --first-color-light: #52789e;
     --white-color: #F7F6FB;
+    --logo-color: #00407F;
     --body-font: 'Nunito', sans-serif;
     --normal-font-size: 1rem;
     --z-fixed: 100
@@ -42,18 +43,19 @@ a {
     padding: 0 1rem;
     background-color: var(--white-color);
     z-index: var(--z-fixed);
-    transition: .5s
+    transition: .5s;
+    border-bottom: 1px solid var(--first-color);
 }
 
 .header_toggle {
-    color: var(--first-color);
+    color: var(--logo-color);
     font-size: 1.5rem;
     cursor: pointer
 }
 
 .header_img {
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     display: flex;
     justify-content: center;
     border-radius: 50%;
@@ -61,7 +63,36 @@ a {
 }
 
 .header_img img {
-    width: 40px
+    width: 25px;
+    height: 25px;
+}
+
+.logo_img {
+    width: 28px;
+    height: 25px;
+    padding-top: 1px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.logo_img  img {
+    width: 28px;
+    height: 25px;
+}
+
+.logo_title img {
+    width: 120px;
+    height: 45px;
+}
+
+.logo_title {
+    width: 120px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden
 }
 
 .l-navbar {
@@ -99,11 +130,11 @@ a {
 
 .nav_logo-icon {
     font-size: 1.25rem;
-    color: var(--white-color)
+    color: var(--logo-color)
 }
 
 .nav_logo-name {
-    color: var(--white-color);
+    color: var(--logo-color);
     font-weight: 700
 }
 
@@ -115,7 +146,7 @@ a {
 }
 
 .nav_link:hover {
-    color: var(--white-color)
+    color: var(--logo-color)
 }
 
 .nav_icon {
@@ -131,7 +162,7 @@ a {
 }
 
 .active {
-    color: var(--white-color)
+    color: var(--logo-color)
 }
 
 .active::before {
@@ -140,7 +171,7 @@ a {
     left: 0;
     width: 2px;
     height: 32px;
-    background-color: var(--white-color)
+    background-color: var(--logo-color)
 }
 
 .height-100 {
@@ -159,12 +190,41 @@ a {
     }
 
     .header_img {
-        width: 40px;
-        height: 40px
+        width: 25px;
+        height: 25px;
     }
 
     .header_img img {
-        width: 45px
+        width: 25px;
+        height: 25px;
+    }
+
+    .logo_img {
+        width: 30px;
+        height: 40px;
+        padding-top: 1px;
+        display: flex;
+        justify-content: center;
+        border-radius: 50%;
+        overflow: hidden
+    }
+    
+    .logo_img  img {
+        width: 40px;
+        height: 35px;
+    }
+
+    .logo_title {
+        width: 120px;
+        height: 45px;
+    }
+    
+    .logo_title img {
+        width: 120px;
+        height: 45px;
+        display: flex;
+        justify-content: center;
+        overflow: hidden
     }
 
     .l-navbar {
