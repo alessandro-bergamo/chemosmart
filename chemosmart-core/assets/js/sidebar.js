@@ -10,13 +10,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if(toggle && nav && bodypd && headerpd){
     toggle.addEventListener('click', ()=>{
     // show navbar
-    nav.classList.toggle('show')
+    nav.classList.toggle('show-sd')
     // change icon
     toggle.classList.toggle('bx-x')
     // add padding to body
     bodypd.classList.toggle('body-pd')
     // add padding to header
     headerpd.classList.toggle('body-pd')
+
+    if($(window).width() > 768) {
+        $('.nav_name').toggle()
+    }
     })
     }
     }
