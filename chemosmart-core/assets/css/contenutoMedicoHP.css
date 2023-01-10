@@ -1,22 +1,22 @@
 #wrapper{
     margin-top:6rem;
 }
-#table-infermiere { 
+#table-medico { 
     width: 80%; 
     table-layout: fixed;
     border-collapse: collapse; 
     margin: 0 auto;
 }
 /* Zebra striping */
-#table-infermiere tr:nth-of-type(odd) { 
+#table-medico tr:nth-of-type(odd) { 
     background: #f2f2f2; 
 }
-#table-infermiere th { 
-    background: #E74C3C; 
+#table-medico th { 
+    background: #52789e; 
     color: #fff; 
     font-weight: 600; 
 }
-#table-infermiere td, #table-infermiere th { 
+#table-medico td, #table-medico th { 
     padding: 12px; 
     border: 1px solid #ccc; 
     text-align: left; 
@@ -26,23 +26,23 @@
 @media 
 only screen and 
     (max-width: 760px){
-        #table-infermiere td,#table-infermiere tr { 
+        #table-medico td,#table-medico tr { 
         display: block; 
 	}
 	
 	/* Hide table headers (but not display: none;, for accessibility) */
-	#table-infermiere thead tr { 
+	#table-medico thead tr { 
 		position: absolute;
 		top: -9999px;
 		left: -9999px;
 	}
-	#table-infermiere tr {
-        border: 1px solid #E74C3C; 
+	#table-medico tr {
+        border: 1px solid #52789e; 
     }
-    #table-infermiere tr + tr{
+    #table-medico tr + tr{
         margin-top: 1.5em;
     }
-	#table-infermiere td { 
+	#table-medico td { 
 		/* make like a "row" */
 		border: none;
 		border-bottom: 1px solid #eee; 
@@ -51,7 +51,7 @@ only screen and
         background-color: #daeffb;
         text-align: left; 
 	}
-	#table-infermiere td:before { 
+	#table-medico td:before { 
         content: attr(data-label);
         display: inline-block;
         line-height: 1.5;
