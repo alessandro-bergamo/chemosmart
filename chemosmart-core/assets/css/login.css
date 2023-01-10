@@ -10,8 +10,10 @@ body, html {
     min-width: 100%;
     min-height: 100%;
     background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
 }
 
-@media screen and (min-width: 1200px) {
-    
+.list-provider {
+    max-height: 25vh;
 }
