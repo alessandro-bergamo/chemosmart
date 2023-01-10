@@ -1,0 +1,17 @@
+body, html {
+    height: 100%; }
+  
+.bg-container {
+    background-image: url("/images/bg_4k_ps.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    min-width: 100%;
+    min-height: 100%;
+    background-attachment: fixed;
+}
+
+@media screen and (min-width: 1200px) {
+    
+}

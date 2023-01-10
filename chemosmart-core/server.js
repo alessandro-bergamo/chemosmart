@@ -13,7 +13,8 @@ app.get('/', (req, res) => {
     let user = 'medico'
     // let user = 'infermiere'
     // let user = 'segretario'
-    res.render(__dirname + "/views/index", {user : user})
+    // res.render(__dirname + "/views/index", {user : user})
+    res.render(__dirname + '/views/loginPage')
 })
 
 app.listen(port, () => {
