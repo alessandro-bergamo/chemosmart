@@ -1,0 +1,71 @@
+
+
+.appuntamenti_MedicoHP{
+    float: left;
+}
+
+.calendario_MedicoHP{
+    float: right;
+}
+
+.pazienti_MedicoHP{
+    float: left;
+}
+
+.table__head {
+    color: #FFF;
+    font-weight: 700;
+    background: #52789e;
+    background: -moz-linear-gradient(-45deg, #52789e 0%, #D6EFFF 100%);
+    background: -webkit-linear-gradient(-45deg, #52789e 0%, #D6EFFF 100%);
+    background: linear-gradient(135deg, #52789e 0%, #D6EFFF 100%);
+    white-space: nowrap;
+}
+
+.table-bordered td,
+.table-bordered th {
+    border: 2px solid #FFF;
+}
+
+.coin {
+    width: 8%;
+    margin-left: 5px;
+    -webkit-animation: spin 4s linear infinite;
+    -moz-animation: spin 4s linear infinite;
+    animation: spin 4s linear infinite;
+}
+
+@-moz-keyframes spin {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.winner__table {
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 567px) {
+
+    .winner__table {
+        font-size: 12px;
+    }
+
+    .coin {
+        width: 15%;
+        margin-left: 2px;
+    }
+}
