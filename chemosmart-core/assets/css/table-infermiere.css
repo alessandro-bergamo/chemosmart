@@ -1,10 +1,12 @@
 #wrapper{
-    margin-top:6rem;
+    margin:7%;
+    position: relative;
 }
 #table-infermiere { 
-    width: 80%; 
+    width: 100%; 
     table-layout: fixed;
     border-collapse: collapse; 
+    border: 1px solid #ccc;
     margin: 0 auto;
 }
 /* Zebra striping */
@@ -16,16 +18,28 @@
     color: #fff; 
     font-weight: 600; 
 }
+#buttonFarmaci{
+    position: absolute;
+    right: 0;
+}
+#buttonFarmaci button{
+    margin-top: 7%;
+}
+
+
 #table-infermiere td, #table-infermiere th { 
     padding: 12px; 
-    border: 1px solid #ccc; 
     text-align: left; 
     text-align: center
 }
+
 /*Mobile View*/
 @media 
 only screen and 
     (max-width: 760px){
+        #table-infermiere{
+            border:hidden;
+        }
         #table-infermiere td,#table-infermiere tr { 
         display: block; 
 	}
@@ -37,7 +51,7 @@ only screen and
 		left: -9999px;
 	}
 	#table-infermiere tr {
-        border: 1px solid #E74C3C; 
+        border: 1px solid #cacaca; 
     }
     #table-infermiere tr + tr{
         margin-top: 1.5em;
@@ -48,7 +62,7 @@ only screen and
 		border-bottom: 1px solid #eee; 
 		position: relative;
 		padding-left: 50%; 
-        background-color: #daeffb;
+        background-color: #f2f2f2;
         text-align: left; 
 	}
 	#table-infermiere td:before { 
