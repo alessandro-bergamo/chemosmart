@@ -1,21 +1,32 @@
-
+.bottone-medicoHP{
+    position: absolute;
+    right: 0;
+}
+.bottone-medicoHP input{
+    margin-top: 7%;
+}
 
 
 #wrapper{
-    margin-top:6rem;
+    margin:6%;
+    position: relative;
+    width: 50%;
+    right: 7%;
 }
 #table-medico { 
-    width: 80%; 
+    width: 100%; 
     table-layout: fixed;
     border-collapse: collapse; 
     margin: 0 auto;
+    margin-right: 50%;
+    border: 1px solid #ccc;
 }
 /* Zebra striping */
 #table-medico tr:nth-of-type(odd) { 
     background: #f2f2f2; 
 }
 #table-medico th { 
-    background: #52789e; 
+    background: #00407F;; 
     color: #fff; 
     font-weight: 600; 
 }
@@ -40,7 +51,7 @@ only screen and
 		left: -9999px;
 	}
 	#table-medico tr {
-        border: 1px solid #52789e; 
+        border: 1px solid #00407F;; 
     }
     #table-medico tr + tr{
         margin-top: 1.5em;
