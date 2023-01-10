@@ -9,12 +9,15 @@ app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
 app.use('/images', express.static(path.resolve(__dirname, "assets/images")))
 
 app.get('/', (req, res) => {
+    res.render(__dirname + '/views/loginPage')
+})
+
+app.post('/login',(req, res) => {
     // switcha il commento per cambiare sidebar visualizzata (usato per testare se tutto va)
     let user = 'medico'
     // let user = 'infermiere'
     // let user = 'segretario'
-    // res.render(__dirname + "/views/index", {user : user})
-    res.render(__dirname + '/views/loginPage')
+    res.render(__dirname + "/views/index", {user : user})
 })
 
 app.listen(port, () => {
