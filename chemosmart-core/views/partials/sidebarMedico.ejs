@@ -1,6 +1,6 @@
-<div id="body-pd" class="body-sidebar">
-    <header class="header" id="header">
-        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+<div id="body-pd" class="body-sidebar body-pd">
+    <header class="header body-pd" id="header">
+        <div class="header_toggle"> <i class='bx bx-menu bx-x' id="header-toggle"></i> </div>
         <div class="header_img dropdown">
             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="./images/user.png" alt="">
@@ -11,7 +11,7 @@
               </div>
         </div>
     </header>
-    <div class="l-navbar" id="nav-bar">
+    <div class="l-navbar show-sd" id="nav-bar">
         <nav class="nav">
             <div class="scrollbar"> <a href="#" class="nav_logo">
                     <div class="logo_img"><img src="./images/chemoSmart_icon.png" alt=""></div>
@@ -22,26 +22,26 @@
                             href="#collapseMenu1" role="button" aria-expanded="false" aria-controls="collapseMenu2"
                             data-placement="right" title="Gestione pazienti"> <span><i
                                     class='bx bxs-folder nav_icon'></i></span>
-                            <span class="nav_name" style="display: none;">Gestione Paziente</span> </a>
+                            <span class="nav_name">Gestione Paziente</span> </a>
                         <div class="collapse" id="collapseMenu1" data-parent="#accordion">
                             <a href="#" class="nav_link" id="collapseMenu1" data-toggle="tooltip" data-placement="right"
-                                title="Visualizza paziente"><i class='bx bxs-user nav_icon'></i> <span
-                                    class="nav_name" style="display: none;">Visualizza
+                                title="Visualizza paziente"><i class='bx bx-user nav_sub_icon'></i> <span
+                                    class="nav_name">Visualizza
                                     Paziente</span>
                             </a>
                             <a href="#" class="nav_link" id="collapseMenu1" data-toggle="tooltip" data-placement="right"
-                                title="Schedula terapia"> <i class='bx bx-message-square-detail nav_icon'></i> <span
-                                    class="nav_name" style="display: none;">Schedula
+                                title="Schedula terapia"><i class='bx bx-calendar-star nav_sub_icon' ></i><span
+                                    class="nav_name">Schedula
                                     Terapia</span>
                             </a>
                             <a href="#" class="nav_link" id="collapseMenu1" data-toggle="tooltip" data-placement="right"
-                                title="Modifica terapia"> <i class='bx bx-message-square-detail nav_icon'></i> <span
-                                    class="nav_name" style="display: none;">Modifica
+                                title="Modifica terapia"><i class='bx bx-edit nav_sub_icon' ></i><span
+                                    class="nav_name">Modifica
                                     Terapia</span>
                             </a>
                             <a href="#" class="nav_link" id="collapseMenu1" data-toggle="tooltip" data-placement="right"
-                                title="Nuova cartella clinica"> <i class='bx bx-message-square-detail nav_icon'></i>
-                                <span class="nav_name" style="display: none;">Nuova cartella<br>
+                                title="Nuova cartella clinica"> <i class='bx bx-folder-plus nav_sub_icon'></i>
+                                <span class="nav_name">Nuova cartella<br>
                                     clinica</span>
                             </a>
                         </div>
@@ -49,30 +49,29 @@
                     </div>
                     <div class="nav_list scrollbar"> <a class="nav_link" data-toggle="collapse" data-toggle="tooltip"
                             href="#collapseMenu2" role="button" aria-expanded="false" aria-controls="collapseMenu2"
-                            data-placement="right" title="Gestione appuntamenti"> <span><i
-                                    class='bx bxs-folder nav_icon'></i></span>
-                            <span class="nav_name" style="display: none;">Gestione<br>Appuntamenti</span> </a>
+                            data-placement="right" title="Gestione appuntamenti"> <span><i class='bx bxs-calendar nav_icon'></i></span>
+                            <span class="nav_name">Gestione<br>Appuntamenti</span> </a>
                         <div class="collapse" id="collapseMenu2" data-parent="#accordion">
                             <a href="#" class="nav_link" id="collapseMenu2" data-toggle="tooltip" data-placement="right"
-                                title="Visualizza paziente"><i class='bx bxs-user nav_icon'></i> <span
-                                    class="nav_name" style="display: none;">Visualizza<br>
+                                title="Visualizza calendario"><i class='bx bx-calendar nav_sub_icon' ></i><span
+                                    class="nav_name">Visualizza<br>
                                     Calendario</span>
                             </a>
                             <a href="#" class="nav_link" id="collapseMenu2" data-toggle="tooltip" data-placement="right"
-                                title="Schedula terapia"> <i class='bx bx-message-square-detail nav_icon'></i> <span
-                                    class="nav_name" style="display: none;">Visualizza<br>appuntamenti<br>paziente</span>
+                                title="Visualizza appuntamenti paziente"><i class='bx bx-calendar-check nav_sub_icon'></i> <span
+                                    class="nav_name">Visualizza<br>appuntamenti<br>paziente</span>
                             </a>
                             <a href="#" class="nav_link" id="collapseMenu2" data-toggle="tooltip" data-placement="right"
-                                title="Modifica terapia"> <i class='bx bx-message-square-detail nav_icon'></i> <span
-                                    class="nav_name" style="display: none;">Nuovo<br>appuntamento</span>
+                                title="Nuovo appuntamento"><i class='bx bx-calendar-plus nav_sub_icon' ></i><span
+                                    class="nav_name">Nuovo<br>appuntamento</span>
                             </a>
                             <a href="#" class="nav_link" id="collapseMenu2" data-toggle="tooltip" data-placement="right"
-                                title="Nuova cartella clinica"> <i class='bx bx-message-square-detail nav_icon'></i>
-                                <span class="nav_name" style="display: none;">Rischedula...</span>
+                                title="Rischedula..."><i class='bx bx-calendar-edit nav_sub_icon'></i>
+                                <span class="nav_name">Rischedula...</span>
                             </a>
                             <a href="#" class="nav_link" id="collapseMenu2" data-toggle="tooltip" data-placement="right"
-                                title="Nuova cartella clinica"> <i class='bx bx-message-square-detail nav_icon'></i>
-                                <span class="nav_name" style="display: none;">Schedula<br>manualmente...</span>
+                                title="Schedula manualmente..."><i class='bx bx-calendar-event nav_sub_icon'></i>
+                                <span class="nav_name">Schedula<br>manualmente...</span>
                             </a>
                         </div>
 

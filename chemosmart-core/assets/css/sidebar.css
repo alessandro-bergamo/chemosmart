@@ -63,8 +63,8 @@ a {
 }
 
 .header_img img {
-    width: 25px;
-    height: 25px;
+    width: 18px;
+    height: 18px;
 }
 
 .logo_img {
@@ -175,6 +175,11 @@ a {
     font-size: 1.25rem
 }
 
+.nav_sub_icon {
+    font-size: 1.25rem;
+    display: none;
+}
+
 .show-sd {
     left: 0
 }
@@ -232,8 +237,8 @@ a {
     }
 
     .header_img img {
-        width: 25px;
-        height: 25px;
+        width: 18px;
+        height: 18px;
     }
 
     .logo_img {
