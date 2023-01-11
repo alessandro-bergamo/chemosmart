@@ -12,6 +12,11 @@ app.get('/', (req, res) => {
     res.render(__dirname + "/views/index")
 })
 
+app.get('/filtri', (req, res) => {
+    res.render(__dirname + "/views/filtri")
+}) 
+
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`)
 })
+
