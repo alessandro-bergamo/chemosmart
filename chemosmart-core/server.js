@@ -28,7 +28,9 @@ app.get('/calendario', (req, res) => {
     res.render(__dirname + "/views/page-calendario")
 })
 
-
+app.get('/medico', (req, res) => {
+    res.render(__dirname + "/views/medicoHomePage")
+})
 
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`)
