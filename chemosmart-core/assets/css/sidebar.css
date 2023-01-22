@@ -59,12 +59,12 @@ a {
     display: flex;
     justify-content: center;
     border-radius: 50%;
-    overflow: hidden
+    overflow: visible
 }
 
 .header_img img {
-    width: 25px;
-    height: 25px;
+    width: 18px;
+    height: 18px;
 }
 
 .logo_img {
@@ -107,12 +107,30 @@ a {
     z-index: var(--z-fixed)
 }
 
+.scrollbar {
+    overflow: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
 .nav {
     height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
-    overflow: hidden
+    overflow: auto;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar {
+    display: none;
 }
 
 .nav_logo,
@@ -126,6 +144,10 @@ a {
 
 .nav_logo {
     margin-bottom: 2rem
+}
+
+.nav_name {
+    display: none;
 }
 
 .nav_logo-icon {
@@ -153,7 +175,12 @@ a {
     font-size: 1.25rem
 }
 
-.show {
+.nav_sub_icon {
+    font-size: 1.25rem;
+    display: none;
+}
+
+.show-sd {
     left: 0
 }
 
@@ -184,9 +211,24 @@ a {
         padding-left: calc(var(--nav-width) + 2rem)
     }
 
+    .nav_name {
+        display: block;
+    }
+
     .header {
         height: calc(var(--header-height) + 1rem);
         padding: 0 2rem 0 calc(var(--nav-width) + 2rem)
+    }
+
+    .scrollbar {
+        overflow: scroll;
+        overflow-x: hidden;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .scrollbar::-webkit-scrollbar {
+        display: none;
     }
 
     .header_img {
@@ -195,8 +237,8 @@ a {
     }
 
     .header_img img {
-        width: 25px;
-        height: 25px;
+        width: 18px;
+        height: 18px;
     }
 
     .logo_img {
@@ -232,7 +274,7 @@ a {
         padding: 1rem 1rem 0 0
     }
 
-    .show {
+    .show-sd {
         width: calc(var(--nav-width) + 156px)
     }
 
