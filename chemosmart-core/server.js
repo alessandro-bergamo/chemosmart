@@ -32,6 +32,11 @@ app.get('/medico', (req, res) => {
     res.render(__dirname + "/views/homepage-medico")
 })
 
+app.get('/filtri', (req, res) => {
+    res.render(__dirname + "/views/filtri")
+}) 
+
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`)
 })
+
