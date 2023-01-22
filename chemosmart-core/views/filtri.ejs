@@ -4,7 +4,11 @@
   <%- include('./partials/head') %> 
 </head>
 <body>
-  <%- include('./partials/sidebar') %>
-  <%- include('./partials/content_filtri') %>
+  <% if (user == 'medico') { %>
+    <%- include('./partials/sidebarMedico') %>
+  <% } else if(user == 'segretario') { %>
+    <%- include('./partials/sidebarSegretario') %>
+  <% } %>
+  <%- include('./partials/content_filtri') %> 
 </body>
 </html>
