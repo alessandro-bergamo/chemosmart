@@ -7,10 +7,9 @@
   <% if (user == 'medico') { %>
     <%- include('./partials/sidebarMedico') %>
   <% } else if(user == 'infermiere') { %>
-    <%- include('./partials/sidebarInfermiere') %>
+    <%- include('./homepage-infermiere') %>
   <% } else if(user == 'segretario') {%>
     <%- include('./partials/sidebarSegretario') %>
   <% } %> 
-  <%- include('./partials/mainbody') %>
 </body>
 </html>

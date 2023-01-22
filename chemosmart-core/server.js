@@ -14,8 +14,8 @@ app.get('/', (req, res) => {
 
 app.post('/login',(req, res) => {
     // switcha il commento per cambiare sidebar visualizzata (usato per testare se tutto va)
-    let user = 'medico'
-    // let user = 'infermiere'
+    // let user = 'medico'
+    let user = 'infermiere'
     // let user = 'segretario'
     res.render(__dirname + "/views/index", {user : user})
 })
