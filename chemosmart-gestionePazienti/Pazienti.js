@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
-    data: Date,
-    ora: String,
-    paziente: String
+    nome: String,
+    cognome: String,
+    eta: String,
+    email: String,
+    telefono: String
 });
 
-module.exports = mongoose.model("Pazienti",schema);
+module.exports = mongoose.model("PazientiSistema",schema);
