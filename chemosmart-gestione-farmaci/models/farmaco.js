@@ -21,3 +21,5 @@ const farmacoSchema = mongoose.Schema({
 
 const Farmaco = mongoose.model('Farmaco',farmacoSchema)
 
+module.exports = Farmaco
+

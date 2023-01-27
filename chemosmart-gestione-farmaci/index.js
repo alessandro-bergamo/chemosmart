@@ -1,6 +1,10 @@
 const express = require('express')
 const mongoose = require('mongoose')
 
+
+//prende le routes
+const farmaciRoutes = require('./routes/farmaci.js')
+
 //cors servirà in futurto quando collegheremo tutto al frontend e per le varie orgin esterne. per chiarimenti vedere info su CORS
 const cors = require('cors')
 
@@ -15,6 +19,8 @@ app.use(express.json())
 //usa cors
 app.use(cors())
 
+//usa le routes
+app.use('/farmaci', farmaciRoutes)
 
 app.get('/', (req,res)=>{
     res.send("funziona")
