@@ -10,7 +10,7 @@ const farmacoSchema = mongoose.Schema({
         require: true
     },
     dose: {
-        type: Number,
+        type: String,
         require: true
     },
     stock: {
