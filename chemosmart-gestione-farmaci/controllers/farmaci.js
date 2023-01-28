@@ -1,4 +1,3 @@
-const express = require('express')
 const Farmaco = require('../models/farmaco.js')
 
 
@@ -9,17 +8,14 @@ let farmaci = [] era per provare senza db*/
 
 //controller per inserire farmaci 
 exports.insertFarmaco = async (req,res) =>{
-
     const farmaco = new Farmaco(req.body)
 
     try {
         await farmaco.save()
-
         res.status(201).json(farmaco)
     } catch (error) {
         res.status(409).json({message: error.message})
     }
-
     /* const farmacoConId = {...farmaco, id: uuidv4()} // questo nel caso puo tornare utile se lavoriamo direttamente con json e non su db
 
     farmaci.push(farmacoConId)
@@ -28,16 +24,30 @@ exports.insertFarmaco = async (req,res) =>{
 }
 
 //controller per restituire tutti i farmaci
-exports.getAllFarmaci = (req,res) => {
-    console.log(farmaci)
-    res.send(farmaci)
+exports.getAllFarmaci = async (req,res) => {
+    
+    try {
+        const farmaci = await Farmaco.find()
+        res.status(200).json(farmaci)
+    } catch (error) {
+        res.status(404).json({message: error.message})
+    }
 }
 
 //controller per restituire i farmaci in base all'id
-exports.getFarmaciById = (req,res) =>{
+exports.getFarmacoById = async (req,res) =>{
     const id = req.params.id
+
+    try {
+        const farmaco = await Farmaco.findById(id)
+        res.status(200).json(farmaco)
+    } catch (error) {
+        res.status(404).json({message: error.message})
+    }
+    /*blocco di codice utile se lavoriamo su json e non su db direttamente
+     const id = req.params.id
     const farmacoToFind = farmaci.find( (farmaco) => farmaco.id == id)
-    res.send(farmacoToFind)
+    res.send(farmacoToFind) */
 }
 
 

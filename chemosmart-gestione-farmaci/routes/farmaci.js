@@ -1,12 +1,12 @@
 const express = require('express')
-const {getAllFarmaci, insertFarmaco, getFarmaciById} = require('../controllers/farmaci.js');
+const {getAllFarmaci, insertFarmaco, getFarmacoById} = require('../controllers/farmaci.js');
 const router = express.Router()
 
 router.get('/', getAllFarmaci)
 
 router.post('/', insertFarmaco)
 
- router.get('/:id', getFarmaciById)
+ router.get('/:id', getFarmacoById)
  /*
 router.get('/:stock', getAllFarmaciByStock) */
 
