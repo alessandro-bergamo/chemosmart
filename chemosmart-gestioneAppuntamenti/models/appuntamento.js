@@ -8,12 +8,8 @@ const appuntamentoSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    dataInizio: {
+    data: {
         type: Date,
-        require: true
-    },
-    frequenzaAppuntamenti: {
-        type: Number,
         require: true
     }
 }, {timestamps: true})
