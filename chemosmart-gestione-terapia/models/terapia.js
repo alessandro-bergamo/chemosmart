@@ -16,7 +16,7 @@ const terapiaSchema = mongoose.Schema({
         type: String,
         require: true
     }
-})
+}, {timestamps: true})
 
 const Terapia = mongoose.model("Terapia",terapiaSchema)
 module.exports = Terapia
