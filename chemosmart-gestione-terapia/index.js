@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 
 
 //prende le routes
-const farmaciRoutes = require('./routes/terapie.js')
+const terapieRoutes = require('./routes/terapie.js')
 
 //cors servirà in futurto quando collegheremo tutto al frontend e per le varie orgin esterne. per chiarimenti vedere info su CORS
 const cors = require('cors')
@@ -20,7 +20,7 @@ app.use(express.json())
 app.use(cors())
 
 //usa le routes
-app.use('/terapie', farmaciRoutes)
+app.use('/terapie', terapieRoutes)
 
 app.get('/', (req,res)=>{
     res.send("funziona")
