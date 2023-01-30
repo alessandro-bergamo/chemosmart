@@ -3,10 +3,10 @@ const mongoose = require('mongoose')
 
 
 //prende le routes
-const terapiaRoutes = require('./routes/terapia.js')
+const farmaciRoutes = require('./routes/terapie.js')
 
 //cors servirà in futurto quando collegheremo tutto al frontend e per le varie orgin esterne. per chiarimenti vedere info su CORS
-//const cors = require('cors')
+const cors = require('cors')
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -17,10 +17,10 @@ const CONNECTION_DB_URL = 'mongodb+srv://admin:admin@chemosmart.ce52soe.mongodb.
 app.use(express.json())
 
 //usa cors
-//app.use(cors())
+app.use(cors())
 
 //usa le routes
-app.use('/terapie', terapiaRoutes)
+app.use('/terapie', farmaciRoutes)
 
 app.get('/', (req,res)=>{
     res.send("funziona")

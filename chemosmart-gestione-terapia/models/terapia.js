@@ -1,19 +1,19 @@
 const mongoose = require('mongoose')
 const terapiaSchema = mongoose.Schema({
+    cfPaziente: {
+        type: String,
+        require: true
+    },
     farmaco: {
         type: String,
         require: true
     },
     dataInizio: {
-        type: Number,
+        type: Date,
         require: true
     },
     frequenzaAppuntamenti: {
         type: Number,
-        require: true
-    },
-    cfPaziente: {
-        type: String,
         require: true
     }
 }, {timestamps: true})

@@ -1,5 +1,5 @@
 const express = require('express')
-const {getAllTerapie, insertTerapia, getTerapiaById, deleteTerapia, updateTerspia} = require('../controllers/terapie.js');
+const {getAllTerapie, insertTerapia, getTerapiaById, deleteTerapia, updateTerapia} = require('../controllers/terapie.js');
 const router = express.Router()
 
 router.get('/', getAllTerapie)
@@ -10,7 +10,7 @@ router.get('/:id', getTerapiaById)
 
 router.delete('/:id', deleteTerapia)
 
-router.patch('/:id',updateTerspia)
+router.patch('/:id',updateTerapia)
 
 module.exports = router
 
