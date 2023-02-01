@@ -44,7 +44,7 @@ app.get('/filtri', (req, res) => {
 }) 
 
 //Route creata da Giuseppe Basile per renderizzare il form aggiungi appuntamento
-app.get('/addAppuntamento', (req, res) => {
+app.get('/aggiungiAppuntamento', (req, res) => {
     res.render(__dirname + "/views/aggiungiAppuntamento")
 }) 
 
