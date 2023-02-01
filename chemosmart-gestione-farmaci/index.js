@@ -9,7 +9,7 @@ const farmaciRoutes = require('./routes/farmaci.js')
 const cors = require('cors')
 
 const app = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 
 const CONNECTION_DB_URL = 'mongodb+srv://admin:admin@chemosmart.ce52soe.mongodb.net/Farmaci?retryWrites=true&w=majority'
 
