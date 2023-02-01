@@ -43,17 +43,24 @@ app.get('/filtri', (req, res) => {
     res.render(__dirname + "/views/filtri", {user : user})
 }) 
 
-app.listen(port, () => {
-    console.log(`Server listening on http://localhost:${port}`)
-})
-
 app.get('/aggiungiTerapia', (req, res) => {
     res.render(__dirname + "/views/aggiungiTerapia")
 })
 
 app.post('/addTerapia',(req, res) => {
-    axios.post("http://localhost:3045/terapie" , req.body)
+    axios.post("http://localhost:3050/terapie" , req.body)
     .then(function(response){
          res.send("Terapia Aggiunta")
     })
  })
+
+app.get("/gestioneTerapie", function (req, res) {
+    axios.get("http://localhost:3050/terapie").then(function (response) {
+        let terapie = response.data;
+        res.render(__dirname + "/views/gestioneTerapie", {terapie:terapie});
+    });
+});
+
+app.listen(port, () => {
+    console.log(`Server listening on http://localhost:${port}`)
+})

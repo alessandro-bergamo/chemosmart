@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row p-5">
+      <div class="col-sm-8">
+        <h5>Tutte le Terapie</h5>
+        <table class="table table-hover">
+          <thead style="background-color: #D6EFFF;">
+            <tr>
+              <th scope="col"> CF Paziente</th>
+              <th scope="col"> Farmaco</th>
+              <th scope="col"> Data e Ora Inizio Terapia</th>
+              <th scope="col"> Frequenza Terapia</th>
+              <th scope="col"> Gestisci Terapie</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% terapie.forEach(terapia=> { %>
+                <tr class="far">
+                  <td data-label="cfPaziente"><%= terapia.cfPaziente %> </td>
+                  <td data-label="farmaco"><%= terapia.farmaco %></td>
+                  <td data-label="dataInizio"><%= terapia.dataInizio %></td>
+                  <td data-label="frequenzaAppuntamenti"><%= terapia.frequenzaAppuntamenti %></td>
+                  <td data-label=""><button type="button" class="btn btn-sm btn-primary">Modifica
+                </button><button type="button" class="btn btn-sm btn-danger">Elimina
+                </button></td>
+
+                </tr>
+                <% }) %>
+            
+            
+  
+          </tbody>
+  
+        </table>
+  
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+</div>

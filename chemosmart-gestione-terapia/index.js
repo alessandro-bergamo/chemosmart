@@ -9,7 +9,7 @@ const terapieRoutes = require('./routes/terapie.js')
 const cors = require('cors')
 
 const app = express()
-const PORT = process.env.PORT || 3040
+const PORT = process.env.PORT || 3050
 
 const CONNECTION_DB_URL = 'mongodb+srv://admin:admin@chemosmart.ce52soe.mongodb.net/Terapia?retryWrites=true&w=majority'
 
