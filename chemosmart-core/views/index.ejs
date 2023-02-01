@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/head') %> 
+</head>
+<body>
+  <% if (user == 'medico') { %>
+    <%- include('./homepage-medico') %>
+  <% } else if(user == 'infermiere') { %>
+    <%- include('./homepage-infermiere') %>
+  <% } else if(user == 'segretario') {%>
+    <%- include('./homepage-segretario') %>
+  <% } %> 
+</body>
+</html>
