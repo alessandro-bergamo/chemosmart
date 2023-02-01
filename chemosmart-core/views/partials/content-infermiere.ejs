@@ -1,46 +1,29 @@
 <div id="wrapper">
     <table id="table-infermiere">
-        <thead>
-            <tr>
-                <th>Farmaco</th>
-                <th>Descrizione</th>
-                <th>Dose</th>
-                <th>Stock</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            <tr>
-                <td data-label="Farmaco">Oki</td>
-                <td data-label="Quantità">500mg</td>
-                <td data-label="Orario">9:00</td>
-                <td data-label="Check"><input type="checkbox"></td>
-            </tr>
-            <tr>
-                <td data-label="Farmaco">Oki</td>
-                <td data-label="Quantità">500mg</td>
-                <td data-label="Orario">9:00</td>
-                <td data-label="Check"><input type="checkbox"></td>
-            </tr>
-            <tr>
-                <td data-label="Farmaco">Oki</td>
-                <td data-label="Quantità">500mg</td>
-                <td data-label="Orario">9:00</td>
-                <td data-label="Check"><input type="checkbox"></td>
-            </tr>
-        </tbody>
+      <thead>
+        <tr>
+          <th>Farmaco</th>
+          <th>Descrizione</th>
+          <th>Dose</th>
+          <th>Stock</th>
+          <th>check</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% farmaci.forEach(farmaco=> { %>
+          <tr class="far">
+            <td data-label="Farmaco"><%= farmaco.nome %> </td>
+            <td data-label="Quantità"><%= farmaco.descrizione %></td>
+            <td data-label="Orario"><%= farmaco.dose %></td>
+            <td data-label="Orario"><%= farmaco.stock %></td>
+            <td data-label="Check"><input type="checkbox"></td>
+          </tr>
+          <% }) %>
+      </tbody>
     </table>
-    <div id = "buttonFarmaci"> <button type="button" class="btn btn-primary" disabled>Farmaci pronti</button>
+    <div id="buttonFarmaci"> <button type="button" class="btn btn-primary" disabled>Farmaci pronti</button>
     </div>
-</div>
-
-
-
-<script>
-
-</script>
-
-
+  </div>
 
 </div>
 </div> <!--Container Main end-->

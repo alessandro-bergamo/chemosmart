@@ -5,36 +5,6 @@
 </head>
 <body>
     <%- include('./partials/sidebarInfermiere') %>
-    <div id="wrapper">
-        <table id="table-infermiere">
-          <thead>
-            <tr>
-              <th>Farmaco</th>
-              <th>Descrizione</th>
-              <th>Dose</th>
-              <th>Stock</th>
-              <th>check</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% farmaci.forEach(farmaco=> { %>
-              <tr>
-                <td data-label="Farmaco"><%= farmaco.nome %> </td>
-                <td data-label="Quantità"><%= farmaco.descrizione %></td>
-                <td data-label="Orario"><%= farmaco.dose %></td>
-                <td data-label="Orario"><%= farmaco.stock %></td>
-                <td data-label="Check"><input type="checkbox"></td>
-              </tr>
-              <% }) %>
-          </tbody>
-        </table>
-        <div id="buttonFarmaci"> <button type="button" class="btn btn-primary" disabled>Farmaci pronti</button>
-        </div>
-      </div>
-
-
-    </div>
-    </div>
-    </div>
+    <%- include('./partials/content-infermiere') %>
 </body>
 </html>
