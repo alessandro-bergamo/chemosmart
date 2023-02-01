@@ -31,10 +31,6 @@ app.get('/infermiere', (req, res) => {
     res.render(__dirname + "/views/homepage-infermiere")
 })
 
-app.get('/calendario', (req, res) => {
-    res.render(__dirname + "/views/page-calendario")
-})
-
 app.get('/medico', (req, res) => {
     res.render(__dirname + "/views/homepage-medico")
 })
@@ -50,11 +46,16 @@ app.get('/aggiungiAppuntamento', (req, res) => {
 
 //Route creata da Giuseppe Basile per funzione post per aggiungere appuntamento
 app.post('/addAppuntamento',(req, res) => {
-   axios.post("http://localhost:3030/appuntamenti" , req.body)
+   axios.post("http://localhost:3006/appuntamenti" , req.body)
    .then(function(response){
         res.send("Appuntamento Aggiunto")
    })
 })
+
+//Route creata da Giuseppe Basile per il calendario
+app.get('/calendario', (req, res) => {
+    res.render(__dirname + "/views/calendario")
+}) 
 
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`)

@@ -8,7 +8,11 @@ const appuntamentoSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    data: {
+    dataInizio: {
+        type: Date,
+        require: true
+    },
+    dataFine: {
         type: Date,
         require: true
     }

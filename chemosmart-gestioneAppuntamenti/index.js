@@ -10,7 +10,7 @@ const appuntamentiRoutes = require('./routes/appuntamenti.js')
 const cors = require('cors')
 
 const app = express()
-const PORT = process.env.PORT || 3030
+const PORT = process.env.PORT || 3006
 
 const CONNECTION_DB_URL = 'mongodb+srv://admin:admin@chemosmart.ce52soe.mongodb.net/Appuntamento?retryWrites=true&w=majority'
 

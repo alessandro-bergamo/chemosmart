@@ -14,14 +14,23 @@ exports.insertAppuntamento = async (req, res) => {
 }
 
 //controller per restituire tutti gli appuntamenti
-exports.getAllAppuntamenti = async (req, res) => {
-
-    try {
-        const appuntamenti = await Appuntamento.find()
-        res.status(200).json(appuntamenti)
-    } catch (error) {
-        res.status(404).json({ message: error.message })
-    }
+exports.getAllAppuntamenti = (req, res) => {
+    const appuntamento = Appuntamento.find({})
+    .then(appuntamenti => {
+      const events = [];
+      for (const appuntamento of appuntamenti) {
+        events.push({
+          title: appuntamento.cfPaziente,
+          start: appuntamento.dataInizio,
+          end: appuntamento.dataFine
+        });
+      }
+      res.send(events);
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).send(error);
+    });
 }
 
 //controller per restituire un appuntamento  in base all'id
