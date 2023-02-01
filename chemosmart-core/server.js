@@ -2,7 +2,9 @@ const express = require('express')
 const path = require('path')
 const app = express()
 const port = 3000
+const axios = require('axios');
 
+app.locals.axios = axios;
 app.set('view engine', 'ejs')
 app.use('/css', express.static(path.resolve(__dirname, "assets/css")))
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
@@ -35,8 +37,9 @@ app.get('/medico', (req, res) => {
     res.render(__dirname + "/views/homepage-medico")
 })
 
-app.get('/filtri', (req, res) => {
-    res.render(__dirname + "/views/filtri", {user : user})
+app.get('/filtri', async (req, res) => {
+    res.render(__dirname + "/views/filtri", {user : user, pazienti: await axios.get('http://localhost:3030/getPazienti')
+    .then(function (response) { return response.data }) })
 }) 
 
 app.listen(port, () => {

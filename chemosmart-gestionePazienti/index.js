@@ -17,10 +17,11 @@ mongoose
         app.get("/", async (req, res) => {
            res.send(insertUser({
             nome: "Marco",
-            cognome: "De Palma",
-            eta: "10",
+            cf: "De Palma",
+            telefono: "10",
             email: "c.depalma5@studenti.unisa.it",
-            telefono: "3452423623"
+            sesso: "3452423623",
+            dataNascita: "2000-02-12"
             }))
         });
         app.get("/getPazienti", async (req, res) => {

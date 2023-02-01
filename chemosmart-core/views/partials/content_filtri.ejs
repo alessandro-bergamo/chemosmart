@@ -26,7 +26,6 @@
     </div>
   </form>
 </div>
-
 <table class="table justify-content-center mt-3">
   <thead>
     <tr>
@@ -38,55 +37,19 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td scope="row" class="text-center">Claudio De Palma</td>
-      <td scope="row" class="text-center">AAAABBBCCCAAAAAA</td>
-      <td scope="row" class="text-center">M</td>
-      <td scope="row" class="text-center">24/11/2001</td>
-      <td scope="row" class="text-center"><button class="btn btn-primary rounded-pill">Seleziona</button></td>
-    </tr>
-    <tr>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"><button class="btn btn-primary rounded-pill">Seleziona</button></td>
-    </tr>
-    <tr>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"><button class="btn btn-primary rounded-pill">Seleziona</button></td>
-    </tr>
-    <tr>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"><button class="btn btn-primary rounded-pill">Seleziona</button></td>
-    </tr>
-    <tr>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"><button class="btn btn-primary rounded-pill">Seleziona</button></td>
-    </tr>
-    <tr>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"><button class="btn btn-primary rounded-pill">Seleziona</button></td>
-    </tr>
-    <tr>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"></td>
-      <td scope="row" class="text-center"><button class="btn btn-primary rounded-pill">Seleziona</button></td>
-    </tr>
+    <% 
+    for (var i=0; i<pazienti.length;i++) {
+      var date = new Date(pazienti[i].dataNascita);
+    %>
+        <tr>
+          <td scope="row" class="text-center"> <%= pazienti[i].nome %> </td>
+          <td scope="row" class="text-center"> <%- pazienti[i].cf %> </td>
+          <td scope="row" class="text-center"> <%= pazienti[i].sesso %> </td>
+          <td scope="row" class="text-center"> <%- date.toLocaleDateString("it-IT") %> </td>
+        </tr> 
+    <%
+    } 
+    %>
   </tbody>
 </table>
 <nav>
