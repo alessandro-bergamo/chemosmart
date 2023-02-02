@@ -4,6 +4,7 @@ const app = express()
 const port = 3003
 const axios = require('axios')
 const bodyParser = require('body-parser')
+const { query } = require('express')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : true}))
@@ -59,6 +60,16 @@ app.get("/gestioneTerapie", function (req, res) {
         let terapie = response.data;
         res.render(__dirname + "/views/gestioneTerapie", {terapie:terapie});
     });
+});
+
+
+app.get("/modificaTerapia", function (req, res) {
+    const id = req.query.id
+    axios.get("http://localhost:3050/terapie/"+id).then(function (response) {
+        let terapia = response.data;
+        res.render(__dirname + "/views/modificaTerapia", {terapia:terapia});
+    });
+    
 });
 
 app.listen(port, () => {
