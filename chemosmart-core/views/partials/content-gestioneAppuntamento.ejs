@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="row p-5">
+        <div class="col-sm-8">
+            <h5>Appuntamento</h5>
+            <table class="table table-hover">
+                <thead style="background-color: #D6EFFF;">
+                    <tr>
+                        <th scope="col"> CF Paziente</th>
+                        <th scope="col"> Farmaco</th>
+                        <th scope="col"> Data e Ora Inizio</th>
+                        <th scope="col"> Data e Ora Fine</th>
+                        <th scope="col"> Gestisci</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td data-label="cfPaziente">
+                                <%= appuntamento.cfPaziente %>
+                            </td>
+                            <td data-label="farmaco">
+                                <%= appuntamento.farmaco %>
+                            </td>
+                            <td data-label="dataInizio">
+                                <%= appuntamento.dataInizio %>
+                            </td>
+
+                            </td>
+                            <td data-label="dataFine">
+                                <%= appuntamento.dataFine %>
+                            </td>
+
+                            </td>
+                            <td data-label="frequenzaAppuntamenti">
+                                <%= terapia.frequenzaAppuntamenti %>
+                            </td>
+                            <td data-label=""><button type="button" data-id="<%= terapia._id%>"
+                                    class="btn-modifica btn btn-sm btn-primary">Modifica</button>
+                                <button type="button" data-id="<%= terapia._id%>"
+                                    class="btn-elimina btn btn-sm btn-danger">Elimina</button>
+                            </td>
+
+                        </tr>
+
+
+
+                </tbody>
+
+            </table>
+
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const buttonModifica = document.querySelectorAll('.btn-modifica')
+
+    buttonModifica.forEach(btn => {
+        btn.addEventListener('click', event => {
+            const id = event.target.getAttribute('data-id');
+            console.log(id);
+            window.location.href = "/modificaAppuntamento?id=" + id;
+        });
+    });
+
+
+</script>
