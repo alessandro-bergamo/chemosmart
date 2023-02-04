@@ -30,7 +30,7 @@ exports.getPazienteByCF = async(req,res) => {
 
     console.log(req.body)
     try{
-       const paziente = await Appuntamento.findById(id)
+       const paziente = await Paziente.findById(id)
        res.status(200).send(paziente)
     } catch (error) {
         res.status(404).json({message: error.message})
@@ -57,7 +57,7 @@ exports.updatePaziente = async(req,res) => {
 
     try {
         const paziente = await Paziente.findByIdAndUpdate(id, data, {new:true})
-        res.status(200).json(appuntamento)
+        res.status(200).json(paziente)
     } catch (error) {
         res.status(404).json({message: error.message})
     }
