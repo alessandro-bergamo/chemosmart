@@ -120,4 +120,5 @@ const schema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("PazientiSistema",schema);
+const Paziente = mongoose.model("PazientiSistema",schema);
+module.exports = Paziente
