@@ -25,13 +25,13 @@ exports.getAllPazienti = (req,res) => {
 }
 
 //controller per restituire un paziente in base all'id
-exports.getPazienteByCF = async(req,res) => {
+exports.getPazienteById = async(req,res) => {
     const CF = req.params.id
 
     console.log(req.body)
     try{
        const paziente = await Paziente.findById(id)
-       res.status(200).send(paziente)
+       res.status(200).json(paziente)
     } catch (error) {
         res.status(404).json({message: error.message})
     }
