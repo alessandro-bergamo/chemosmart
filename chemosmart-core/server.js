@@ -99,7 +99,8 @@ app.post('/updateTerapia', (req, res) => {
         dato = {
             cfPaziente: req.body.cfPaziente || terapia.cfPaziente,
             farmaco: req.body.farmaco || terapia.farmaco,
-            dataInizio: req.body.dataInizio || terapia.dataInizio
+            dataInizio: req.body.dataInizio || terapia.dataInizio,
+            frequenzaAppuntamenti: req.body.frequenzaAppuntamenti || terapia.frequenzaAppuntamenti
         }
         axios.patch("http://localhost:3050/terapie/" + id, dato)
             .then(function (response) {
