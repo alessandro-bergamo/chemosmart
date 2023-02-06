@@ -15,8 +15,9 @@
                 <p id="farmaco"></p>
                 <p id="dataDiInizio"></p>
                 <p id="dataDiFine"></p>
+                <p id="idHidden" hidden></p>
                 <button type="button" class="btn btn-primary" id="submitBtn">Modifica</button>
-                <button type="button" class="btn btn-danger" id="submitBtn">Elimina</button>
+                <button type="button" class="btn btn-danger" id="deleteBtn">Elimina</button>
             </div>
 
         </div>
@@ -66,6 +67,7 @@
                         $('#farmaco').text(data.farmaco);
                         $('#dataDiInizio').text(data.dataInizio);
                         $('#dataDiFine').text(data.dataFine);
+                        $('#idHidden').text(data._id);
                         $('#infoAppuntamento').modal();
                     },
                     error: function () {
@@ -78,4 +80,22 @@
         });
         calendar.render();
     });
+</script>
+
+<!-- funzione per elimina dal calendario -->
+<script>
+    $("#deleteBtn").click(function () {
+        const id = $('#idHidden').text()
+         $.ajax({
+            url: "http://localhost:3006/appuntamenti/"+id,
+            type: "DELETE",
+            success: function (data) {
+                location.reload();
+            },
+            error: function (error) {
+                
+            }
+        }); 
+    });
+
 </script>
