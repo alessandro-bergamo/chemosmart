@@ -71,18 +71,6 @@ const insertUser = async(obj) =>{
 //             "indice di russamento": 4
 //             }))
 //         });
-//         app.get("/getPazienti", async (req, res) => {
-//             // res.send(await Pazienti.find({
-//             //     nome: "Claudio",
-//             // }));
-//             Pazienti.find({})
-//             .then((value) => {
-//                 res.send(value);
-//             })
-//             .catch(() => {
-//                 res.sendStatus(500);
-//             })
-//         });
 //         app.listen(3030, () => {
 //             console.log("Server iniziato sulla porta");
 //         });

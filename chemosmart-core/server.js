@@ -32,10 +32,10 @@ app.use(function(req, res, next) {
     next();
 });
 
-
 app.get('/', (req, res) => {
     res.render(__dirname + '/views/loginPage')
 })
+
 app.get('/homepage', (req,res) => {
     res.render(__dirname + "/views/index")
 })
@@ -50,7 +50,6 @@ app.get('/homepage', (req,res) => {
 })
 
 
-
 app.get('/infermiere', (req, res) => {
     res.render(__dirname + "/views/homepage-infermiere")
 })
@@ -59,9 +58,12 @@ app.get('/medico', (req, res) => {
     res.render(__dirname + "/views/homepage-medico")
 })
 
-app.get('/filtri', (req, res) => {
-    res.render(__dirname + "/views/filtri")
-})
+app.get('/filtri', async (req, res) => {
+    await axios.get('http://localhost:3007/pazienti')
+        .then(function (response) { let pazienti = response.data 
+            res.render(__dirname + "/views/filtri", {pazienti: pazienti})
+    })
+}) 
 
 app.get('/aggiungiTerapia', (req, res) => {
     res.render(__dirname + "/views/aggiungiTerapia")
