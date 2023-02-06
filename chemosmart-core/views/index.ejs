@@ -4,6 +4,7 @@
   <%- include('./partials/head') %> 
 </head>
 <body>
+  <%= console.log(user) %>
   <% if (user == 'medico') { %>
     <%- include('./homepage-medico') %>
   <% } else if(user == 'infermiere') { %>

@@ -16,7 +16,9 @@ let user = 'medico'
 
 app.use(
     session({
-        secret: 'R6RmwcWAH9aHJQCbsLpn'
+        secret: 'R6RmwcWAH9aHJQCbsLpn',
+        resave: true,
+        saveUninitialized: true
     })
 )
 
@@ -29,14 +31,17 @@ app.use(function(req, res, next) {
 app.get('/', (req, res) => {
     res.render(__dirname + '/views/loginPage')
 })
-app.get('/homepage', (req,res) => {
-    res.render(__dirname + "/views/index", {user : user})
-})
 
 app.post('/login',(req, res) => {
     req.session.user = user
     res.render(__dirname + "/views/index")
 })
+
+app.get('/homepage', (req,res) => {
+    res.render(__dirname + "/views/index")
+})
+
+
 
 app.get('/infermiere', (req, res) => {
     res.render(__dirname + "/views/homepage-infermiere")
