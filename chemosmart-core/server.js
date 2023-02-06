@@ -2,8 +2,13 @@ const express = require('express')
 const path = require('path')
 var session = require('express-session')
 const app = express()
-const port = 3000
+const port = 3003
+const axios = require('axios')
+const bodyParser = require('body-parser')
+const { query } = require('express')
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 app.use('/css', express.static(path.resolve(__dirname, "assets/css")))
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
@@ -31,6 +36,9 @@ app.use(function(req, res, next) {
 app.get('/', (req, res) => {
     res.render(__dirname + '/views/loginPage')
 })
+app.get('/homepage', (req,res) => {
+    res.render(__dirname + "/views/index")
+})
 
 app.post('/login',(req, res) => {
     req.session.user = user
@@ -56,8 +64,53 @@ app.get('/medico', (req, res) => {
 })
 
 app.get('/filtri', (req, res) => {
-    res.render(__dirname + "/views/filtri", {user : user})
-}) 
+    res.render(__dirname + "/views/filtri")
+})
+
+app.get('/aggiungiTerapia', (req, res) => {
+    res.render(__dirname + "/views/aggiungiTerapia")
+})
+
+app.post('/addTerapia', (req, res) => {
+    axios.post("http://localhost:3050/terapie", req.body)
+        .then(function (response) {
+            res.send("Terapia Aggiunta")
+        })
+})
+
+app.get("/gestioneTerapie", function (req, res) {
+    axios.get("http://localhost:3050/terapie").then(function (response) {
+        let terapie = response.data;
+        res.render(__dirname + "/views/gestioneTerapie", { terapie: terapie });
+    });
+});
+
+//rout per renderizzare pagina modifica terapia
+app.get("/modificaTerapia", function (req, res) {
+    const id = req.query.id
+    axios.get("http://localhost:3050/terapie/" + id).then(function (response) {
+        let terapia = response.data;
+        res.render(__dirname + "/views/modificaTerapia", { terapia: terapia });
+    });
+
+});
+//rout per chiamare il backend tramite il submit del form
+app.post('/updateTerapia', (req, res) => {
+    const id = req.body.id
+    axios.get("http://localhost:3050/terapie/" + id).then(function (response) {
+        let terapia = response.data;
+
+        dato = {
+            cfPaziente: req.body.cfPaziente || terapia.cfPaziente,
+            farmaco: req.body.farmaco || terapia.farmaco,
+            dataInizio: req.body.dataInizio || terapia.dataInizio
+        }
+        axios.patch("http://localhost:3050/terapie/" + id, dato)
+            .then(function (response) {
+                res.send("Terapia Modificata")
+            })
+    });
+})
 
 app.get('/addNewCC', (req,res) => {
     res.render(__dirname + '/views/nuova-cartella-clinica')
@@ -67,7 +120,7 @@ app.post('/addNewCC', (req,res) => {
     
 })
 
+
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`)
 })
-
