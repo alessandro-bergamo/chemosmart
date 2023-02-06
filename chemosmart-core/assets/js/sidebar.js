@@ -31,12 +31,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     $('.nav_name').hide()
                     $('.nav_sub_icon').show()
                     open = false
-                    console.log('open is now ' + open)
+                    
                 } else if(!open) {
                     $('.nav_name').show()
                     $('.nav_sub_icon').hide()
                     open = true
-                    console.log('open is now ' + open)
+                    
                 }
         });
         
@@ -45,18 +45,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
             if($(window).width() <= 768){
                 $('.nav_sub_icon').show()
                 $('.nav_name').hide()
-                console.log('siamo passati alla modalita mobile')
+                
             } else {
                 if(!open){
-                    console.log('siamo tornati alla modalita grande')
+                    
                     $('.nav_name').hide()
                     $('.nav_sub_icon').show()
                     console.log('open is now ' + open)
                 } else if(open) {
-                    console.log('siamo tornati alla modalita grande')
+                    
                     $('.nav_name').show()
                     $('.nav_sub_icon').hide()
-                    console.log('open is now ' + open)
+                    
                 }
             }
         });
