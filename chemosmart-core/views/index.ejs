@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <%- include('./partials/head') %> 
-</head>
-<body>
+
   <%= console.log(user) %>
   <% if (user == 'medico') { %>
     <%- include('./homepage-medico') %>
@@ -12,5 +7,3 @@
   <% } else if(user == 'segretario') {%>
     <%- include('./homepage-segretario') %>
   <% } %> 
-</body>
-</html>
