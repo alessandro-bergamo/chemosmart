@@ -119,7 +119,24 @@ app.get("/modificaAppuntamento", function (req, res) {
 
 });
 
+//rout per chiamare il backend tramite il submit del form
+app.post('/updateAppuntamento', (req, res) => {
+    const id = req.body.id
+    axios.get("http://localhost:3006/appuntamenti/" + id).then(function (response) {
+        let appuntamento = response.data;
 
+        dato = {
+            cfPaziente: req.body.cfPaziente || appuntamento.cfPaziente,
+            farmaco: req.body.farmaco || appuntamento.farmaco,
+            dataInizio: req.body.dataInizio || appuntamento.dataInizio,
+            dataFine: req.body.dataFine || appuntamento.dataFine
+        }
+        axios.patch("http://localhost:3006/appuntamenti/" + id, dato)
+            .then(function (response) {
+                res.send("Appuntamento Modificato")
+            })
+    });
+})
 
 
 app.get('/addNewCC', (req,res) => {
