@@ -9,6 +9,11 @@ app.use('/css', express.static(path.resolve(__dirname, "assets/css")))
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
 app.use('/images', express.static(path.resolve(__dirname, "assets/images")))
 
+// switcha il commento per cambiare sidebar visualizzata (usato per testare se tutto va)
+let user = 'medico'
+// let user = 'infermiere'
+// let user = 'segretario'
+
 app.use(
     session({
         secret: 'R6RmwcWAH9aHJQCbsLpn'
@@ -19,10 +24,7 @@ app.use(function(req, res, next) {
     res.locals.user = req.session.user;
     next();
 });
-// switcha il commento per cambiare sidebar visualizzata (usato per testare se tutto va)
-let user = 'medico'
-// let user = 'infermiere'
-// let user = 'segretario'
+
 
 app.get('/', (req, res) => {
     res.render(__dirname + '/views/loginPage')
