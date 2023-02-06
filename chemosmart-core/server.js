@@ -134,6 +134,14 @@ app.get('/calendario', (req, res) => {
     res.render(__dirname + "/views/calendario")
 }) 
 
+//rout per visualizzare i farmaci
+app.get("/visualizzaFarmaci", function (req, res) {
+    axios.get("http://localhost:3001/farmaci").then(function (response) {
+        let farmaci = response.data;
+        res.render(__dirname + "/views/homepage-infermiere", {farmaci: farmaci});
+    });
+});
+
 
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`)
