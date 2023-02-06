@@ -16,7 +16,7 @@
                 <p id="dataDiInizio"></p>
                 <p id="dataDiFine"></p>
                 <p id="idHidden" hidden></p>
-                <button type="button" class="btn btn-primary" id="submitBtn">Modifica</button>
+                <button type="button" class="btn btn-primary" id="modificaBtn">Modifica</button>
                 <button type="button" class="btn btn-danger" id="deleteBtn">Elimina</button>
             </div>
 
@@ -86,16 +86,27 @@
 <script>
     $("#deleteBtn").click(function () {
         const id = $('#idHidden').text()
+        const cf = $('#cf').text()
          $.ajax({
             url: "http://localhost:3006/appuntamenti/"+id,
             type: "DELETE",
             success: function (data) {
                 location.reload();
+                alert(`Appuntamento di ${cf} eliminato correttamente`)
             },
             error: function (error) {
                 
             }
         }); 
     });
+</script>
 
+
+<script>
+    const modBtn = document.getElementById('modificaBtn')
+    modBtn.addEventListener('click', event => {
+    const id = $('#idHidden').text()
+    console.log(id);
+    window.location.href = "/modificaAppuntamento?id=" + id;
+  });
 </script>
