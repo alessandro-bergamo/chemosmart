@@ -169,6 +169,46 @@ def plotting_priorities_on_smoking(data):
     #viene mostrato il grafico
     plt.show()
 
+def plotting_priorities_on_unbalanced_diet(data):
+    high_level_patients = data.loc[data['Level'] == 'High']
+    medium_level_patients = data.loc[data['Level'] == 'Medium']
+    low_level_patients = data.loc[data['Level'] == 'Low']
+
+    #grafico che mostra rapporto fra alimentazione scorretta/priorità alta
+    sns.histplot(data=high_level_patients, x='Unbalanced Diet')
+
+    #set del titolo del grafico, label asse y e asse x
+    plt.title("Numero di pazienti a priorità alta per alimentazione scorretta")
+    plt.ylabel("Numero di casi")
+    plt.xlabel("Indice di alimentazione scorretta")
+
+    #viene mostrato il grafico
+    plt.show()
+
+    #grafico che mostra rapporto fra alimentazione scorretta/priorità media
+    sns.histplot(data=medium_level_patients, x='Unbalanced Diet')
+
+    #set del titolo del grafico, label asse y e asse x
+    plt.title("Numero di pazienti a priorità media per alimentazione scorretta")
+    plt.ylabel("Numero di casi")
+    plt.xlabel("Indice di alimentazione scorretta")
+
+    #viene mostrato il grafico
+    plt.show()
+
+    #grafico che mostra rapporto fra alimentazione scorretta/priorità bassa
+    sns.histplot(data=low_level_patients, x='Unbalanced Diet')
+
+    #set del titolo del grafico, label asse y e asse x
+    plt.title("Numero di pazienti a priorità bassa per alimentazione scorretta")
+    plt.ylabel("Numero di casi")
+    plt.xlabel("Indice di alimentazione scorretta")
+
+    #viene mostrato il grafico
+    plt.show()
+
+
+
 #caricamento del dataset
 data = pd.read_csv('./dataset.csv')
 
@@ -188,3 +228,6 @@ plotting_priorities_on_genetic_risk(data)
 
 #funzione che mostra rapporto fumo attivo/priorità
 plotting_priorities_on_smoking(data)
+
+#funzione che mostra rapporto fra alimentazione scorretta/priorità
+plotting_priorities_on_unbalanced_diet(data)
