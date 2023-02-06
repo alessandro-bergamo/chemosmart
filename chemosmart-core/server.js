@@ -27,7 +27,7 @@ app.use(
     })
 )
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.locals.user = req.session.user;
     next();
 });
@@ -36,16 +36,16 @@ app.use(function(req, res, next) {
 app.get('/', (req, res) => {
     res.render(__dirname + '/views/loginPage')
 })
-app.get('/homepage', (req,res) => {
+app.get('/homepage', (req, res) => {
     res.render(__dirname + "/views/index")
 })
 
-app.post('/login',(req, res) => {
+app.post('/login', (req, res) => {
     req.session.user = user
     res.render(__dirname + "/views/index")
 })
 
-app.get('/homepage', (req,res) => {
+app.get('/homepage', (req, res) => {
     res.render(__dirname + "/views/index")
 })
 
@@ -104,7 +104,10 @@ app.post('/updateTerapia', (req, res) => {
         }
         axios.patch("http://localhost:3050/terapie/" + id, dato)
             .then(function (response) {
-                res.send("Terapia Modificata")
+                axios.get("http://localhost:3050/terapie").then(function (response) {
+                    let terapie = response.data;
+                    res.render(__dirname + "/views/gestioneTerapie", { terapie: terapie });
+                });
             })
     });
 })
@@ -139,37 +142,37 @@ app.post('/updateAppuntamento', (req, res) => {
 })
 
 
-app.get('/addNewCC', (req,res) => {
+app.get('/addNewCC', (req, res) => {
     res.render(__dirname + '/views/nuova-cartella-clinica')
 })
 
-app.post('/addNewCC', (req,res) => {
-    
+app.post('/addNewCC', (req, res) => {
+
 })
 
 //Route creata da Giuseppe Basile per renderizzare il form aggiungi appuntamento
 app.get('/aggiungiAppuntamento', (req, res) => {
     res.render(__dirname + "/views/aggiungiAppuntamento")
-}) 
+})
 
 //Route creata da Giuseppe Basile per funzione post per aggiungere appuntamento
-app.post('/addAppuntamento',(req, res) => {
-   axios.post("http://localhost:3006/appuntamenti" , req.body)
-   .then(function(response){
-        res.send("Appuntamento Aggiunto")
-   })
+app.post('/addAppuntamento', (req, res) => {
+    axios.post("http://localhost:3006/appuntamenti", req.body)
+        .then(function (response) {
+            res.send("Appuntamento Aggiunto")
+        })
 })
 
 //Route creata da Giuseppe Basile per il calendario
 app.get('/calendario', (req, res) => {
     res.render(__dirname + "/views/calendario")
-}) 
+})
 
 //rout per visualizzare i farmaci
 app.get("/visualizzaFarmaci", function (req, res) {
     axios.get("http://localhost:3001/farmaci").then(function (response) {
         let farmaci = response.data;
-        res.render(__dirname + "/views/homepage-infermiere", {farmaci: farmaci});
+        res.render(__dirname + "/views/homepage-infermiere", { farmaci: farmaci });
     });
 });
 
