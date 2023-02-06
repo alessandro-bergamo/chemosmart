@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+var session = require('express-session')
 const app = express()
 const port = 3000
 
@@ -38,6 +39,14 @@ app.get('/medico', (req, res) => {
 app.get('/filtri', (req, res) => {
     res.render(__dirname + "/views/filtri", {user : user})
 }) 
+
+app.get('/addNewCC', (req,res) => {
+    res.render(__dirname + '/views/nuova-cartella-clinica')
+})
+
+app.post('/addNewCC', (req,res) => {
+    
+})
 
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`)
