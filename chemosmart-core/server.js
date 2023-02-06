@@ -133,7 +133,7 @@ app.post('/updateAppuntamento', (req, res) => {
         }
         axios.patch("http://localhost:3006/appuntamenti/" + id, dato)
             .then(function (response) {
-                res.send("Appuntamento Modificato")
+                res.render("calendario")
             })
     });
 })
