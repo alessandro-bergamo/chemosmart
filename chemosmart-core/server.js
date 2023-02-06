@@ -109,6 +109,19 @@ app.post('/updateTerapia', (req, res) => {
     });
 })
 
+//rout per renderizzare pagina modifica appuntamento
+app.get("/modificaAppuntamento", function (req, res) {
+    const id = req.query.id
+    axios.get("http://localhost:3006/appuntamenti/" + id).then(function (response) {
+        let appuntamento = response.data;
+        res.render(__dirname + "/views/modificaAppuntamento", { appuntamento: appuntamento });
+    });
+
+});
+
+
+
+
 app.get('/addNewCC', (req,res) => {
     res.render(__dirname + '/views/nuova-cartella-clinica')
 })
