@@ -8,107 +8,107 @@ const schema = new mongoose.Schema({
     sesso: String,
     dataNascita: Date,
     Eta: Number,
-    "indice inquinamento ambientale": {
+    indice_inquinamento_ambientale: {
         type: Number,
         min: 0,
         max: 10
     },
-    "indice uso alcolici": {
+    indice_uso_alcolici: {
         type: Number,
         min: 0,
         max: 10
     },
-    "grado di allergia": {
+    grado_di_allergia: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "grado di rischio lavorativo": {
+    grado_di_rischio_lavorativo: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "indice dei fattori di rischio familiare": {
+    indice_dei_fattori_di_rischio_familiare: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "indice di malattie croniche": {
+    indice_di_malattie_croniche: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "indice di alimentazione scorretta": {
+    indice_di_alimentazione_scorretta: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "indice di obesita": {
+    indice_di_obesita: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "grado di esposizione a fumo attivo": {
+    grado_di_esposizione_a_fumo_attivo: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "grado di esposizione a fumo passivo": {
+    grado_di_esposizione_a_fumo_passivo: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "indice di dolori localizzato": {
+    indice_di_dolori_localizzati: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "indice emottisi": {
+    indice_emottisi: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "indice astenia": {
+    indice_astenia: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "indice di perdita di peso": {
+    indice_di_perdita_di_peso: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "indice dispnea": {
+    indice_dispnea: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "indice respiro sibilante": {
+    indice_respiro_sibilante: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "indice disfagia": {
+    indice_disfagia: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "stato dita di Ippocrate": {
+    stato_dita_di_Ippocrate: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "stato di immunodepressione": {
+    stato_di_immunodepressione: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "indice tosse secca": {
+    indice_tosse_secca: {
         type: Number,
         min: 0,
         max: 10,
     },
-    "indice di russamento": {
+    indice_di_russamento: {
         type: Number,
         min: 0,
         max: 10,
