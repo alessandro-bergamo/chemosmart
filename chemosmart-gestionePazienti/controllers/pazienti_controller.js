@@ -13,15 +13,13 @@ exports.insertPaziente = async(req, res) => {
 }
 
 //controller per restituire tutti i pazienti
-exports.getAllPazienti = (req,res) => {
-    const paziente = Paziente.find({})
-    .then(pazienti => {
+exports.getAllPazienti = async (req,res) => {
+    try {
+        const pazienti = await Paziente.find()
         res.status(200).json(pazienti)
-    })
-    .catch(error => {
-        console.error(error)
-        res.status(500).send(error)
-    })
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+    }
 }
 
 //controller per restituire un paziente in base all'id
