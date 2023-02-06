@@ -77,25 +77,120 @@
             <td data-label="E-mail">5</td>
             <td data-label="Prossimo Appuntamento">0</td>
             <td data-label="altreInfo" class="buttonVisualizzaInfo">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#infoPaziente">
                 Altre info
               </button>
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+              <!-- Modal, andrà eseguito in un ciclo sulla dei pazienti presenti -->
+              <div class="modal fade" id="infoPaziente" tabindex="-1" role="dialog" aria-labelledby="infoPazienteLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Nome e cognome del paziente</h5>
+                      <h5 class="modal-title" id="pazienteLabel">Nome e cognome del paziente</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <div class="modal-body">
-                      Qui ci sono le info del paziente
+                    <div class="modal-body row g-3">
+                      <div class="col-md-12">
+                        <label class="form-label" for="nome-paziente" style="font-weight: bold;">Nome e cognome del paziente:</label>
+                        <p>Mario Rossi</p>
+                      </div>
+                      <div class="col-md-12">
+                        <label class="form-label" for="cf-paziente" style="font-weight: bold;">Codice fiscale:</label>
+                        <p>AAABBBCCCDDD1321</p>
+                      </div>
+                      <div class="col-md-12">
+                        <label for="sesso" class="form-label" style="font-weight: bold;">Sesso:</label>
+                        <p>M</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label" for="eta-paziente" style="font-weight: bold;">Età:</label>
+                        <p>33</p>
+                      </div>
+                      <div class="col-md-8">
+                        <label for="data-nascita" class="form-label" style="font-weight: bold;">Data nascita:</label>
+                        <p>12/07/2004</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="num-tel" class="form-label" style="font-weight: bold;">Num. Telefono:</label>
+                        <p>1234567890</p>
+                      </div>
+                      <div class="col-md-8">
+                        <label for="email" class="form-label" style="font-weight: bold;">Email:</label>
+                        <p>m.rossi@email.it</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="indice-inquinamento-ambientale" class="form-label" style="font-weight: bold;">Indice inquinamento ambientale</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="indice-uso-alcolici" class="form-label" style="font-weight: bold;">Indice uso alcolici</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="grado-allergia" class="form-label" style="font-weight: bold;">Grado allergia</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="grado-rischio-lavorativo" class="form-label" style="font-weight: bold;">Grado di rischio lavorativo</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="indice-rischio-familiare" class="form-label" style="font-weight: bold;">Indice fattore di rischio familiare</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="indice-malattie-croniche" class="form-label" style="font-weight: bold;">Indice di malattie croniche</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="indice-alimentazione-scorretta" class="form-label" style="font-weight: bold;">Indice di alimentazione scorretta</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="indice-obesita" class="form-label" style="font-weight: bold;">Indice di obesità</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="grado-esposizione-fumo-attivo" class="form-label" style="font-weight: bold;">Grado di esposizione a fumo attivo</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="grado-esposizione-fumo-passivo" class="form-label" style="font-weight: bold;">Grado di esposizione a fumo passivo</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="indice-emottisi" class="form-label" style="font-weight: bold;">Indice emottisi</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="indice-astenia" class="form-label" style="font-weight: bold;">Indice astenia</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="indice-perdita-peso" class="form-label" style="font-weight: bold;">Indice di perdita di peso</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="indice-dispnea" class="form-label" style="font-weight: bold;">Indice dispnea</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="indice-respiro-sibilante" class="form-label" style="font-weight: bold;">Indice respiro sibilante</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="indice-disfagia" class="form-label" style="font-weight: bold;">Indice disfagia</label>
+                        <p>1</p>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="stato-dita-ippocrate" class="form-label" style="font-weight: bold;">Stato dita di Ippocrate</label>
+                        <p>1</p>
+                      </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                      <button type="button" class="btn btn-primary">Modifica</button>
                     </div>
                   </div>
                 </div>

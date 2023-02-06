@@ -8,6 +8,17 @@ app.set('view engine', 'ejs')
 app.use('/css', express.static(path.resolve(__dirname, "assets/css")))
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
 app.use('/images', express.static(path.resolve(__dirname, "assets/images")))
+
+app.use(
+    session({
+        secret: 'R6RmwcWAH9aHJQCbsLpn'
+    })
+)
+
+app.use(function(req, res, next) {
+    res.locals.user = req.session.user;
+    next();
+});
 // switcha il commento per cambiare sidebar visualizzata (usato per testare se tutto va)
 let user = 'medico'
 // let user = 'infermiere'
@@ -21,7 +32,8 @@ app.get('/homepage', (req,res) => {
 })
 
 app.post('/login',(req, res) => {
-    res.render(__dirname + "/views/index", {user : user})
+    req.session.user = user
+    res.render(__dirname + "/views/index")
 })
 
 app.get('/infermiere', (req, res) => {
