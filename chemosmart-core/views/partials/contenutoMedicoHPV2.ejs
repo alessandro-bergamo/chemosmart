@@ -72,7 +72,7 @@
         </thead>
         <tbody>
           <% 
-    for (var i=0; i<pazienti.length; i++) {
+    for (var i=0; i<pazienti.length && i<6; i++) {
       var date = new Date(pazienti[i].dataNascita);
     %>
         <tr>
