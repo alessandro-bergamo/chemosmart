@@ -63,11 +63,14 @@ app.get('/logout', (req, res) => {
     })
 })
 
-app.get('/homepage', (req,res) => {
+app.get('/homepage', async (req,res) => {
     if(req.session.loggedIn != true){
         res.redirect('/')
     } else {
-        res.render(__dirname + "/views/index")
+        await axios.get('http://localhost:3007/pazienti')
+        .then(function (response) { let pazienti = response.data 
+            res.render(__dirname + "/views/index", {pazienti: pazienti})
+        })
     }
 })
 
