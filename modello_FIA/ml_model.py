@@ -54,5 +54,9 @@ def training_and_testing_models():
         print("test dataset e pred values")
         print(X_test,y_test)
 
+        #si allenano i due moduli tramite il set di training dell'iterazione k attuale
+        clf.fit(X_train,y_train)
+        gnb.fit(X_train,y_train)
+
 #chiamo la funzione iniziale
 training_and_testing_models()
