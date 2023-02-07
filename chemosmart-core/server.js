@@ -6,6 +6,7 @@ const port = 3003
 const axios = require('axios')
 const bodyParser = require('body-parser')
 const { query } = require('express')
+const { isFunction } = require('util')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -67,10 +68,14 @@ app.get('/homepage', async (req,res) => {
     if(req.session.loggedIn != true){
         res.redirect('/')
     } else {
-        await axios.get('http://localhost:3007/pazienti')
-        .then(function (response) { let pazienti = response.data 
-            res.render(__dirname + "/views/index", {pazienti: pazienti})
-        })
+        if(req.session.user == 'Infermiere') {
+            res.redirect('/visualizzaFarmaci')
+        } else {
+            await axios.get('http://localhost:3007/pazienti')
+            .then(function (response) { let pazienti = response.data 
+                res.render(__dirname + "/views/index", {pazienti: pazienti})
+            })
+        }
     }
 })
 
