@@ -2,12 +2,13 @@ const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
     nome: String,
+    cognome: String,
     cf: String,
-    telefono: String,
-    email: String,
     sesso: String,
     dataNascita: Date,
-    Eta: Number,
+    eta: Number,
+    telefono: String,
+    email: String,
     indice_inquinamento_ambientale: {
         type: Number,
         min: 0,
@@ -18,47 +19,47 @@ const schema = new mongoose.Schema({
         min: 0,
         max: 10
     },
-    grado_di_allergia: {
+    grado_allergia: {
         type: Number,
         min: 0,
         max: 10,
     },
-    grado_di_rischio_lavorativo: {
+    grado_rischio_lavorativo: {
         type: Number,
         min: 0,
         max: 10,
     },
-    indice_dei_fattori_di_rischio_familiare: {
+    indice_fattori_rischio_familiare: {
         type: Number,
         min: 0,
         max: 10,
     },
-    indice_di_malattie_croniche: {
+    indice_malattie_croniche: {
         type: Number,
         min: 0,
         max: 10,
     },
-    indice_di_alimentazione_scorretta: {
+    indice_alimentazione_scorretta: {
         type: Number,
         min: 0,
         max: 10,
     },
-    indice_di_obesita: {
+    indice_obesita: {
         type: Number,
         min: 0,
         max: 10,
     },
-    grado_di_esposizione_a_fumo_attivo: {
+    grado_esposizione_fumo_attivo: {
         type: Number,
         min: 0,
         max: 10,
     },
-    grado_di_esposizione_a_fumo_passivo: {
+    grado_esposizione_fumo_passivo: {
         type: Number,
         min: 0,
         max: 10,
     },
-    indice_di_dolori_localizzati: {
+    indice_dolori_localizzati: {
         type: Number,
         min: 0,
         max: 10,
@@ -73,7 +74,7 @@ const schema = new mongoose.Schema({
         min: 0,
         max: 10,
     },
-    indice_di_perdita_di_peso: {
+    indice_perdita_peso: {
         type: Number,
         min: 0,
         max: 10,
@@ -98,7 +99,7 @@ const schema = new mongoose.Schema({
         min: 0,
         max: 10,
     },
-    stato_di_immunodepressione: {
+    stato_immunodepressione: {
         type: Number,
         min: 0,
         max: 10,
@@ -108,7 +109,7 @@ const schema = new mongoose.Schema({
         min: 0,
         max: 10,
     },
-    indice_di_russamento: {
+    indice_russamento: {
         type: Number,
         min: 0,
         max: 10,
