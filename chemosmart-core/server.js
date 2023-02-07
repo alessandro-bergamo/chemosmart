@@ -15,9 +15,9 @@ app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
 app.use('/images', express.static(path.resolve(__dirname, "assets/images")))
 
 // switcha il commento per cambiare sidebar visualizzata (usato per testare se tutto va)
-let user = 'medico'
-// let user = 'infermiere'
-// let user = 'segretario'
+// let user = 'Medico'
+// let user = 'Infermiere'
+// let user = 'Segretario'
 
 app.use(
     session({
@@ -33,103 +33,169 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', (req, res) => {
-    res.render(__dirname + '/views/loginPage')
-})
-
-app.get('/homepage', (req,res) => {
-    res.render(__dirname + "/views/index")
+    if(req.session.loggedIn == true) {
+        res.redirect('/homepage')
+    } else {
+        res.render(__dirname + '/views/loginPage')
+    }
 })
 
 app.post('/login',(req, res) => {
-    req.session.user = user
-    res.redirect('/homepage')
+    if(req.session.loggedIn != true) {
+        req.session.user = req.body.user_type 
+        req.session.loggedIn = true
+    }
+
+    if(req.session.user == "Infermiere"){
+        res.redirect('/visualizzaFarmaci')
+    } else {
+        res.redirect('/homepage')
+    }
+    
+})
+
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) =>{
+        if(err){
+            return console.log(err)
+        }
+        res.redirect('/')
+    })
 })
 
 app.get('/homepage', (req,res) => {
-    res.render(__dirname + "/views/index")
+    if(req.session.loggedIn != true){
+        res.redirect('/')
+    } else {
+        res.render(__dirname + "/views/index")
+    }
 })
 
 
-app.get('/infermiere', (req, res) => {
-    res.render(__dirname + "/views/homepage-infermiere")
-})
+// app.get('/infermiere', (req, res) => {
+//     res.render(__dirname + "/views/homepage-infermiere")
+// })
 
-app.get('/medico', (req, res) => {
-    res.render(__dirname + "/views/homepage-medico")
-})
+// app.get('/medico', (req, res) => {
+//     res.render(__dirname + "/views/homepage-medico")
+// })
 
 app.get('/filtri', async (req, res) => {
-    await axios.get('http://localhost:3007/pazienti')
-        .then(function (response) { let pazienti = response.data 
-            res.render(__dirname + "/views/filtri", {pazienti: pazienti})
-    })
+    console.log(req.session.loggedIn)
+    console.log(req.session.user)
+    if(req.session.loggedIn != true){
+        res.redirect('/')
+    } else if(req.session.user != 'Medico' && req.session.user != 'Segretario') {
+        res.redirect('/homepage')
+    } else {
+        await axios.get('http://localhost:3007/pazienti')
+            .then(function (response) { let pazienti = response.data 
+                res.render(__dirname + "/views/filtri", {pazienti: pazienti})
+        })
+    }
 }) 
 
 app.get('/aggiungiTerapia', (req, res) => {
-    res.render(__dirname + "/views/aggiungiTerapia")
+    if(req.session.loggedIn != true || req.session.user != 'Medico'){
+        res.redirect('/')
+    } else {
+        res.render(__dirname + "/views/aggiungiTerapia")
+    }
 })
 
 app.post('/addTerapia', (req, res) => {
-    axios.post("http://localhost:3050/terapie", req.body)
+    if(req.session.loggedIn != true || req.session.user != 'Medico'){
+        res.redirect('/')
+    } else {
+        axios.post("http://localhost:3050/terapie", req.body)
         .then(function (response) {
             res.send("Terapia Aggiunta")
         })
+    }
 })
 
 app.get("/gestioneTerapie", function (req, res) {
-    axios.get("http://localhost:3050/terapie").then(function (response) {
-        let terapie = response.data;
-        res.render(__dirname + "/views/gestioneTerapie", { terapie: terapie });
-    });
+    if(req.session.loggedIn != true || req.session.user != 'Medico'){
+        res.redirect('/')
+    } else {
+        axios.get("http://localhost:3050/terapie").then(function (response) {
+            let terapie = response.data;
+            res.render(__dirname + "/views/gestioneTerapie", { terapie: terapie });
+        });
+    }
 });
 
-//rout per renderizzare pagina modifica terapia
+//route per renderizzare pagina modifica terapia
 app.get("/modificaTerapia", function (req, res) {
-    const id = req.query.id
-    axios.get("http://localhost:3050/terapie/" + id).then(function (response) {
-        let terapia = response.data;
-        res.render(__dirname + "/views/modificaTerapia", { terapia: terapia });
-    });
-
+    if(req.session.loggedIn != true || req.session.user != 'Medico'){
+        res.redirect('/')
+    } else {
+        const id = req.query.id
+        axios.get("http://localhost:3050/terapie/" + id).then(function (response) {
+            let terapia = response.data;
+            res.render(__dirname + "/views/modificaTerapia", { terapia: terapia });
+        });
+    }
 });
-//rout per chiamare il backend tramite il submit del form
-app.post('/updateTerapia', (req, res) => {
-    const id = req.body.id
-    axios.get("http://localhost:3050/terapie/" + id).then(function (response) {
-        let terapia = response.data;
 
-        dato = {
-            cfPaziente: req.body.cfPaziente || terapia.cfPaziente,
-            farmaco: req.body.farmaco || terapia.farmaco,
-            dataInizio: req.body.dataInizio || terapia.dataInizio,
-            frequenzaAppuntamenti: req.body.frequenzaAppuntamenti || terapia.frequenzaAppuntamenti
-        }
-        axios.patch("http://localhost:3050/terapie/" + id, dato)
-            .then(function (response) {
-                res.send("Terapia Modificata")
-            })
-    });
+//route per chiamare il backend tramite il submit del form
+app.post('/updateTerapia', (req, res) => {
+    if(req.session.loggedIn != true || req.session.user != 'Medico'){
+        res.redirect('/')
+    } else {
+        const id = req.body.id
+        axios.get("http://localhost:3050/terapie/" + id).then(function (response) {
+            let terapia = response.data;
+
+            dato = {
+                cfPaziente: req.body.cfPaziente || terapia.cfPaziente,
+                farmaco: req.body.farmaco || terapia.farmaco,
+                dataInizio: req.body.dataInizio || terapia.dataInizio,
+                frequenzaAppuntamenti: req.body.frequenzaAppuntamenti || terapia.frequenzaAppuntamenti
+            }
+            axios.patch("http://localhost:3050/terapie/" + id, dato)
+                .then(function (response) {
+                    res.send("Terapia Modificata")
+                })
+        });
+    }
+    
 })
 
 app.get('/addNewCC', (req,res) => {
-    res.render(__dirname + '/views/nuova-cartella-clinica')
+    if(req.session.loggedIn != true || req.session.user != 'Medico'){
+        res.redirect('/')
+    } else {
+        res.render(__dirname + '/views/nuova-cartella-clinica')
+    }
+    
 })
 
 app.post('/addNewCC', (req,res) => {
-    
+    //da completare in future release
 })
 
 //Route creata da Giuseppe Basile per renderizzare il form aggiungi appuntamento
 app.get('/aggiungiAppuntamento', (req, res) => {
-    res.render(__dirname + "/views/aggiungiAppuntamento")
+    if(req.session.loggedIn != true || req.session.user != 'Medico'){
+        res.redirect('/')
+    } else {
+        res.render(__dirname + "/views/aggiungiAppuntamento")
+    }
+   
 }) 
 
 //Route creata da Giuseppe Basile per funzione post per aggiungere appuntamento
 app.post('/addAppuntamento',(req, res) => {
-   axios.post("http://localhost:3006/appuntamenti" , req.body)
-   .then(function(response){
-        res.send("Appuntamento Aggiunto")
-   })
+    if(req.session.loggedIn != true || req.session.user != 'Medico'){
+        res.redirect('/')
+    } else {
+        axios.post("http://localhost:3006/appuntamenti" , req.body)
+            .then(function(response){
+                res.send("Appuntamento Aggiunto")
+        })
+    }
+   
 })
 
 //Route creata da Giuseppe Basile per il calendario
@@ -137,7 +203,7 @@ app.get('/calendario', (req, res) => {
     res.render(__dirname + "/views/calendario")
 }) 
 
-//rout per visualizzare i farmaci
+//route per visualizzare i farmaci
 app.get("/visualizzaFarmaci", function (req, res) {
     axios.get("http://localhost:3001/farmaci").then(function (response) {
         let farmaci = response.data;
