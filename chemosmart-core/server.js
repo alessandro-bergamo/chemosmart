@@ -42,7 +42,7 @@ app.get('/homepage', (req,res) => {
 
 app.post('/login',(req, res) => {
     req.session.user = user
-    res.render(__dirname + "/views/index")
+    res.redirect('/homepage')
 })
 
 app.get('/homepage', (req,res) => {
