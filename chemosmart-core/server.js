@@ -71,15 +71,6 @@ app.get('/homepage', (req,res) => {
     }
 })
 
-
-// app.get('/infermiere', (req, res) => {
-//     res.render(__dirname + "/views/homepage-infermiere")
-// })
-
-// app.get('/medico', (req, res) => {
-//     res.render(__dirname + "/views/homepage-medico")
-// })
-
 app.get('/filtri', async (req, res) => {
     console.log(req.session.loggedIn)
     console.log(req.session.user)
