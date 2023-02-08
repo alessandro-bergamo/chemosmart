@@ -61,6 +61,7 @@
               </div>
               <div class="modal-body row g-3">
                       <div class="col-md-12">
+                        <p id="id-paziente"><%= pazienti[i]._id %></p>
                         <label class="form-label" for="nome-paziente" style="font-weight: bold;">Nome e cognome del paziente:</label>
                         <p><%= pazienti[i].cognome %><%= pazienti[i].nome %></p>
                       </div>
@@ -179,7 +180,7 @@
                     </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary btn-modifica">Modifica</button>
               </div>
             </div>
           </div>
@@ -213,3 +214,16 @@
 </div>
 </div> <!--Container Main end-->
 </div>  <!--div Sidebar end-->
+
+<script>
+  const buttonModifica = document.querySelector('.btn-modifica')
+  
+  buttonModifica.addEventListener('click', event => {
+    const id = $("#id-paziente").text()
+    console.log(id);
+    window.location.href = "/modificaTerapia?id=" + id;
+  });
+
+    
+  
+</script>

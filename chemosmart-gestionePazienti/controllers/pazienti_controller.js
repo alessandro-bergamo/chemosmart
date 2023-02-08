@@ -1,4 +1,4 @@
-const Paziente = require('../models/paziente.js')
+const Paziente = require('../models/Paziente.js')
 
 //controller per inserire un paziente
 exports.insertPaziente = async(req, res) => {
