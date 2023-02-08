@@ -5,10 +5,9 @@ const app = express()
 const port = 3003
 const axios = require('axios')
 const bodyParser = require('body-parser')
-const { query } = require('express')
-const { isFunction } = require('util')
 const converter = require('json-2-csv')
 const fs = require('fs')
+const {spawn} = require('child_process');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -224,7 +223,7 @@ app.get('/schedulaTerapia', async (req,res) => {
     }
 })
 
-app.post('/getPriorita',async (req,res) =>{
+app.post('/getPriorita',async (req,res,next) =>{
     const id = req.body.id
     try{
         await axios.get('http://localhost:3007/pazienti/' + id)
@@ -236,13 +235,34 @@ app.post('/getPriorita',async (req,res) =>{
                     throw err
                 }
 
-                console.log(csv)
-                fs.writeFileSync('../modello_FIA/patient_to_predict.csv',csv)
+                try{
+                    fs.writeFile('../modello_FIA/patient_to_predict.csv',csv, (err,data) => {
+                        if(err){
+                            console.log(err)
+                            return;
+                        }
+
+                        let priorita 
+                        const python = spawn("python", ["../modello_FIA/ml_predict.py", "../modello_FIA/patient_to_predict.csv"])
+
+                        python.stdout.on("data", function(data) {
+                            priorita = data.toString()
+                        })
+
+                        python.on("close", (code) => {
+                            res.render(__dirname + "/views/schedulazione", {priorita: priorita})
+                        })
+                    })
+                } catch(err) {
+                    console.log(err)
+                }
             })
         })
     } catch (err) {
         throw err
     }
+
+    
 })
 
 app.listen(port, () => {
