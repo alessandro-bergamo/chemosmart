@@ -1,0 +1,318 @@
+<h2>Aggiungiamo una nuova cartella clinica</h2>
+<div id="container" class="d-flex  align-items-center justify-content-center w-50 p-3">
+   <!--
+            <label for="indice-inquinamento-ambientale">indice inquinamento ambientale</label>
+           <br><br>
+            <br>
+    -->
+<form class="row g-3">
+    <div class="col-12">
+        <label for="codice-fiscale" class="form-label">Codice Fiscale</label>
+        <input type="text" class="form-control" id="codice-fiscale" name="codice-fiscale" placeholder="Codice Fiscale">
+      </div>
+    <div class="col-md-6">
+      <label for="nome" class="form-label">Nome</label>
+      <input type="text" class="form-control" id="nome" name="nome">
+    </div>
+    <div class="col-md-6">
+      <label for="cognome" class="form-label">Cognome</label>
+      <input type="text" class="form-control" id="cognome" name="cognome">
+    </div>
+    <div class="col-md-6">
+      <label for="sesso" class="form-label">Sesso</label>
+      <select name="sesso" class="form-select" id="sesso">
+        <option value="M">Uomo</option>
+        <option value="F">Donna</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label for="data-nascita" class="form-label">Data di nascita</label>
+      <input type="date" name="data-nascita" id="data-nascita" class="form-control">
+    </div>
+    <div class="col-md-6">
+        <label for="telefono" class="form-label">Num. Telefono</label>
+        <input type="text" class="form-control" id="telefono" name="telefono">
+    </div>
+    <div class="col-md-6">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" class="form-control" id="email" name="email">
+    </div>
+    <div class="col-md-4">
+        <label for="indice-inquinamento-ambientale" class="form-label">Indice inquinamento ambientale</label>
+        <select class="form-select" name="indice-inquinamento-ambientale" id="indice-inquinamento-ambientale">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="indice-uso-alcolici" class="form-label">Indice uso alcolici</label>
+            <select class="form-select" name="indice-uso-alcolici" id="indice-uso-alcolici">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+    </div>
+    <div class="col-md-4">
+        <label for="grado-allergia" class="form-label">Grado di allergia</label>
+            <select class="form-select" name="grado-allergia" id="grado-allergia">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+    </div>
+    <div class="col-md-4">
+        <label for="grado-rischio-lavorativo" class="form-label">Grado di rischio lavorativo</label>
+        <select class="form-select" name="grado-rischio-lavorativo" id="grado-rischio-lavorativo">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="indice-rischio-familiare" class="form-label">Indice fattore di rischio familiare</label>
+            <select class="form-select" name="indice-rischio-familiare" id="indice-rischio-familiare">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+    </div>
+    <div class="col-md-4">
+        <label for="indice-malattie-croniche" class="form-label">Indice di malattie croniche</label>
+            <select class="form-select" name="indice-malattie-croniche" id="indice-malattie-croniche">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+    </div>
+    <div class="col-md-4">
+        <label for="indice-alimentazione-scorretta" class="form-label">Indice di alimentazione scorretta</label>
+        <select class="form-select" name="indice-alimentazione-scorretta" id="indice-alimentazione-scorretta">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="indice-obesita" class="form-label">Indice di obesità</label>
+            <select class="form-select" name="indice-obesita" id="indice-obesita">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+    </div>
+    <div class="col-md-4">
+        <label for="grado-esposizione-fumo-attivo" class="form-label">Grado di esposizione a fumo attivo</label>
+            <select class="form-select" name="grado-esposizione-fumo-attivo" id="grado-esposizione-fumo-attivo">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+    </div>
+    <div class="col-md-4">
+        <label for="grado-esposizione-fumo-passivo" class="form-label">Grado di esposizione a fumo passivo</label>
+        <select class="form-select" name="grado-esposizione-fumo-passivo" id="grado-esposizione-fumo-passivo">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="indice-emottisi" class="form-label">Indice emottisi</label>
+            <select class="form-select" name="indice-emottisi" id="indice-emottisi">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+    </div>
+    <div class="col-md-4">
+        <label for="indice-astenia" class="form-label">Indice astenia</label>
+            <select class="form-select" name="indice-astenia" id="indice-astenia">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+    </div>
+    <div class="col-md-4">
+        <label for="indice-perdita-peso" class="form-label">Indice di perdita di peso</label>
+        <select class="form-select" name="indice-perdita-peso" id="indice-perdita-peso">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="indice-dispnea" class="form-label">Indice dispnea</label>
+            <select class="form-select" name="indice-dispnea" id="indice-dispnea">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+    </div>
+    <div class="col-md-4">
+        <label for="indice-respiro-sibilante" class="form-label">Indice respiro sibilante</label>
+            <select class="form-select" name="indice-respiro-sibilante" id="indice-respiro-sibilante">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+    </div>
+    <div class="col-md-4">
+        <label for="indice-disfagia" class="form-label">Indice disfagia</label>
+        <select class="form-select" name="indice-disfagia" id="indice-disfagia">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="stato-dita-ippocrate" class="form-label">Stato dita di Ippocrate</label>
+            <select class="form-select" name="stato-dita-ippocrate" id="stato-dita-ippocrate">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Aggiungi</button>
+    </div>
+  </form>
+</div>
+</div> <!--Container Main end-->
+</div> <!--div Sidebar end-->

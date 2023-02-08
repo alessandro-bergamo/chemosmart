@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row p-5">
+    <div class="col-sm-8">
+      <h5>Tutte le Terapie</h5>
+      <table class="table table-hover">
+        <thead style="background-color: #D6EFFF;">
+          <tr>
+            <th scope="col"> CF Paziente</th>
+            <th scope="col"> Farmaco</th>
+            <th scope="col"> Data</th>
+            <th scope="col"> Frequenza</th>
+            <th scope="col"> Gestisci</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% terapie.forEach(terapia=> { %>
+            <tr>
+              <td data-label="cfPaziente">
+                <%= terapia.cfPaziente %>
+              </td>
+              <td data-label="farmaco">
+                <%= terapia.farmaco %>
+              </td>
+              <td data-label="dataInizio" class="data" data-date="<%= terapia.dataInizio %>"></td>
+                
+              </td>
+              <td data-label="frequenzaAppuntamenti">
+                <%= terapia.frequenzaAppuntamenti %>
+              </td>
+              <td data-label=""><button type="button" data-id="<%= terapia._id%>"  class="btn-modifica btn btn-sm btn-primary">Modifica</button></td>
+
+            </tr>
+            <% }) %>
+
+
+
+        </tbody>
+
+      </table>
+
+    
+    
+
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+<script>
+  var elementoData = document.querySelectorAll(".data");
+  elementoData.forEach(e=>{
+    var dataISO = e.dataset.date;
+  var data = dataISO.slice(0, 10);
+  e.innerHTML = data;
+  })
+ 
+</script>
+<script>
+  const buttonModifica = document.querySelectorAll('.btn-modifica')
+  
+  buttonModifica.forEach(btn => {
+  btn.addEventListener('click', event => {
+    const id = event.target.getAttribute('data-id');
+    console.log(id);
+    window.location.href = "/modificaTerapia?id=" + id;
+  });
+});
+    
+  
+</script>

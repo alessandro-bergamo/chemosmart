@@ -1,0 +1,76 @@
+.bottone-medicoHP{
+    position: absolute;
+    right: 0;
+}
+.bottone-medicoHP input{
+    margin-top: 7%;
+}
+
+
+#wrapper{
+    margin:6%;
+    position: relative;
+    width: 50%;
+    right: 7%;
+}
+#table-medico { 
+    width: 100%; 
+    table-layout: fixed;
+    border-collapse: collapse; 
+    margin: 0 auto;
+    margin-right: 50%;
+    border: 1px solid #ccc;
+}
+/* Zebra striping */
+#table-medico tr:nth-of-type(odd) { 
+    background: #f2f2f2; 
+}
+#table-medico th { 
+    background: #00407F;; 
+    color: #fff; 
+    font-weight: 600; 
+}
+#table-medico td, #table-medico th { 
+    padding: 12px; 
+    
+    text-align: left; 
+    text-align: center
+}
+/*Mobile View*/
+@media 
+only screen and 
+    (max-width: 760px){
+        #table-medico td,#table-medico tr { 
+        display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	#table-medico thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	#table-medico tr {
+        border: 1px solid #00407F;; 
+    }
+    #table-medico tr + tr{
+        margin-top: 1.5em;
+    }
+	#table-medico td { 
+		/* make like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+        background-color: #daeffb;
+        text-align: left; 
+	}
+	#table-medico td:before { 
+        content: attr(data-label);
+        display: inline-block;
+        line-height: 1.5;
+	    margin-left: -100%;
+        width: 100%;
+		white-space: nowrap;
+	}
+}

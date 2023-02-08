@@ -1,0 +1,65 @@
+<div id="wrapper">
+  <table id="table-infermiere">
+    <thead>
+      <tr>
+        <th>Farmaco</th>
+        <th>Descrizione</th>
+        <th>Dose</th>
+        <th>Stock</th>
+        <th>check</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% farmaci.forEach(farmaco=> { %>
+        <tr>
+          <td data-label="Farmaco">
+            <%= farmaco.nome %>
+          </td>
+          <td data-label="Quantità">
+            <%= farmaco.descrizione %>
+          </td>
+          <td data-label="Orario">
+            <%= farmaco.dose %>
+          </td>
+          <td data-label="Orario">
+            <%= farmaco.stock %>
+          </td>
+          <td data-label="Check"><input class="checkbox" type="checkbox"></td>
+        </tr>
+        <% }) %>
+    </tbody>
+  </table>
+  <div id="buttonFarmaci"> <button type="button" class="btn btn-primary" id="submitBtn" disabled>Farmaci pronti</button>
+  </div>
+</div>
+
+</div>
+</div> <!--Container Main end-->
+</div> <!--div Sidebar end-->
+
+
+
+<script>
+  let checkboxes = document.querySelectorAll('.checkbox');
+  let submitBtn = document.querySelector('#submitBtn');
+
+  for (let i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener('change', function () {
+      if (allChecked()) {
+        submitBtn.disabled = false;
+      } else {
+        submitBtn.disabled = true;
+      }
+    });
+  }
+
+  function allChecked() {
+    for (let i = 0; i < checkboxes.length; i++) {
+      if (!checkboxes[i].checked) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+</script>
