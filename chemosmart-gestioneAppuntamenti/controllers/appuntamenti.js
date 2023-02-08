@@ -22,7 +22,8 @@ exports.getAllAppuntamenti = (req, res) => {
         events.push({
           title: appuntamento.cfPaziente,
           start: appuntamento.dataInizio,
-          end: appuntamento.dataFine
+          end: appuntamento.dataFine,
+          id: appuntamento._id
         });
       }
       res.send(events);

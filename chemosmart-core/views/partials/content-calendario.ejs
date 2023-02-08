@@ -1,6 +1,27 @@
 <div id="calendar">
 
+</div>
+<div class="modal fade" id="infoAppuntamento" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Appuntamento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="cf"></p>
+                <p id="farmaco"></p>
+                <p id="dataDiInizio"></p>
+                <p id="dataDiFine"></p>
+                <p id="idHidden" hidden></p>
+                <button type="button" class="btn btn-primary" id="modificaBtn">Modifica</button>
+                <button type="button" class="btn btn-danger" id="deleteBtn">Elimina</button>
+            </div>
 
+        </div>
+    </div>
 </div>
 
 
@@ -22,6 +43,7 @@
                         var events = [];
                         for (var i = 0; i < data.length; i++) {
                             events.push({
+                                id: data[i].id,
                                 title: data[i].title,
                                 start: data[i].start,
                                 end: data[i].end
@@ -35,9 +57,56 @@
                     }
                 });
             },
+            eventClick: function (date, jsEvent, view) {
+                const id = date.event.id
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:3006/appuntamenti/' + id,
+                    success: function (data) {
+                        $('#cf').text(data.cfPaziente);
+                        $('#farmaco').text(data.farmaco);
+                        $('#dataDiInizio').text(data.dataInizio);
+                        $('#dataDiFine').text(data.dataFine);
+                        $('#idHidden').text(data._id);
+                        $('#infoAppuntamento').modal();
+                    },
+                    error: function () {
+                        failureCallback();
+                    }
+                });
+            },
             initialView: 'dayGridMonth',
             timeZone: 'Europe/Rome'
         });
         calendar.render();
     });
+</script>
+
+<!-- funzione per elimina dal calendario -->
+<script>
+    $("#deleteBtn").click(function () {
+        const id = $('#idHidden').text()
+        const cf = $('#cf').text()
+         $.ajax({
+            url: "http://localhost:3006/appuntamenti/"+id,
+            type: "DELETE",
+            success: function (data) {
+                location.reload();
+                alert(`Appuntamento di ${cf} eliminato correttamente`)
+            },
+            error: function (error) {
+                
+            }
+        }); 
+    });
+</script>
+
+
+<script>
+    const modBtn = document.getElementById('modificaBtn')
+    modBtn.addEventListener('click', event => {
+    const id = $('#idHidden').text()
+    console.log(id);
+    window.location.href = "/modificaAppuntamento?id=" + id;
+  });
 </script>

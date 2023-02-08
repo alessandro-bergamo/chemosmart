@@ -28,7 +28,7 @@ app.use(
     })
 )
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.locals.user = req.session.user;
     next();
 });
@@ -146,19 +146,49 @@ app.post('/updateTerapia', (req, res) => {
         axios.get("http://localhost:3050/terapie/" + id).then(function (response) {
             let terapia = response.data;
 
-            dato = {
-                cfPaziente: req.body.cfPaziente || terapia.cfPaziente,
-                farmaco: req.body.farmaco || terapia.farmaco,
-                dataInizio: req.body.dataInizio || terapia.dataInizio,
-                frequenzaAppuntamenti: req.body.frequenzaAppuntamenti || terapia.frequenzaAppuntamenti
-            }
-            axios.patch("http://localhost:3050/terapie/" + id, dato)
-                .then(function (response) {
-                    res.send("Terapia Modificata")
-                })
-        });
-    }
-    
+        dato = {
+            cfPaziente: req.body.cfPaziente || terapia.cfPaziente,
+            farmaco: req.body.farmaco || terapia.farmaco,
+            dataInizio: req.body.dataInizio || terapia.dataInizio,
+            frequenzaAppuntamenti: req.body.frequenzaAppuntamenti || terapia.frequenzaAppuntamenti
+        }
+        axios.patch("http://localhost:3050/terapie/" + id, dato)
+            .then(function (response) {
+                axios.get("http://localhost:3050/terapie").then(function (response) {
+                    let terapie = response.data;
+                    res.render(__dirname + "/views/gestioneTerapie", { terapie: terapie });
+                });
+            })
+    });
+})
+
+//rout per renderizzare pagina modifica appuntamento
+app.get("/modificaAppuntamento", function (req, res) {
+    const id = req.query.id
+    axios.get("http://localhost:3006/appuntamenti/" + id).then(function (response) {
+        let appuntamento = response.data;
+        res.render(__dirname + "/views/modificaAppuntamento", { appuntamento: appuntamento });
+    });
+
+});
+
+//rout per chiamare il backend tramite il submit del form
+app.post('/updateAppuntamento', (req, res) => {
+    const id = req.body.id
+    axios.get("http://localhost:3006/appuntamenti/" + id).then(function (response) {
+        let appuntamento = response.data;
+
+        dato = {
+            cfPaziente: req.body.cfPaziente || appuntamento.cfPaziente,
+            farmaco: req.body.farmaco || appuntamento.farmaco,
+            dataInizio: req.body.dataInizio || appuntamento.dataInizio,
+            dataFine: req.body.dataFine || appuntamento.dataFine
+        }
+        axios.patch("http://localhost:3006/appuntamenti/" + id, dato)
+            .then(function (response) {
+                res.render("calendario")
+            })
+    });
 })
 
 app.get('/addNewCC', (req,res) => {
@@ -200,13 +230,13 @@ app.post('/addAppuntamento',(req, res) => {
 //Route creata da Giuseppe Basile per il calendario
 app.get('/calendario', (req, res) => {
     res.render(__dirname + "/views/calendario")
-}) 
+})
 
 //route per visualizzare i farmaci
 app.get("/visualizzaFarmaci", function (req, res) {
     axios.get("http://localhost:3001/farmaci").then(function (response) {
         let farmaci = response.data;
-        res.render(__dirname + "/views/homepage-infermiere", {farmaci: farmaci});
+        res.render(__dirname + "/views/homepage-infermiere", { farmaci: farmaci });
     });
 });
 
