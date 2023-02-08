@@ -1,0 +1,120 @@
+1 iterazione:
+
+Metriche di valutazione:              precision    recall  f1-score   support
+
+        High       1.00      1.00      1.00        33
+         Low       1.00      1.00      1.00        31
+      Medium       1.00      1.00      1.00        36
+
+    accuracy                           1.00       100
+   macro avg       1.00      1.00      1.00       100
+weighted avg       1.00      1.00      1.00       100
+
+2 iterazione:
+
+Metriche di valutazione:              precision    recall  f1-score   support
+
+        High       1.00      1.00      1.00        30
+         Low       1.00      1.00      1.00        33
+      Medium       1.00      1.00      1.00        37
+
+    accuracy                           1.00       100
+   macro avg       1.00      1.00      1.00       100
+weighted avg       1.00      1.00      1.00       100
+
+3 iterazione:
+
+Metriche di valutazione:              precision    recall  f1-score   support
+
+        High       1.00      1.00      1.00        35
+         Low       1.00      1.00      1.00        39
+      Medium       1.00      1.00      1.00        26
+
+    accuracy                           1.00       100
+   macro avg       1.00      1.00      1.00       100
+weighted avg       1.00      1.00      1.00       100
+
+4 iterazione:
+
+Metriche di valutazione:              precision    recall  f1-score   support
+
+        High       1.00      1.00      1.00        37
+         Low       1.00      1.00      1.00        39
+      Medium       1.00      1.00      1.00        24
+
+    accuracy                           1.00       100
+   macro avg       1.00      1.00      1.00       100
+weighted avg       1.00      1.00      1.00       100
+
+5 iterazione:
+
+Metriche di valutazione:              precision    recall  f1-score   support
+
+        High       1.00      1.00      1.00        38
+         Low       1.00      1.00      1.00        31
+      Medium       1.00      1.00      1.00        31
+
+    accuracy                           1.00       100
+   macro avg       1.00      1.00      1.00       100
+weighted avg       1.00      1.00      1.00       100
+
+6 iterazione:
+
+Metriche di valutazione:              precision    recall  f1-score   support
+
+        High       1.00      1.00      1.00        38
+         Low       1.00      1.00      1.00        20
+      Medium       1.00      1.00      1.00        42
+
+    accuracy                           1.00       100
+   macro avg       1.00      1.00      1.00       100
+weighted avg       1.00      1.00      1.00       100
+
+7 iterazione:
+
+Metriche di valutazione:              precision    recall  f1-score   support
+
+        High       1.00      1.00      1.00        37
+         Low       1.00      1.00      1.00        20
+      Medium       1.00      1.00      1.00        43
+
+    accuracy                           1.00       100
+   macro avg       1.00      1.00      1.00       100
+weighted avg       1.00      1.00      1.00       100
+
+8 iterazione:
+
+Metriche di valutazione:              precision    recall  f1-score   support
+
+        High       1.00      1.00      1.00        40
+         Low       1.00      1.00      1.00        30
+      Medium       1.00      1.00      1.00        30
+
+    accuracy                           1.00       100
+   macro avg       1.00      1.00      1.00       100
+weighted avg       1.00      1.00      1.00       100
+
+9 iterazione:
+
+Metriche di valutazione:              precision    recall  f1-score   support
+
+        High       1.00      1.00      1.00        41
+         Low       1.00      1.00      1.00        29
+      Medium       1.00      1.00      1.00        30
+
+    accuracy                           1.00       100
+   macro avg       1.00      1.00      1.00       100
+weighted avg       1.00      1.00      1.00       100
+
+10 iterazione:
+
+Metriche di valutazione:              precision    recall  f1-score   support
+
+        High       1.00      1.00      1.00        36
+         Low       1.00      1.00      1.00        31
+      Medium       1.00      1.00      1.00        33
+
+    accuracy                           1.00       100
+   macro avg       1.00      1.00      1.00       100
+weighted avg       1.00      1.00      1.00       100
+
