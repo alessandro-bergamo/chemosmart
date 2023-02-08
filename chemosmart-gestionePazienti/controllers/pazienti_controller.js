@@ -64,14 +64,14 @@ exports.updatePaziente = async(req,res) => {
 exports.getPazienteFilter = async(req,res) => {
     const nomeQuery = req.query.nome ? req.query.nome : ""
     const cognomeQuery = req.query.cognome ? req.query.cognome : ""
-    const cfQyery = req.query.cf ? req.query.cf : ""
+    const cfQuery = req.query.cf ? req.query.cf : ""
     const dataNascitaQuery = req.query.dataNascita ? req.query.dataNascita : ""
 
     console.log(dataNascitaQuery);
     console.log(req.body)
     try{
         // const $regex = escapeStringRegexp(nomeQuery);
-        const paziente = await Paziente.find({ nome: { $regex: nomeQuery }, cognome: {$regex: cognomeQuery}, cf: {$regex: cfQyery}, /*dataNascita: { $lt: date }*/ }).exec()
+        const paziente = await Paziente.find({ nome: { $regex: new RegExp("^" + nomeQuery.toLowerCase(), "i")}, cognome: {$regex: new RegExp("^" + cognomeQuery.toLowerCase(), "i")}, cf: {$regex: new RegExp("^" + cfQuery.toLowerCase(), "i")}, /*dataNascita: { $lt: date }*/ }).exec()
        res.status(200).json(paziente)
     } catch (error) {
         res.status(404).json({message: error.message})

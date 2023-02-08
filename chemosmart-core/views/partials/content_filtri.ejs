@@ -15,7 +15,8 @@
       <label for="cognome">Cognome:</label>
       <input oninput="search();" type="text" class="form-control" id="cognome" placeholder="Inserisci il tuo cognome">
     </div>
-    <div class="form-group">
+    <!-- 
+      <div class="form-group">
       <label for="dataNascita">Data di nascita:</label>
       <div class="input-group date" id="dataNascita" data-target-input="nearest">
           <input id="dataNascitaInput" oninput="search();" type="text" class="form-control datetimepicker-input" placeholder="Inserisci la tua data di nascita" data-target="#dataNascita"/>
@@ -23,7 +24,8 @@
               <div class="input-group-text"><i class='bx bxs-calendar'></i></div>
           </div>
       </div>
-    </div>
+    </div> 
+  -->
   </form>
 </div>
 <table class="table justify-content-center mt-3" id="tabellaPazienti">
@@ -214,17 +216,15 @@
           var nome = document.getElementById("nome").value;
           var cognome = document.getElementById("cognome").value;
           var cf = document.getElementById("codiceFiscale").value;
-          var dataNascita = document.getElementById("dataNascitaInput").value;
+          /*var dataNascita = document.getElementById("dataNascitaInput").value;*/
           
-          console.log(dataNascita);
-
-          $.get( "http://localhost:3007/pazienti/filter", { nome:nome, cognome:cognome, cf:cf, dataNascita:dataNascita}, function( data ) {
+          $.get( "http://localhost:3007/pazienti/filter", { nome:nome, cognome:cognome, cf:cf}, function( data ) {
             /*  $( ".result" ).html( data );
               alert( "Load was performed." );
             */
             $('#tabellaPazienti tbody').empty();
             data.forEach(element => {
-              var pene = 
+              var tableRow = 
               `<tr>
                 <td scope="row"> ${element.nome} ${element.cognome} </td> 
                 <td scope="row"> ${element.cf} </td> 
@@ -236,7 +236,7 @@
                   </button> 
                 </td>
               </tr>`;
-              $("#tabellaPazienti > tbody").append(pene);
+              $("#tabellaPazienti > tbody").append(tableRow);
             });
             console.log(data);
             console.log(nome);
