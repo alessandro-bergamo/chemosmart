@@ -1,4 +1,4 @@
-const Paziente = require('../models/paziente.js')
+const Paziente = require('../models/Paziente.js')
 
 //controller per inserire un paziente
 exports.insertPaziente = async(req, res) => {
@@ -72,7 +72,8 @@ exports.getPazienteFilter = async(req,res) => {
     try{
         // const $regex = escapeStringRegexp(nomeQuery);
         const paziente = await Paziente.find({ nome: { $regex: new RegExp("^" + nomeQuery.toLowerCase(), "i")}, cognome: {$regex: new RegExp("^" + cognomeQuery.toLowerCase(), "i")}, cf: {$regex: new RegExp("^" + cfQuery.toLowerCase(), "i")}, /*dataNascita: { $lt: date }*/ }).exec()
-       res.status(200).json(paziente)
+        console.log(paziente)
+        res.status(200).json(paziente)
     } catch (error) {
         res.status(404).json({message: error.message})
     }
