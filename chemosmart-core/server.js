@@ -160,6 +160,7 @@ app.post('/updateTerapia', (req, res) => {
                 });
             })
     });
+    }
 })
 
 //rout per renderizzare pagina modifica appuntamento
