@@ -24,7 +24,7 @@ exports.getAllPazienti = async (req,res) => {
 
 //controller per restituire un paziente in base all'id
 exports.getPazienteById = async(req,res) => {
-    const CF = req.params.id
+    const id = req.params.id
 
     console.log(req.body)
     try{
