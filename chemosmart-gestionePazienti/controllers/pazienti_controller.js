@@ -25,7 +25,7 @@ exports.getAllPazienti = async (req,res) => {
 //controller per restituire un paziente in base all'id
 exports.getPazienteById = async(req,res) => {
     const CF = req.params.id
-
+    console.log("pene"+ CF)
     console.log(req.body)
     try{
        const paziente = await Paziente.findById(id)
@@ -56,6 +56,23 @@ exports.updatePaziente = async(req,res) => {
     try {
         const paziente = await Paziente.findByIdAndUpdate(id, data, {new:true})
         res.status(200).json(paziente)
+    } catch (error) {
+        res.status(404).json({message: error.message})
+    }
+}
+
+exports.getPazienteFilter = async(req,res) => {
+    const nomeQuery = req.query.nome ? req.query.nome : ""
+    const cognomeQuery = req.query.cognome ? req.query.cognome : ""
+    const cfQyery = req.query.cf ? req.query.cf : ""
+    const dataNascitaQuery = req.query.dataNascita ? req.query.dataNascita : ""
+
+    console.log(dataNascitaQuery);
+    console.log(req.body)
+    try{
+        // const $regex = escapeStringRegexp(nomeQuery);
+        const paziente = await Paziente.find({ nome: { $regex: nomeQuery }, cognome: {$regex: cognomeQuery}, cf: {$regex: cfQyery}, /*dataNascita: { $lt: date }*/ }).exec()
+       res.status(200).json(paziente)
     } catch (error) {
         res.status(404).json({message: error.message})
     }
