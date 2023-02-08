@@ -160,7 +160,7 @@ app.post('/updateTerapia', (req, res) => {
                 });
             })
     });
-    }
+}
 })
 
 //rout per renderizzare pagina modifica appuntamento
@@ -222,7 +222,7 @@ app.post('/addAppuntamento',(req, res) => {
     } else {
         axios.post("http://localhost:3006/appuntamenti" , req.body)
             .then(function(response){
-                res.send("Appuntamento Aggiunto")
+                res.render(__dirname + "/views/calendario")
         })
     }
    
