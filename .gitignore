@@ -25,3 +25,5 @@ hs_err_pid*
 node_modules/
 
 .fleet/
+
+patient_to_predict.csv
