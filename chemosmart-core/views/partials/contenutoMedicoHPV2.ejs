@@ -99,210 +99,159 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td data-label="Paziente">Oki</td>
-            <td data-label="Numero Telefonico">1</td>
-            <td data-label="E-mail">5</td>
-            <td data-label="Prossimo Appuntamento">0</td>
-            <td data-label="altreInfo" class="buttonVisualizzaInfo">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#infoPaziente">
-                Altre info
-              </button>
-              <!-- Modal, andrà eseguito in un ciclo sulla dei pazienti presenti -->
-              <div class="modal fade" id="infoPaziente" tabindex="-1" role="dialog" aria-labelledby="infoPazienteLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="pazienteLabel">Nome e cognome del paziente</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body row g-3">
+          <% 
+    for (var i=0; i<pazienti.length && i<6; i++) {
+      var date = new Date(pazienti[i].dataNascita);
+    %>
+        <tr>
+          <td scope="row" class="text-center"> <%= pazienti[i].nome %> </td>
+          <td scope="row" class="text-center"> <%= pazienti[i].cf %> </td>
+          <td scope="row" class="text-center"> <%= pazienti[i].sesso %> </td>
+          <td scope="row" class="text-center"> <%= date.toLocaleDateString("it-IT") %> </td>
+          <td scope="row" class="text-center">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#infoPaziente<%= pazienti[i]._id %>">
+          Altre info
+        </button></td>
+        <div class="modal fade" id="infoPaziente<%= pazienti[i]._id %>" tabindex="-1" role="dialog" aria-labelledby="infoPaziente<%= pazienti[i]._id %>Label" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="infoPaziente<%= pazienti[i]._id %>Label">Nome e cognome del paziente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body row g-3">
                       <div class="col-md-12">
                         <label class="form-label" for="nome-paziente" style="font-weight: bold;">Nome e cognome del paziente:</label>
-                        <p>Mario Rossi</p>
+                        <p><%= pazienti[i].cognome %><%= pazienti[i].nome %></p>
                       </div>
                       <div class="col-md-12">
                         <label class="form-label" for="cf-paziente" style="font-weight: bold;">Codice fiscale:</label>
-                        <p>AAABBBCCCDDD1321</p>
+                        <p><%= pazienti[i].cf %></p>
                       </div>
                       <div class="col-md-12">
                         <label for="sesso" class="form-label" style="font-weight: bold;">Sesso:</label>
-                        <p>M</p>
+                        <p><%= pazienti[i].sesso %></p>
                       </div>
                       <div class="col-md-4">
                         <label class="form-label" for="eta-paziente" style="font-weight: bold;">Età:</label>
-                        <p>33</p>
+                        <p><%= pazienti[i].eta %></p>
                       </div>
                       <div class="col-md-8">
                         <label for="data-nascita" class="form-label" style="font-weight: bold;">Data nascita:</label>
-                        <p>12/07/2004</p>
+                        <p><%= date.toLocaleDateString("it-IT") %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="num-tel" class="form-label" style="font-weight: bold;">Num. Telefono:</label>
-                        <p>1234567890</p>
+                        <p><%= pazienti[i].telefono %></p>
                       </div>
                       <div class="col-md-8">
                         <label for="email" class="form-label" style="font-weight: bold;">Email:</label>
-                        <p>m.rossi@email.it</p>
+                        <p><%= pazienti[i].email %></p>
+                      </div>
+                      <div class="col-12">
+                        <label for="priorita" class="form-label" style="font-weight: bold;">Priorità</label>
+                        <p><%= pazienti[i].priorita %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-inquinamento-ambientale" class="form-label" style="font-weight: bold;">Indice inquinamento ambientale</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_inquinamento_ambientale %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-uso-alcolici" class="form-label" style="font-weight: bold;">Indice uso alcolici</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_uso_alcolici %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="grado-allergia" class="form-label" style="font-weight: bold;">Grado allergia</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].grado_allergia %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="grado-rischio-lavorativo" class="form-label" style="font-weight: bold;">Grado di rischio lavorativo</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].grado_rischio_lavorativo %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-rischio-familiare" class="form-label" style="font-weight: bold;">Indice fattore di rischio familiare</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_fattori_rischio_familiare %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-malattie-croniche" class="form-label" style="font-weight: bold;">Indice di malattie croniche</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_malattie_croniche %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-alimentazione-scorretta" class="form-label" style="font-weight: bold;">Indice di alimentazione scorretta</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_alimentazione_scorretta %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-obesita" class="form-label" style="font-weight: bold;">Indice di obesità</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_obesita %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="grado-esposizione-fumo-attivo" class="form-label" style="font-weight: bold;">Grado di esposizione a fumo attivo</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].grado_esposizione_fumo_attivo %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="grado-esposizione-fumo-passivo" class="form-label" style="font-weight: bold;">Grado di esposizione a fumo passivo</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].grado_esposizione_fumo_passivo %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-dolori-localizzati" class="form-label" style="font-weight: bold;">Indice di dolori localizzati</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_dolori_localizzati %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-emottisi" class="form-label" style="font-weight: bold;">Indice emottisi</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_emottisi %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-astenia" class="form-label" style="font-weight: bold;">Indice astenia</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_astenia %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-perdita-peso" class="form-label" style="font-weight: bold;">Indice di perdita di peso</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_perdita_peso %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-dispnea" class="form-label" style="font-weight: bold;">Indice dispnea</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_dispnea %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-respiro-sibilante" class="form-label" style="font-weight: bold;">Indice respiro sibilante</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_respiro_sibilante %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-disfagia" class="form-label" style="font-weight: bold;">Indice disfagia</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_disfagia %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="stato-dita-ippocrate" class="form-label" style="font-weight: bold;">Stato dita di Ippocrate</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].stato_dita_di_Ippocrate %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="stato-immunodepressione" class="form-label" style="font-weight: bold;">Stato di immunodepressione</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].stato_immunodepressione %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-tosse-secca" class="form-label" style="font-weight: bold;">Indice di tosse secca</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_tosse_secca %></p>
                       </div>
                       <div class="col-md-4">
                         <label for="indice-russamento" class="form-label" style="font-weight: bold;">Indice di russamento</label>
-                        <p>1</p>
+                        <p><%= pazienti[i].indice_russamento %></p>
                       </div>
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
-                      <button type="button" class="btn btn-primary">Modifica</button>
-                    </div>
-                  </div>
-                </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
               </div>
-          </tr>
-          <tr>
-            <td data-label="Paziente">Oki</td>
-            <td data-label="Numero Telefonico">1</td>
-            <td data-label="E-mail">5</td>
-            <td data-label="Prossimo Appuntamento">0</td>
-            <td data-label="altreInfo" class="buttonVisualizzaInfo">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Altre info
-              </button>
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Nome e cognome del paziente</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      Qui ci sono le info del paziente
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </tr>
-          <tr>
-            <td data-label="Paziente">Oki</td>
-            <td data-label="Numero Telefonico">1</td>
-            <td data-label="E-mail">5</td>
-            <td data-label="Prossimo Appuntamento">0</td>
-            <td data-label="altreInfo" class="buttonVisualizzaInfo">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Altre info
-              </button>
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Nome e cognome del paziente</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      Qui ci sono le info del paziente
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </tr>
-        </tbody>
+            </div>
+          </div>
+        </div>
+        </tr> 
+    <%
+    } 
+    %>
+       </tbody>
       </table>
-
     </div>
   </div>
 </div>
