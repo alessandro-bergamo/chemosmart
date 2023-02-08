@@ -50,14 +50,16 @@ def training_and_testing_models():
 
     #drop delle caratteristiche inutili al modello
     df.drop('PatientId', inplace=True ,axis=1)
-    df.drop('Gender', inplace=True ,axis=1)
+    df.drop('sesso', inplace=True ,axis=1)
 
     #setting delle feature
-    features = ['Age', 'Air Pollution','Alcohol use','Allergy','Occupational Hazards',
-    'Genetic Risk','chronic Lung Disease','Unbalanced Diet','Obesity','Smoking',
-    'Passive Smoker','Chest Pain','Coughing of Blood','Fatigue',
-    'Weight Loss','Shortness of Breath','Wheezing','Swallowing Difficulty',
-    'Clubbing of Finger Nails','Frequent Cold','Dry Cough','Snoring']
+    features = ['eta', 'indice_inquinamento_ambientale','indice_uso_alcolici',
+    'grado_allergia','grado_rischio_lavorativo','indice_fattori_rischio_familiare',
+    'indice_malattie_croniche','indice_alimentazione_scorretta','indice_obesita',
+    'grado_esposizione_fumo_attivo','grado_esposizione_fumo_passivo','indice_dolori_localizzati',
+    'indice_emottisi','indice_astenia','indice_perdita_peso','indice_dispnea',
+    'indice_respiro_sibilante','indice_disfagia','stato_dita_di_Ippocrate',
+    'stato_immunodepressione','indice_tosse_secca','indice_russamento']
     
     #si trasforma il dataframe in un array per poter eseguire lo split della k-fold validation
     df_array = np.array(df)
@@ -66,7 +68,7 @@ def training_and_testing_models():
     X = df[features]
 
     #setting della variabile da predire 
-    y = df['Level']
+    y = df['priorita']
 
     #setup del valore di k per la kfold validation
     kf = KFold(n_splits=10)
