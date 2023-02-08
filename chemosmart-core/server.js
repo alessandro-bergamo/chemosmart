@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 const { query } = require('express')
 const { isFunction } = require('util')
 const converter = require('json-2-csv')
+const fs = require('fs')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -236,6 +237,7 @@ app.post('/getPriorita',async (req,res) =>{
                 }
 
                 console.log(csv)
+                fs.writeFileSync('../modello_FIA/patient_to_predict.csv',csv)
             })
         })
     } catch (err) {
