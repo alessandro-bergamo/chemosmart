@@ -1,4 +1,4 @@
-PatientId,Age,Gender,Air Pollution,Alcohol use,Allergy,Occupational Hazards,Genetic Risk,chronic Lung Disease,Unbalanced Diet,Obesity,Smoking,Passive Smoker,Chest Pain,Coughing of Blood,Fatigue,Weight Loss,Shortness of Breath,Wheezing,Swallowing Difficulty,Clubbing of Finger Nails,Frequent Cold,Dry Cough,Snoring,Level
+PatientId,eta,sesso,indice_inquinamento_ambientale,indice_uso_alcolici,grado_allergia,grado_rischio_lavorativo,indice_fattori_rischio_familiare,indice_malattie_croniche,indice_alimentazione_scorretta,indice_obesita,grado_esposizione_fumo_attivo,grado_esposizione_fumo_passivo,indice_dolori_localizzati,indice_emottisi,indice_astenia,indice_perdita_peso,indice_dispnea,indice_respiro_sibilante,indice_disfagia,stato_dita_di_Ippocrate,stato_immunodepressione,indice_tosse_secca,indice_russamento,priorita
 P1,33,1,2,4,5,4,3,2,2,4,3,2,2,4,3,4,2,2,3,1,2,3,4,Low
 P10,17,1,3,1,5,3,4,2,2,2,2,4,2,3,1,3,7,8,6,2,1,7,2,Medium
 P100,35,1,4,5,6,5,5,4,6,7,2,3,4,8,8,7,9,2,1,4,6,7,2,High
