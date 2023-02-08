@@ -60,3 +60,21 @@ exports.updatePaziente = async(req,res) => {
         res.status(404).json({message: error.message})
     }
 }
+
+exports.getPazienteFilter = async(req,res) => {
+    const nomeQuery = req.query.nome ? req.query.nome : ""
+    const cognomeQuery = req.query.cognome ? req.query.cognome : ""
+    const cfQuery = req.query.cf ? req.query.cf : ""
+    const dataNascitaQuery = req.query.dataNascita ? req.query.dataNascita : ""
+
+    console.log(dataNascitaQuery);
+    console.log(req.body)
+    try{
+        // const $regex = escapeStringRegexp(nomeQuery);
+        const paziente = await Paziente.find({ nome: { $regex: new RegExp("^" + nomeQuery.toLowerCase(), "i")}, cognome: {$regex: new RegExp("^" + cognomeQuery.toLowerCase(), "i")}, cf: {$regex: new RegExp("^" + cfQuery.toLowerCase(), "i")}, /*dataNascita: { $lt: date }*/ }).exec()
+        console.log(paziente)
+        res.status(200).json(paziente)
+    } catch (error) {
+        res.status(404).json({message: error.message})
+    }
+}

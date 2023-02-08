@@ -5,35 +5,37 @@
   <form class="form-inline justify-content-center mt-3">
     <div class="form-group">
       <label for="codiceFiscale">Codice Fiscale:</label>
-      <input type="text" class="form-control" id="codiceFiscale" placeholder="Inserisci il tuo Codice Fiscale">
+      <input oninput="search();" type="text" class="form-control" id="codiceFiscale" placeholder="Inserisci il tuo Codice Fiscale">
     </div>
     <div class="form-group">
       <label for="nome">Nome:</label>
-      <input type="text" class="form-control" id="nome" placeholder="Inserisci il tuo nome">
+      <input oninput="search();" type="text" class="form-control" id="nome" placeholder="Inserisci il tuo nome">
     </div>
     <div class="form-group">
       <label for="cognome">Cognome:</label>
-      <input type="text" class="form-control" id="cognome" placeholder="Inserisci il tuo cognome">
+      <input oninput="search();" type="text" class="form-control" id="cognome" placeholder="Inserisci il tuo cognome">
     </div>
-    <div class="form-group">
+    <!-- 
+      <div class="form-group">
       <label for="dataNascita">Data di nascita:</label>
       <div class="input-group date" id="dataNascita" data-target-input="nearest">
-          <input type="text" class="form-control datetimepicker-input" placeholder="Inserisci la tua data di nascita" data-target="#dataNascita"/>
+          <input id="dataNascitaInput" oninput="search();" type="text" class="form-control datetimepicker-input" placeholder="Inserisci la tua data di nascita" data-target="#dataNascita"/>
           <div class="input-group-append" data-target="#dataNascita" data-toggle="datetimepicker">
               <div class="input-group-text"><i class='bx bxs-calendar'></i></div>
           </div>
       </div>
-    </div>
+    </div> 
+  -->
   </form>
 </div>
-<table class="table justify-content-center mt-3">
+<table class="table justify-content-center mt-3" id="tabellaPazienti">
   <thead>
     <tr>
-      <th scope="col" class="text-center" >Paziente</th>
-      <th scope="col" class="text-center">Codice Fiscale</th>
-      <th scope="col" class="text-center">Sesso</th>
-      <th scope="col" class="text-center">Data di Nascita</th>
-      <th scope="col" class="text-center"></th>
+      <th scope="col" >Paziente</th>
+      <th scope="col">Codice Fiscale</th>
+      <th scope="col">Sesso</th>
+      <th scope="col">Data di Nascita</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -42,14 +44,15 @@
       var date = new Date(pazienti[i].dataNascita);
     %>
         <tr>
-          <td scope="row" class="text-center"> <%= pazienti[i].nome %> </td>
-          <td scope="row" class="text-center"> <%= pazienti[i].cf %> </td>
-          <td scope="row" class="text-center"> <%= pazienti[i].sesso %> </td>
-          <td scope="row" class="text-center"> <%= date.toLocaleDateString("it-IT") %> </td>
-          <td scope="row" class="text-center">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#infoPaziente<%= pazienti[i]._id %>">
-          Altre info
-        </button></td>
+          <td scope="row"> <%= pazienti[i].nome %> <%= pazienti[i].cognome %> </td>
+          <td scope="row"> <%= pazienti[i].cf %> </td>
+          <td scope="row"> <%= pazienti[i].sesso %> </td>
+          <td scope="row"> <%= date.toLocaleDateString("it-IT") %> </td>
+          <td scope="row">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#infoPaziente<%= pazienti[i]._id %>">
+              Altre info
+            </button>
+          </td>
         <div class="modal fade" id="infoPaziente<%= pazienti[i]._id %>" tabindex="-1" role="dialog" aria-labelledby="infoPaziente<%= pazienti[i]._id %>Label" aria-hidden="true">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -208,6 +211,38 @@
                     "pagingType": "full_numbers"
                 });
         });
+
+        function search() {
+
+          var nome = document.getElementById("nome").value;
+          var cognome = document.getElementById("cognome").value;
+          var cf = document.getElementById("codiceFiscale").value;
+          /*var dataNascita = document.getElementById("dataNascitaInput").value;*/
+          
+          $.get( "http://localhost:3007/pazienti/filter", { nome:nome, cognome:cognome, cf:cf}, function( data ) {
+            /*  $( ".result" ).html( data );
+              alert( "Load was performed." );
+            */
+            $('#tabellaPazienti tbody').empty();
+            data.forEach(element => {
+              var tableRow = 
+              `<tr>
+                <td scope="row"> ${element.nome} ${element.cognome} </td> 
+                <td scope="row"> ${element.cf} </td> 
+                <td scope="row"> ${element.sesso} </td> 
+                <td scope="row"> ${(new Date(element.dataNascita)).toLocaleDateString("it-IT")} </td> 
+                <td scope="row"> 
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#infoPaziente${element._id}">
+                          Altre info
+                  </button> 
+                </td>
+              </tr>`;
+              $("#tabellaPazienti > tbody").append(tableRow);
+            });
+            console.log(data);
+            console.log(nome);
+          });
+        }
     </script>
 </nav>
 

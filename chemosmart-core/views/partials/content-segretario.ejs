@@ -74,6 +74,19 @@
           </tr>
         </thead>
         <tbody>
+            <% 
+            for (var i=0; i<pazienti.length && i<6; i++) {
+            %>
+          <tr>
+            <td scope="row"> <%= pazienti[i].nome %> <%= pazienti[i].cognome %></td>
+            <td scope="row"> <%= pazienti[i].telefono%> </td>
+            <td scope="row"> <%= pazienti[i].email %> </td>
+            <td scope="row"> <%= "daFare" %> </td>
+            <td data-label="altreInfo" class="buttonVisualizzaInfo"><button type="button"
+                class="btn btn-primary btn-sm">Altre Info</button> </td>          
+          </tr>
+          <%}%>
+          <!--
           <tr>
             <td data-label="Paziente">Oki</td>
             <td data-label="Numero Telefonico">1</td>
@@ -98,6 +111,7 @@
             <td data-label="altreInfo" class="buttonVisualizzaInfo"><button type="button"
                 class="btn btn-primary btn-sm">Altre Info</button></td>
           </tr>
+        -->
         </tbody>
       </table>
 
