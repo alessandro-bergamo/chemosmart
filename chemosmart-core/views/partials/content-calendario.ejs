@@ -109,8 +109,14 @@
                     success: function (data) {
                         $('#cf').text(data.cfPaziente);
                         $('#farmaco').text(data.farmaco);
-                        $('#dataDiInizio').text(data.dataInizio);
-                        $('#dataDiFine').text(data.dataFine);
+                        const options = {
+                            year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric',
+                            timeZone: 'UTC'
+                        };
+                        const d_inizio = new Date(data.dataInizio)
+                        $('#dataDiInizio').text(d_inizio.toLocaleString('it-IT', options));
+                        const d_fine = new Date(data.dataFine)
+                        $('#dataDiFine').text(d_fine.toLocaleString('it-IT', options));
                         $('#idHidden').text(data._id);
                         $('#infoAppuntamento').modal();
                     },
@@ -137,7 +143,7 @@
             success: function (data) {
                 alert(`Appuntamento di ${cf} eliminato correttamente`)
                 location.reload();
-                
+
             },
             error: function (error) {
 
