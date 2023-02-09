@@ -26,4 +26,4 @@ node_modules/
 
 .fleet/
 
-patient_to_predict.csv
+modello_FIA/patient_to_predict.csv
