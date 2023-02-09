@@ -125,6 +125,33 @@
                     }
                 });
             },
+            editable: true,
+            eventDrop: function (event, delta, revertFunc) {
+                // invia una richiesta AJAX per salvare le modifiche apportate all'evento
+                const options = {
+                    year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric',
+                    timeZone: 'UTC'
+                };
+                const x = {
+                    id: event.event.id,
+                    start: event.event.start.toISOString(),
+                    end: event.event.end.toISOString()
+                }
+                console.log(x)
+                $.ajax({
+                    url: 'http://localhost:3006/appuntamenti/' + event.event.id,
+                    data: JSON.stringify({
+                        dataInizio: event.event.start.toISOString(),
+                        dataFine: event.event.end.toISOString()
+                    }),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'PATCH',
+                    success: function (response) {
+
+                    }
+                });
+            },
             initialView: 'dayGridMonth',
             timeZone: 'Europe/Rome'
         });

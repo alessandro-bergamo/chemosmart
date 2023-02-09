@@ -62,10 +62,12 @@ exports.deleteAppuntamento = async (req, res) => {
 //controller per aggiornare un appuntamento in base all'id
 exports.updateAppuntamento = async (req, res) => {
     const id = req.params.id
+   
     const data = { ...req.body }
-    console.log(req.body)
+    
     try {
         const appuntamento = await Appuntamento.findByIdAndUpdate(id, data, {new:true}) //new ture serve per restituire effetivamente il json aggiornato
+        
         res.status(200).json(appuntamento)
     } catch (error) {
         res.status(404).json({ message: error.message })
