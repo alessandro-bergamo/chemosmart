@@ -256,6 +256,8 @@ app.get('/schedulaTerapia', async (req,res) => {
 
 app.post('/getPriorita',async (req,res,next) =>{
     const id = req.body.id
+    const cf = req.body.cf
+    
     try{
         await axios.get('http://localhost:3007/pazienti/' + id)
         .then(function (response) {
@@ -281,7 +283,7 @@ app.post('/getPriorita',async (req,res,next) =>{
                         })
 
                         python.on("close", (code) => {
-                            res.render(__dirname + "/views/schedulazione", {priorita: priorita})
+                            res.render(__dirname + "/views/schedulazione", {priorita: priorita,cf:cf})
                         })
                     })
                 } catch(err) {
