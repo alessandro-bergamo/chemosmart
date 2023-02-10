@@ -12,9 +12,18 @@ const terapiaSchema = mongoose.Schema({
         type: Date,
         require: true
     },
+    numAppuntamenti: {
+        type: Number,
+        require: true
+    },
     frequenzaAppuntamenti: {
         type: Number,
         require: true
+    },
+    stato: {
+        type: String,
+        require: true,
+        enum: ['In corso', 'Terminata']
     }
 }, {timestamps: true})
 
