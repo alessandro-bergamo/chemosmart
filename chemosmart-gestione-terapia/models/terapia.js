@@ -10,7 +10,6 @@ const terapiaSchema = mongoose.Schema({
     },
     dataInizio: {
         type: Date,
-        require: true
     },
     numAppuntamenti: {
         type: Number,
