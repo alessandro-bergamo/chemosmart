@@ -7,6 +7,8 @@
                 <th scope="col"> CF Paziente</th>
                 <th scope="col"> Farmaco</th>
                 <th scope="col"> Data</th>
+                <th scope="col"> Numero appuntamenti</th>
+                <th scope="col"> Stato</th>
                 <th scope="col"> Frequenza</th>
             </tr>
         </thead>
@@ -21,10 +23,15 @@
                     </td>
                     <td data-label="dataInizio" class="data" data-date="<%= terapia.dataInizio %>"></td>
                     </td>
+                    <td data-label="numAppuntamenti">
+                        <%= terapia.numAppuntamenti %>
+                    </td>
+                    <td data-label="stato">
+                        <%= terapia.stato %>
+                    </td>
                     <td data-label="frequenzaAppuntamenti">
                         <%= terapia.frequenzaAppuntamenti %>
                     </td>
-                    
                 </tr>
                 <% }) %>
         </tbody>
