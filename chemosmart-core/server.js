@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 const converter = require('json-2-csv')
 const fs = require('fs')
 const {spawn} = require('child_process');
+const api = require('./services/servicesClient.js')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -73,10 +74,12 @@ app.get('/homepage', async (req,res) => {
         if(req.session.user == 'Infermiere') {
             res.redirect('/visualizzaFarmaci')
         } else {
-            await axios.get('http://localhost:3007/pazienti')
-            .then(function (response) { let pazienti = response.data 
-                res.render(__dirname + "/views/index", {pazienti: pazienti})
-            })
+            try{
+                const pazienti = await api.getPazienti()
+                res.status(201).render(__dirname + "/views/index", {pazienti: pazienti})
+            } catch (error) {
+                res.status(404).render('/')
+            }
         }
     }
 })
