@@ -22,6 +22,8 @@
             <th scope="col"> CF Paziente</th>
             <th scope="col"> Farmaco</th>
             <th scope="col"> Data</th>
+            <th scope="col"> Numero appuntamenti</th>
+            <th scope="col"> Stato</th>
             <th scope="col"> Frequenza</th>
             <th scope="col"> Gestisci</th>
           </tr>
@@ -36,7 +38,12 @@
                 <%= terapia.farmaco %>
               </td>
               <td data-label="dataInizio" class="data" data-date="<%= terapia.dataInizio %>"></td>
-
+              </td>
+              <td data-label="numAppuntamenti">
+                <%= terapia.numAppuntamenti %>
+              </td>
+              <td data-label="stato">
+                <%= terapia.stato %>
               </td>
               <td data-label="frequenzaAppuntamenti">
                 <%= terapia.frequenzaAppuntamenti %>
@@ -81,12 +88,7 @@
 
 
 <script>
-  $(document).ready(function () {
-    $('#terapieFiltrate-table').DataTable(
-      {
-        "pagingType": "full_numbers"
-      });
-  });
+
 
   function search() {
     var cf = document.getElementById("codiceFiscale").value;
@@ -98,6 +100,8 @@
           <td scope="row"> ${element.cfPaziente} </td> 
           <td scope="row"> ${element.farmaco} </td>
           <td scope="row"> ${element.dataInizio} </td>
+          <td scope="row"> ${element.numAppuntamenti} </td>
+          <td scope="row"> ${element.stato} </td>
           <td scope="row"> ${element.frequenzaAppuntamenti} </td>
           <td scope="row"> 
             <button type="button" data-id="${element._id}" class="btn-modifica btn btn-sm btn-primary">Modifica</button>

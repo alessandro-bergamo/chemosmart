@@ -1,20 +1,58 @@
-<div>
-    <p>La priorità di <%= cf %> assegnata al paziente è <%=  priorita %></p>
-
+<div id="terapie-table">
+    <p>La priorità assegnata al paziente è <%= priorita %>
+    </p>
+    <table class="table table-hover">
+        <thead style="background-color: #D6EFFF;">
+            <tr>
+                <th scope="col"> CF Paziente</th>
+                <th scope="col"> Farmaco</th>
+                <th scope="col"> Data</th>
+                <th scope="col"> Numero appuntamenti</th>
+                <th scope="col"> Stato</th>
+                <th scope="col"> Frequenza</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% terapie.forEach(terapia=> { %>
+                <tr>
+                    <td data-label="cfPaziente">
+                        <%= terapia.cfPaziente %>
+                    </td>
+                    <td data-label="farmaco">
+                        <%= terapia.farmaco %>
+                    </td>
+                    <td data-label="dataInizio" class="data" data-date="<%= terapia.dataInizio %>"></td>
+                    </td>
+                    <td data-label="numAppuntamenti">
+                        <%= terapia.numAppuntamenti %>
+                    </td>
+                    <td data-label="stato">
+                        <%= terapia.stato %>
+                    </td>
+                    <td data-label="frequenzaAppuntamenti">
+                        <%= terapia.frequenzaAppuntamenti %>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
     <div class="w-50">
         <form>
-          <div class="form-group">
-            <label for="datetimepicker">Data Inizio</label>
-            <input type="date" class="form-control datetimepicker " id="datetimepicker" name="dataInizio">
-            
-          </div>
-          <button type="submit" class="btn btn-primary mt-3">Schedula</button>
+            <div class="form-group">
+                <label for="datetimepicker">Data Inizio</label>
+                <input type="date" class="form-control datetimepicker " id="datetimepicker" name="dataInizio">
+
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Schedula</button>
         </form>
-      </div>
+    </div>
 
 </div>
 
-
+<script>
+    const i = document.getElementById('f')
+    console.log(i)
+</script>
 
 
 
