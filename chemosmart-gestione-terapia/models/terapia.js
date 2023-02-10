@@ -22,7 +22,7 @@ const terapiaSchema = mongoose.Schema({
     stato: {
         type: String,
         require: true,
-        enum: ['In corso', 'Terminata']
+        enum: ['Non schedulata', 'In corso', 'Terminata']
     }
 }, {timestamps: true})
 
