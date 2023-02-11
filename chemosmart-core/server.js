@@ -308,6 +308,15 @@ app.post('/getPriorita', async (req, res, next) => {
 
 })
 
+app.post("/generateAppuntamenti", (req,res) => {
+    const numAppuntamenti = req.body.numAppuntamenti
+    const frequenza = req.body.frequenza
+    // const dataInizio = req.body.dataInizio
+    console.log(numAppuntamenti + frequenza)
+    // appuntamenti = api.createAppuntamentiTerapia(dataInizio,numAppuntamenti,frequenza)
+
+    res.status(201).json(appuntamenti)
+})
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`)
 })
