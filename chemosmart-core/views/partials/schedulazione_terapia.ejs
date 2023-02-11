@@ -63,10 +63,11 @@
             $.ajax({
                 url : '/generateAppuntamenti',
                 type : "POST",
+                dataType : 'json',
                 data : {
-                    'dataInizio' : dataInizio,
-                    'numAppuntamenti': numAppuntamenti,
-                    'frequenza': frequenza
+                    dataInizio : dataInizio,
+                    numAppuntamenti : numAppuntamenti,
+                    frequenza: frequenza
                 },
                 success: function(data) {
                     console.log(data)

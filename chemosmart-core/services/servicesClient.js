@@ -11,15 +11,19 @@ async function getPazienti(){
     }
 }
 
-function createAppuntamentiTerapia(data) {
-    console.log("data inizio " + data.dataInizio)
-    console.log("frequenza " + data.frequenza)
-    console.log("numAppuntamenti " + data.numAppuntamenti)
+function createAppuntamentiTerapia(dataInizio, numAppuntamenti, frequenza) {
+    console.log("data inizio " + dataInizio)
+    console.log("frequenza " + frequenza)
+    console.log("numAppuntamenti " + numAppuntamenti)
     let appuntamenti = []
-    for (var i; i < numAppuntamenti; i++){
+    let dateAppuntamenti = []
+    dateAppuntamenti[0] = new Date(dataInizio)
+    for (var i = 1; i < numAppuntamenti; i++){
+        dateAppuntamenti[i] = new Date(dataInizio)
+        dateAppuntamenti[i].setDate(dateAppuntamenti[i].getDate() + (frequenza*i))
         // appuntamenti[i] forse va usato un costruttore tipo create Appuntamento o na cosa cosi scritta nel ms appuntamento
     }
-
+    console.log(dateAppuntamenti)
     return "andato"
 }
 
