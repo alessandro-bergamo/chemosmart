@@ -73,3 +73,14 @@ exports.updateAppuntamento = async (req, res) => {
         res.status(404).json({ message: error.message })
     }
 }
+
+//controller per l'instaziazione di un nuovo oggetto Appuntamento
+exports.createAppuntamento = async (req,res) => {
+    try{
+        const appuntamento = new Appuntamento(req.body)
+        res.status(201).json(appuntamento)
+    } catch (error) {
+        res.status(505).json(error.message)
+    }
+
+}

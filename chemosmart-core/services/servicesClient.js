@@ -11,19 +11,39 @@ async function getPazienti(){
     }
 }
 
-function createAppuntamentiTerapia(dataInizio, numAppuntamenti, frequenza) {
-    console.log("data inizio " + dataInizio)
-    console.log("frequenza " + frequenza)
-    console.log("numAppuntamenti " + numAppuntamenti)
+function createAppuntamentiTerapia(cf, farmaco, dataInizio, oraInizio, durata, numAppuntamenti, frequenza, priorita) {
     let appuntamenti = []
-    let dateAppuntamenti = []
-    dateAppuntamenti[0] = new Date(dataInizio)
+    let dateInizioAppuntamenti = []
+    let dateFineAppuntamenti = []
+    dateInizioAppuntamenti[0] = new Date(dataInizio)
+    dateFineAppuntamenti[0] = new Date(dataInizio)
+    console.log(oraInizio)
+    dateInizioAppuntamenti[0].setHours(parseInt(oraInizio))
+    dateFineAppuntamenti[0].setHours(parseInt(oraInizio) + parseInt(durata))
+
     for (var i = 1; i < numAppuntamenti; i++){
-        dateAppuntamenti[i] = new Date(dataInizio)
-        dateAppuntamenti[i].setDate(dateAppuntamenti[i].getDate() + (frequenza*i))
-        // appuntamenti[i] forse va usato un costruttore tipo create Appuntamento o na cosa cosi scritta nel ms appuntamento
+        dateInizioAppuntamenti[i] = new Date(dataInizio)
+        dateFineAppuntamenti[i] = new Date(dataInizio)
+
+        dateInizioAppuntamenti[i].setDate(dateInizioAppuntamenti[i].getDate() + (frequenza*i))
+        dateFineAppuntamenti[i].setDate(dateFineAppuntamenti[i].getDate() + (frequenza*i))
+
+        dateInizioAppuntamenti[i].setHours(parseInt(oraInizio))
+        dateFineAppuntamenti[i].setHours(parseInt(oraInizio) + parseInt(durata))
+        
+        // appuntamenti[i] = {
+        //     cf: cf,
+        //     farmaco: farmaco,
+        //     dataInizio : dateAppuntamenti[],
+        //     durata: durata,
+        // }
     }
-    console.log(dateAppuntamenti)
+
+    for(var i=0; i < numAppuntamenti; i++){
+        console.log("date e ora inizio:" + i + " appuntamento\n" + dateInizioAppuntamenti[i] + '\n')
+        console.log("date e ora fine:" + i + " appuntamento\n" + dateFineAppuntamenti[i] + '\n')
+    }
+    
     return "andato"
 }
 

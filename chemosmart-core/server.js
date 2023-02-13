@@ -312,10 +312,20 @@ app.post("/generateAppuntamenti", (req,res) => {
     const numAppuntamenti = req.body.numAppuntamenti
     const frequenza = req.body.frequenza
     const dataInizio = req.body.dataInizio
+    const cf = req.body.cf
+    const farmaco = req.body.farmaco
+    const durata = req.body.durata
+    const priorita = req.body.priorita
+    const oraInizio = req.body.oraInizio
 
-    appuntamenti = api.createAppuntamentiTerapia(dataInizio,numAppuntamenti,frequenza)
+    try{
+        appuntamenti = api.createAppuntamentiTerapia(cf,farmaco,dataInizio, oraInizio, durata,numAppuntamenti,frequenza,priorita)
+        res.status(201).json(appuntamenti)
+    } catch (error) {
+        res.status(505).send(error.message)
+    }
 
-    res.status(201).json(appuntamenti)
+
 })
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`)
