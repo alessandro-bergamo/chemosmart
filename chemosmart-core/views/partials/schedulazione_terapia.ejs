@@ -52,15 +52,26 @@
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
-                    <option value="5">5</option>
                 </select>
             </div>
             <button type="submit" id="schedula" class="btn btn-primary mt-3">Schedula</button>
         </form>
     </div>
-    <div id="listAppuntamenti">
+    <table style='display: none;' class="table justify-content-center mt-3" id="tabellaAppuntamenti">
+        <thead>
+            <tr>
+                <th scope="col" >CF</th>
+                <th scope="col">Farmaco</th>
+                <th scope="col">Data</th>
+                <th scope="col">Ora Inizio</th>
+                <th scope="col">Ora Fine</th>
+                <th scope="col">Durata</th>
+              </tr>
+        </thead>
+        <tbody>
 
-    </div>
+        </tbody>
+    </table>
 </div>
 
 <script>
@@ -73,16 +84,7 @@
             const durata = $("#durata option:selected").val()
             const cf = $('#cf').val()
             const farmaco = $('#farmaco').val()
-            const priorita = $('#priorita').val()
-            let OraInizio
-            if(priorita == 'Alta' || priorita == 'alta'){
-                OraInizio = 9
-            } else if(priorita == 'Media' || priorita == 'media'){
-                OraInizio = 13
-            } else if(priorita == 'Bassa' || priorita == 'bassa') {
-                OraInizio = 18
-            }
-            console.log(OraInizio)
+            const priorita = $.trim($('#priorita').val())
             $.ajax({
                 url : '/generateAppuntamenti',
                 type : "POST",
@@ -95,10 +97,23 @@
                     numAppuntamenti : numAppuntamenti,
                     frequenza: frequenza,
                     priorita: priorita,
-                    OraInizio: OraInizio
                 },
                 success: function(data) {
                     console.log(data)
+                    $('#tabellaAppuntamenti').show()
+                    $('#tabellaAppuntamenti tbody').empty();
+                    data.forEach(appuntamento => {
+                    var tableRow = 
+                    `<tr>
+                        <td scope="row"> ${appuntamento.cf} </td> 
+                        <td scope="row"> ${appuntamento.farmaco} </td> 
+                        <td scope="row"> ${(new Date(appuntamento.dataInizio)).toLocaleDateString('it-IT')} </td> 
+                        <td scope="row"> ${(new Date(appuntamento.dataInizio)).getHours()} </td>
+                        <td scope="row"> ${(new Date(appuntamento.dataFine)).getHours()} </td>
+                        <td scope="row"> ${appuntamento.durata} ore </td> 
+                    </tr>`;
+                    $("#tabellaAppuntamenti > tbody").append(tableRow);
+                    });
                 }
             })
         })

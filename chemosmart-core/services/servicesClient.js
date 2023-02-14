@@ -1,4 +1,5 @@
 const axios = require('axios')
+const timezone = 1
 
 async function getPazienti(){
     try{
@@ -11,17 +12,24 @@ async function getPazienti(){
     }
 }
 
-function createAppuntamentiTerapia(cf, farmaco, dataInizio, oraInizio, durata, numAppuntamenti, frequenza, priorita) {
+function createAppuntamentiTerapia(cf, farmaco, dataInizio, durata, numAppuntamenti, frequenza, priorita) {
     let appuntamenti = []
     let dateInizioAppuntamenti = []
     let dateFineAppuntamenti = []
-    dateInizioAppuntamenti[0] = new Date(dataInizio)
-    dateFineAppuntamenti[0] = new Date(dataInizio)
-    console.log(oraInizio)
-    dateInizioAppuntamenti[0].setHours(parseInt(oraInizio))
-    dateFineAppuntamenti[0].setHours(parseInt(oraInizio) + parseInt(durata))
+    let oraInizio
 
-    for (var i = 1; i < numAppuntamenti; i++){
+    let strPriorita = JSON.stringify(priorita)
+    strPriorita = strPriorita.replace(/"/g,'')
+    console.log(strPriorita)
+    if(strPriorita == 'Alta'){
+        oraInizio = 9
+    } else if(strPriorita == 'Media'){
+        oraInizio = 13
+    } else if(strPriorita == 'Bassa'){
+        oraInizio = 18
+    }
+
+    for (var i = 0; i < numAppuntamenti; i++){
         dateInizioAppuntamenti[i] = new Date(dataInizio)
         dateFineAppuntamenti[i] = new Date(dataInizio)
 
@@ -31,20 +39,16 @@ function createAppuntamentiTerapia(cf, farmaco, dataInizio, oraInizio, durata, n
         dateInizioAppuntamenti[i].setHours(parseInt(oraInizio))
         dateFineAppuntamenti[i].setHours(parseInt(oraInizio) + parseInt(durata))
         
-        // appuntamenti[i] = {
-        //     cf: cf,
-        //     farmaco: farmaco,
-        //     dataInizio : dateAppuntamenti[],
-        //     durata: durata,
-        // }
+        appuntamenti[i] = {
+            cf: cf,
+            farmaco: farmaco,
+            dataInizio: dateInizioAppuntamenti[i],
+            dataFine: dateFineAppuntamenti[i],
+            durata: durata
+        }
     }
 
-    for(var i=0; i < numAppuntamenti; i++){
-        console.log("date e ora inizio:" + i + " appuntamento\n" + dateInizioAppuntamenti[i] + '\n')
-        console.log("date e ora fine:" + i + " appuntamento\n" + dateFineAppuntamenti[i] + '\n')
-    }
-    
-    return "andato"
+    return appuntamenti
 }
 
 module.exports = {getPazienti, createAppuntamentiTerapia}
