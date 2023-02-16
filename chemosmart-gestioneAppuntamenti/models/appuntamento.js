@@ -15,6 +15,14 @@ const appuntamentoSchema = mongoose.Schema({
     dataFine: {
         type: Date,
         require: true
+    },
+    nome: {
+        type: String,
+        require: true
+    },
+    cognome: {
+        type: String,
+        require: true
     }
 }, {timestamps: true})
 
