@@ -4,7 +4,12 @@
   <%- include('./partials/head') %> 
 </head>
 <body>
+    <% if(user == 'Medico') {%>
     <%- include('./partials/sidebarMedico') %>
     <%- include('./partials/content-calendario') %>
+    <% } else if(user == 'Segretario'){ %>
+    <%- include('./partials/sidebarMedico') %>
+    <%- include('./partials/content-calendario-segretario') %>
+    <% } %>
 </body>
 </html>

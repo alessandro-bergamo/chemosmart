@@ -243,7 +243,7 @@ app.post('/addAppuntamento', (req, res) => {
 
 //Route creata da Giuseppe Basile per il calendario
 app.get('/calendario', (req, res) => {
-    res.render(__dirname + "/views/calendario")
+    res.render(__dirname + "/views/calendario", {user: req.session.user})
 })
 
 //route per visualizzare i farmaci

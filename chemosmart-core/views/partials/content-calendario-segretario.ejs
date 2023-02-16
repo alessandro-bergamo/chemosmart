@@ -1,0 +1,91 @@
+<div id="calendar">
+
+</div>
+<!-- modale per evento -->
+<div class="modal fade" id="infoAppuntamento" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Appuntamento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="cf"></p>
+                <p id="farmaco"></p>
+                <p id="dataDiInizio"></p>
+                <p id="dataDiFine"></p>
+                <p id="idHidden" hidden></p>
+                <button type="button" class="btn btn-primary" id="chiudi" data-dismiss="modal">Chiudi</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            events: function (info, successCallback, failureCallback) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:3006/appuntamenti',
+                    success: function (data) {
+                        var events = [];
+                        for (var i = 0; i < data.length; i++) {
+                            events.push({
+                                id: data[i].id,
+                                title: data[i].title,
+                                start: data[i].start,
+                                end: data[i].end
+                            });
+                            console.log(events)
+                        }
+                        successCallback(events);
+                    },
+                    error: function () {
+                        failureCallback();
+                    }
+                });
+            },
+            
+            eventClick: function (date, jsEvent, view) {
+                const id = date.event.id
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:3006/appuntamenti/' + id,
+                    success: function (data) {
+                        $('#cf').text(data.cfPaziente);
+                        $('#farmaco').text(data.farmaco);
+                        const options = {
+                            year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric',
+                            timeZone: 'UTC'
+                        };
+                        const d_inizio = new Date(data.dataInizio)
+                        $('#dataDiInizio').text(d_inizio.toLocaleString('it-IT', options));
+                        const d_fine = new Date(data.dataFine)
+                        $('#dataDiFine').text(d_fine.toLocaleString('it-IT', options));
+                        $('#idHidden').text(data._id);
+                        $('#infoAppuntamento').modal();
+                    },
+                    error: function () {
+                        failureCallback();
+                    }
+                });
+            },
+            
+            height:750,
+            contentHeight: 800,
+            initialView: 'dayGridMonth',
+            timeZone: 'Europe/Rome'
+        });
+        calendar.render();
+    });
+</script>
