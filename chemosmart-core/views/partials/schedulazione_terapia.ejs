@@ -100,7 +100,6 @@
             <th scope="col">Data</th>
             <th scope="col">Ora Inizio</th>
             <th scope="col">Ora Fine</th>
-            <th scope="col">Durata</th>
         </tr>
     </thead>
     <tbody>
@@ -142,8 +141,8 @@
                     console.log(data)
                     $('#tabellaAppuntamenti').show()
                     $('#tabellaAppuntamenti tbody').empty();
-                    $('#statoTerapia').val('In corso')
-                    $('#dataInizio').val($('#datetimepicker').val())
+                    $('#statoTerapia').text('In corso')
+                    $('#dataInizio').text($('#datetimepicker').val())
                     $('.schedulaForm').hide()
                     $('#show-modal').hide()
                     data.forEach(appuntamento => {
@@ -154,7 +153,6 @@
                         <td scope="row"> ${(new Date(appuntamento.dataInizio)).toLocaleDateString('it-IT')} </td> 
                         <td scope="row"> ${(new Date(appuntamento.dataInizio)).getUTCHours()} </td>
                         <td scope="row"> ${(new Date(appuntamento.dataFine)).getUTCHours()} </td>
-                        <td scope="row"> ${appuntamento.durata} ore </td> 
                     </tr>`;
                         $("#tabellaAppuntamenti > tbody").append(tableRow);
                     });

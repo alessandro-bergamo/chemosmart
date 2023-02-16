@@ -74,10 +74,10 @@ async function updatePaziente(id, priorita) {
     }
 }
 
-async function updateTerapia(id, stato) {
+async function startTerapia(id,dataInizio, stato) {
+    const data = new Date(dataInizio)
     try {
-        const terapia = await axios.patch('http://localhost:3050/terapie/' + id, { stato: stato })
-
+        const terapia = await axios.patch('http://localhost:3050/terapie/' + id, {dataInizio: data, stato: stato })
         return terapia
     } catch (error) {
         return error
@@ -146,4 +146,4 @@ async function getFarmaci() {
     return response;
 }
 
-module.exports = { getPazienti, createAppuntamentiTerapia, updatePaziente, updateTerapia, aggiungiTerapia, getTerapie, getTerapiaById, updateTerapia, getAppuntamentoById, updateAppuntamento, addAppuntamento, getFarmaci }
+module.exports = { getPazienti, createAppuntamentiTerapia, updatePaziente, updateTerapia, aggiungiTerapia, getTerapie, getTerapiaById, getAppuntamentoById, updateAppuntamento, addAppuntamento, getFarmaci, startTerapia }
