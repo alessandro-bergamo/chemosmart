@@ -1,4 +1,16 @@
-<div id="calendar">
+<div class="mt-2">
+    <h2 class="fw-bold" style="color:#00407F">Gestisci comodamente gli appuntamenti del calendario</h2>
+    
+    <ol class=" mt-3 w-50 list-group list-group-numbered">
+        <span>Puoi...</span>
+        <li class="list-group-item">Inserire un nuovo appuntamento cliccando su qualsiasi giorno del calendario</li>
+        <li class="list-group-item">Cliccare su un appuntamento per avere maggiori info</li>
+        <li class="list-group-item">Rishedulare in modo istantaneo un appuntamento tramite drag & drop</li>
+      </ol>
+
+</div>
+
+<div class="mt-3 mx-auto" style="width: 85%;" id="calendar">
 
 </div>
 <!-- modale per evento -->
@@ -152,8 +164,7 @@
                     }
                 });
             },
-            height: 750,
-            contentHeight: 800,
+            
             initialView: 'dayGridMonth',
             timeZone: 'Europe/Rome'
         });
