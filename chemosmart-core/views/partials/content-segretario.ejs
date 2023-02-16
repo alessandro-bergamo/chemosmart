@@ -1,6 +1,41 @@
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+          events: function (info, successCallback, failureCallback) {
+              $.ajax({
+                  type: 'GET',
+                  url: 'http://localhost:3006/appuntamenti',
+                  success: function (data) {
+                      var events = [];
+                      for (var i = 0; i < data.length; i++) {
+                          events.push({
+                              title: data[i].title,
+                              start: data[i].start,
+                              end: data[i].end
+                          });
+                          console.log(events)
+                      }
+                      successCallback(events);
+                  },
+                  error: function () {
+                      failureCallback();
+                  }
+              });
+          },
+          aspectRatio: 1,
+          initialView: 'dayGridDay',
+          timeZone: 'Europe/Rome'
+      });
+      calendar.render();
+  });
+</script>
+
+
+
 <div class="container">
   <div class="row p-5">
-    <div class="col-sm-8">
+    <div class="col-sm-7">
       <h5>Appuntamenti Odierni</h5>
       <table class="table table-hover">
         <thead style="background-color: #D6EFFF;">
@@ -47,16 +82,9 @@
       </table>
 
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-5">
 
-      <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
+      <div id="calendar">
       </div>
     </div>
   </div>
