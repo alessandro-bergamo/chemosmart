@@ -15,12 +15,6 @@ const appuntamentoSchema = mongoose.Schema({
     dataFine: {
         type: Date,
         require: true
-    },
-    durata: {
-        type: Number,
-        // min: 1,
-        // max: 4,
-        require: true
     }
 }, {timestamps: true})
 

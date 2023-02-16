@@ -152,7 +152,7 @@
                     }
                 });
             },
-            height:750,
+            height: 750,
             contentHeight: 800,
             initialView: 'dayGridMonth',
             timeZone: 'Europe/Rome'
@@ -171,8 +171,7 @@
             type: "DELETE",
             success: function (data) {
                 alert(`Appuntamento di ${cf} eliminato correttamente`)
-                location.reload();
-
+                window.location.href="/calendario"
             },
             error: function (error) {
 

@@ -117,7 +117,7 @@ async function getTerapiaById(id) {
 
 async function updateTerapia(id, dato) {
     try {
-        const response = await axios.patch("http://localhost:3050/terapie/" +id, dato);
+        const response = await axios.patch("http://localhost:3050/terapie/" + id, dato);
         return response.data;
     } catch (error) {
         throw new Error(`Errore nella chiamata axios: ${error.message}`);
@@ -130,6 +130,21 @@ async function getAppuntamentoById(id) {
 
 async function updateAppuntamento(id, data) {
     await axios.patch("http://localhost:3006/appuntamenti/" + id, data);
-  }
-  
-module.exports = { getPazienti, createAppuntamentiTerapia, updatePaziente, updateTerapia, aggiungiTerapia, getTerapie, getTerapiaById, updateTerapia,getAppuntamentoById,updateAppuntamento}
+}
+
+async function addAppuntamento(appuntamento) {
+    try {
+        const response = await axios.post("http://localhost:3006/appuntamenti", appuntamento);
+        return response;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}
+
+async function getFarmaci() {
+    const response = await axios.get("http://localhost:3001/farmaci");
+    return response;
+}
+
+module.exports = { getPazienti, createAppuntamentiTerapia, updatePaziente, updateTerapia, aggiungiTerapia, getTerapie, getTerapiaById, updateTerapia, getAppuntamentoById, updateAppuntamento, addAppuntamento, getFarmaci }

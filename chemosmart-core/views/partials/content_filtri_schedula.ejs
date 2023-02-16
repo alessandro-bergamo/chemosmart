@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <h2 class="mt-3 font weight bold text-center">Ricerca Pazienti</h2>
   </div>
-  <form class="form-inline justify-content-center mt-3">
+  <form class="form-inline justify-content-center mt-3 w-50">
     <div class="form-group">
       <label for="codiceFiscale">Codice Fiscale:</label>
       <input oninput="search();" type="text" class="form-control" id="codiceFiscale"
@@ -69,7 +69,8 @@
                   <label class="form-label" for="cognome-paziente" style="font-weight: bold;">Nome e cognome del
                     paziente:</label>
                   <p>
-                    <%= pazienti[i].nome %> <%= pazienti[i].cognome %>
+                    <%= pazienti[i].nome %>
+                      <%= pazienti[i].cognome %>
                   </p>
                 </div>
                 <div class="col-md-12">
@@ -271,33 +272,27 @@
       <% } } %>
   </tbody>
 </table>
-<nav>
-  <ul class="pagination justify-content-center">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page"></a>
-      <script>
-        function search() {
+</div>
+</div> <!--Container Main end-->
+</div> <!--div Sidebar end-->
 
-          var nome = document.getElementById("nome").value;
-          var cognome = document.getElementById("cognome").value;
-          var cf = document.getElementById("codiceFiscale").value;
-          console.log(nome + '|' + cognome + '|' + cf)
+<script>
+  function search() {
 
-          $.get("http://localhost:3007/pazienti/filter", { nome: nome, cognome: cognome, cf: cf }, function (data) {
-            /*  $( ".result" ).html( data );
-              alert( "Load was performed." );
-            */
-            $('#tabellaPazienti tbody').empty();
-            data.forEach(element => {
-              if (element.priorita == '')
-                var tableRow =
-                  `<tr>
+    var nome = document.getElementById("nome").value;
+    var cognome = document.getElementById("cognome").value;
+    var cf = document.getElementById("codiceFiscale").value;
+    console.log(nome + '|' + cognome + '|' + cf)
+
+    $.get("http://localhost:3007/pazienti/filter", { nome: nome, cognome: cognome, cf: cf }, function (data) {
+      /*  $( ".result" ).html( data );
+        alert( "Load was performed." );
+      */
+      $('#tabellaPazienti tbody').empty();
+      data.forEach(element => {
+        if (element.priorita == '')
+          var tableRow =
+            `<tr>
                 <td scope="row" class="text-center"> ${element.cognome} </td>
                 <td scope="row" class="text-center"> ${element.nome} </td> 
                 <td scope="row" class="text-center"> ${element.cf} </td> 
@@ -309,14 +304,9 @@
                   </button> 
                 </td>
               </tr>`;
-              $("#tabellaPazienti > tbody").append(tableRow);
-            });
+        $("#tabellaPazienti > tbody").append(tableRow);
+      });
 
-          });
-        }
-      </script>
-</nav>
-
-</div>
-</div> <!--Container Main end-->
-</div> <!--div Sidebar end-->
+    });
+  }
+</script>

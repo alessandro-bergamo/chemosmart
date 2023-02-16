@@ -156,31 +156,31 @@ app.get("/modificaTerapia", async (req, res) => {
 //route per chiamare il backend tramite il submit del form
 app.post('/updateTerapia', async (req, res) => {
     if (req.session.loggedIn != true || req.session.user != 'Medico') {
-      res.redirect('/');
+        res.redirect('/');
     } else {
-      const id = req.body.id;
-      try {
-        const terapia = await api.getTerapiaById(id);
-        const dato = {
-          cfPaziente: req.body.cfPaziente || terapia.cfPaziente,
-          farmaco: req.body.farmaco || terapia.farmaco,
-          dataInizio: req.body.dataInizio || terapia.dataInizio,
-          numAppuntamenti: req.body.numAppuntamenti || terapia.numAppuntamenti,
-          frequenzaAppuntamenti: Number.isInteger(parseInt(req.body.frequenzaAppuntamenti)) ? parseInt(req.body.frequenzaAppuntamenti) : terapia.frequenzaAppuntamenti
-         };
-         
-        await api.updateTerapia(id, dato);
-        const terapie = await api.getTerapie();
-        res.render(__dirname + "/views/gestioneTerapie", { terapie: terapie });
-      } catch (error) {
-        console.error(error);
-        res.status(500).send("Errore nell'aggiornamento della terapia");
-      }
+        const id = req.body.id;
+        try {
+            const terapia = await api.getTerapiaById(id);
+            const dato = {
+                cfPaziente: req.body.cfPaziente || terapia.cfPaziente,
+                farmaco: req.body.farmaco || terapia.farmaco,
+                dataInizio: req.body.dataInizio || terapia.dataInizio,
+                numAppuntamenti: req.body.numAppuntamenti || terapia.numAppuntamenti,
+                frequenzaAppuntamenti: Number.isInteger(parseInt(req.body.frequenzaAppuntamenti)) ? parseInt(req.body.frequenzaAppuntamenti) : terapia.frequenzaAppuntamenti
+            };
+
+            await api.updateTerapia(id, dato);
+            const terapie = await api.getTerapie();
+            res.render(__dirname + "/views/gestioneTerapie", { terapie: terapie });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Errore nell'aggiornamento della terapia");
+        }
     }
-  });
+});
 
 //rout per renderizzare pagina modifica appuntamento
-app.get("/modificaAppuntamento", async function (req, res) {
+app.get("/modificaAppuntamento", async function (req, res){
     const id = req.query.id;
     try {
         const response = await api.getAppuntamentoById(id)
@@ -196,21 +196,21 @@ app.get("/modificaAppuntamento", async function (req, res) {
 app.post('/updateAppuntamento', async (req, res) => {
     const id = req.body.id;
     try {
-      const appuntamento = await api.getAppuntamentoById(id);
-      const dato = {
-        cfPaziente: req.body.cfPaziente || appuntamento.cfPaziente,
-        farmaco: req.body.farmaco || appuntamento.farmaco,
-        dataInizio: req.body.dataInizio || appuntamento.dataInizio,
-        dataFine: req.body.dataFine || appuntamento.dataFine,
-        durata: req.body.durata || appuntamento.durata
-      };
-      await api.updateAppuntamento(id, dato);
-      res.render("calendario");
+        const appuntamento = await api.getAppuntamentoById(id);
+        const dato = {
+            cfPaziente: req.body.cfPaziente || appuntamento.cfPaziente,
+            farmaco: req.body.farmaco || appuntamento.farmaco,
+            dataInizio: req.body.dataInizio || appuntamento.dataInizio,
+            dataFine: req.body.dataFine || appuntamento.dataFine,
+            durata: req.body.durata || appuntamento.durata
+        };
+        await api.updateAppuntamento(id, dato);
+        res.render("calendario");
     } catch (error) {
-      console.error(error);
-      res.status(500).send("Errore nell'aggiornamento dell'appuntamento");
+        console.error(error);
+        res.status(500).send("Errore nell'aggiornamento dell'appuntamento");
     }
-  });
+});
 
 app.get('/addNewCC', (req, res) => {
     if (req.session.loggedIn != true || req.session.user != 'Medico') {
@@ -236,17 +236,19 @@ app.get('/aggiungiAppuntamento', (req, res) => {
 })
 
 //Route creata da Giuseppe Basile per funzione post per aggiungere appuntamento
-app.post('/addAppuntamento', (req, res) => {
-    if (req.session.loggedIn != true || req.session.user != 'Medico') {
-        res.redirect('/')
-    } else {
-        axios.post("http://localhost:3006/appuntamenti", req.body)
-            .then(function (response) {
-                res.render(__dirname + "/views/calendario")
-            })
+app.post('/addAppuntamento', async (req, res) => {
+    try {
+        if (req.session.loggedIn != true || req.session.user != 'Medico') {
+            res.redirect('/')
+        } else {
+            const response = await api.addAppuntamento(req.body);
+            res.render(__dirname + "/views/calendario");
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal server error');
     }
-
-})
+});
 
 //Route creata da Giuseppe Basile per il calendario
 app.get('/calendario', (req, res) => {
@@ -254,22 +256,28 @@ app.get('/calendario', (req, res) => {
 })
 
 //route per visualizzare i farmaci
-app.get("/visualizzaFarmaci", function (req, res) {
-    axios.get("http://localhost:3001/farmaci").then(function (response) {
-        let farmaci = response.data;
+app.get("/visualizzaFarmaci", async function (req, res) {
+    try {
+        const response = await api.getFarmaci();
+        const farmaci = response.data;
         res.render(__dirname + "/views/homepage-infermiere", { farmaci: farmaci });
-    });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Errore durante la lettura dei dati dei farmaci.");
+    }
 });
 
 app.get('/schedulaTerapia', async (req, res) => {
     if (req.session.loggedIn != true) {
         res.redirect('/')
     } else {
-        await axios.get('http://localhost:3007/pazienti')
-            .then(function (response) {
-                let pazienti = response.data
-                res.render(__dirname + "/views/schedulaTerapia", { pazienti: pazienti })
-            })
+        try {
+            const pazienti = await api.getPazienti()
+            res.render(__dirname + "/views/schedulaTerapia", { pazienti: pazienti })
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Errore durante la lettura dei dati dei pazienti.");
+        }
     }
 })
 
