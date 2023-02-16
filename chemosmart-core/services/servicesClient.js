@@ -40,7 +40,7 @@ async function createAppuntamentiTerapia(cf, farmaco, dataInizio, durata, numApp
         dateFineAppuntamenti[i].setHours(parseInt(oraInizio) + parseInt(durata))
 
         try {
-            appuntamenti[i] = await createAppuntamento(cf, farmaco, dateInizioAppuntamenti[i], dateFineAppuntamenti[i], durata)
+            appuntamenti[i] = await createAppuntamento(cf, farmaco, dateInizioAppuntamenti[i], dateFineAppuntamenti[i])
         } catch (error) {
             return error
         }
@@ -55,8 +55,7 @@ async function createAppuntamento(cf, farmaco, dataInizio, dataFine, durata) {
             cfPaziente: cf,
             farmaco: farmaco,
             dataInizio: dataInizio,
-            dataFine: dataFine,
-            durata: durata
+            dataFine: dataFine
         })
 
         return appuntamento.data
