@@ -12,7 +12,7 @@ async function getPazienti() {
     }
 }
 
-async function createAppuntamentiTerapia(cf, farmaco, dataInizio, durata, numAppuntamenti, frequenza, priorita) {
+async function createAppuntamentiTerapia(cf, nome,cognome, farmaco, dataInizio, durata, numAppuntamenti, frequenza, priorita) {
     let appuntamenti = []
     let dateInizioAppuntamenti = []
     let dateFineAppuntamenti = []
@@ -40,7 +40,7 @@ async function createAppuntamentiTerapia(cf, farmaco, dataInizio, durata, numApp
         dateFineAppuntamenti[i].setHours(parseInt(oraInizio) + parseInt(durata))
 
         try {
-            appuntamenti[i] = await createAppuntamento(cf, farmaco, dateInizioAppuntamenti[i], dateFineAppuntamenti[i])
+            appuntamenti[i] = await createAppuntamento(cf, nome, cognome, farmaco, dateInizioAppuntamenti[i], dateFineAppuntamenti[i])
         } catch (error) {
             return error
         }
@@ -49,15 +49,16 @@ async function createAppuntamentiTerapia(cf, farmaco, dataInizio, durata, numApp
     return appuntamenti
 }
 
-async function createAppuntamento(cf, farmaco, dataInizio, dataFine) {
+async function createAppuntamento(cf,nome,cognome, farmaco, dataInizio, dataFine) {
     try {
         const appuntamento = await axios.post('http://localhost:3006/appuntamenti/', {
             cfPaziente: cf,
+            nome:nome,
+            cognome:cognome,
             farmaco: farmaco,
             dataInizio: dataInizio,
             dataFine: dataFine
         })
-
         return appuntamento.data
     } catch (error) {
         return error

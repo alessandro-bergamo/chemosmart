@@ -313,7 +313,7 @@ app.post('/getPriorita', async (req, res, next) => {
                                 await axios.get('http://localhost:3050/terapie/filter?cf=' + cf).then(function (response) {
                                     const terapie = response.data
 
-                                    res.render(__dirname + "/views/schedulazione", { idPaziente: paziente._id, priorita: priorita, terapie: terapie })
+                                    res.render(__dirname + "/views/schedulazione", { idPaziente: paziente._id,nome:paziente.nome,cognome:paziente.cognome, priorita: priorita, terapie: terapie })
                                 })
 
                             })
@@ -337,13 +337,15 @@ app.post("/generateAppuntamenti", async (req, res) => {
     const frequenza = req.body.frequenza
     const dataInizio = req.body.dataInizio
     const cf = req.body.cf
+    const nome = req.body.nome
+    const cognome = req.body.cognome
     const farmaco = req.body.farmaco
     const durata = req.body.durata
     const priorita = req.body.priorita
     const stato = 'In corso'
 
     try {
-        const appuntamenti = await api.createAppuntamentiTerapia(cf, farmaco, dataInizio, durata, numAppuntamenti, frequenza, priorita)
+        const appuntamenti = await api.createAppuntamentiTerapia(cf,nome, cognome, farmaco, dataInizio, durata, numAppuntamenti, frequenza, priorita)
         const terapia = await api.startTerapia(idTerapia,dataInizio,stato)
         const paziente = await api.updatePaziente(idPaziente, priorita)
         res.status(201).json(appuntamenti)

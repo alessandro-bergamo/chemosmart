@@ -41,6 +41,8 @@
                     </td>
                 </tr>
                 <% }) %>
+                <input type="hidden" name="nome" id="nome" value="<%= nome %>">
+                <input type="hidden" name="cognome" id="cognome" value="<%= cognome %>">
         </tbody>
     </table>
     <form class="w-50">
@@ -117,6 +119,8 @@
             const frequenza = $('#frequenza').val()
             const durata = $("#durata option:selected").val()
             const cf = $('#cf').val()
+            const nome =$('#nome').val()
+            const cognome =$('#cognome').val()
             const farmaco = $('#farmaco').val()
             const priorita = $.trim($('#priorita').val())
             const idPaziente = $.trim($('#idPaziente').val())
@@ -128,6 +132,8 @@
                 dataType: 'json',
                 data: {
                     cf: cf,
+                    nome:nome,
+                    cognome:cognome,
                     farmaco: farmaco,
                     dataInizio: dataInizio,
                     durata: durata,
