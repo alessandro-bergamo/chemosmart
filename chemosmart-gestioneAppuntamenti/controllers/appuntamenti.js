@@ -12,6 +12,21 @@ exports.insertAppuntamento = async (req, res) => {
         res.status(409).json({ message: error.message })
     }
 }
+ //funzione per fromattare correttamente nome e cognome
+function formattaParole(parole) {
+    // Divido la stringa in due parole usando uno spazio come separatore
+    const paroleArray = parole.split(" ");
+    // Formatto ogni parola in modo che inizi con la maiuscola e poi abbia tutte le altre lettere in minuscolo
+    const paroleFormattate = paroleArray.map(parola => {
+      const primaLettera = parola.charAt(0).toUpperCase();
+      const restoParola = parola.slice(1).toLowerCase();
+      return primaLettera + restoParola;
+    });
+    // Unisco le parole formattate in una singola stringa separata da uno spazio
+    const paroleFormattateStringa = paroleFormattate.join(" ");
+    return paroleFormattateStringa;
+  }
+  
 
 //controller per restituire tutti gli appuntamenti
 exports.getAllAppuntamenti = (req, res) => {
@@ -20,7 +35,7 @@ exports.getAllAppuntamenti = (req, res) => {
       const events = [];
       for (const appuntamento of appuntamenti) {
         events.push({
-          title: appuntamento.cfPaziente,
+          title: formattaParole(appuntamento.nome +' '+ appuntamento.cognome),
           start: appuntamento.dataInizio,
           end: appuntamento.dataFine,
           id: appuntamento._id
