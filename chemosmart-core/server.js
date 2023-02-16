@@ -1,3 +1,4 @@
+process.env.TZ='UTC'
 const express = require('express')
 const path = require('path')
 var session = require('express-session')
@@ -291,7 +292,7 @@ app.post('/getPriorita', async (req, res, next) => {
                                 await axios.get('http://localhost:3050/terapie/filter?cf=' + cf).then(function (response) {
                                     const terapie = response.data
                                     
-                                    res.render(__dirname + "/views/schedulazione", { priorita: priorita, terapie: terapie })
+                                    res.render(__dirname + "/views/schedulazione", {idPaziente: paziente._id, priorita: priorita, terapie: terapie })
                                 })
                                 
                             })
@@ -308,8 +309,10 @@ app.post('/getPriorita', async (req, res, next) => {
 
 })
 
-app.post("/generateAppuntamenti", (req,res) => {
+app.post("/generateAppuntamenti", async(req,res) => {
     const numAppuntamenti = req.body.numAppuntamenti
+    const idPaziente = req.body.idPaziente
+    const idTerapia = req.body.idTerapia
     const frequenza = req.body.frequenza
     const dataInizio = req.body.dataInizio
     const cf = req.body.cf
@@ -318,7 +321,9 @@ app.post("/generateAppuntamenti", (req,res) => {
     const priorita = req.body.priorita
     
     try{
-        const appuntamenti = api.createAppuntamentiTerapia(cf,farmaco,dataInizio,durata,numAppuntamenti,frequenza,priorita)
+        const appuntamenti = await api.createAppuntamentiTerapia(cf,farmaco,dataInizio,durata,numAppuntamenti,frequenza,priorita)
+        const paziente = await api.updatePaziente(idPaziente, priorita)
+        const terapia = await api.updateTerapia(idTerapia,'In corso')
         res.status(201).json(appuntamenti)
     } catch (error) {
         res.status(505).send(error.message)

@@ -1,5 +1,5 @@
 const axios = require('axios')
-const timezone = 1
+process.env.TZ='UTC'
 
 async function getPazienti(){
     try{
@@ -12,7 +12,7 @@ async function getPazienti(){
     }
 }
 
-function createAppuntamentiTerapia(cf, farmaco, dataInizio, durata, numAppuntamenti, frequenza, priorita) {
+async function createAppuntamentiTerapia(cf, farmaco, dataInizio, durata, numAppuntamenti, frequenza, priorita) {
     let appuntamenti = []
     let dateInizioAppuntamenti = []
     let dateFineAppuntamenti = []
@@ -38,17 +38,51 @@ function createAppuntamentiTerapia(cf, farmaco, dataInizio, durata, numAppuntame
 
         dateInizioAppuntamenti[i].setHours(parseInt(oraInizio))
         dateFineAppuntamenti[i].setHours(parseInt(oraInizio) + parseInt(durata))
-        
-        appuntamenti[i] = {
-            cf: cf,
-            farmaco: farmaco,
-            dataInizio: dateInizioAppuntamenti[i],
-            dataFine: dateFineAppuntamenti[i],
-            durata: durata
+
+        try {
+            appuntamenti[i] = await createAppuntamento(cf,farmaco,dateInizioAppuntamenti[i],dateFineAppuntamenti[i],durata)
+        } catch (error) {
+            return error
         }
     }
 
     return appuntamenti
 }
 
-module.exports = {getPazienti, createAppuntamentiTerapia}
+async function createAppuntamento(cf,farmaco,dataInizio,dataFine,durata) {
+    try{
+        const appuntamento = await axios.post('http://localhost:3006/appuntamenti/', {
+            cfPaziente: cf,
+            farmaco: farmaco,
+            dataInizio: dataInizio,
+            dataFine: dataFine,
+            durata: durata
+        })
+
+        return appuntamento.data
+    } catch (error) {
+        return error
+    }
+}
+
+async function updatePaziente(id,priorita) {
+    try{
+        const paziente = await axios.patch('http://localhost:3007/pazienti/' + id, {priorita:priorita})
+
+        return paziente
+    } catch(error){
+        return error
+    }
+}
+
+async function updateTerapia(id,stato){
+    try{
+        const terapia = await axios.patch('http://localhost:3050/terapie/' + id, {stato:stato})
+
+        return terapia
+    } catch(error){
+        return error
+    }
+}
+
+module.exports = {getPazienti, createAppuntamentiTerapia, updatePaziente, updateTerapia}

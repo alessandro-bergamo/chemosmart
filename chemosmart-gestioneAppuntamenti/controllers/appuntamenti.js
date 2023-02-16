@@ -4,7 +4,7 @@ const Appuntamento = require('../models/appuntamento.js')
 //controller per inserire un appuntamento 
 exports.insertAppuntamento = async (req, res) => {
     const appuntamento = new Appuntamento(req.body)
-
+    
     try {
         await appuntamento.save()
         res.status(201).json(appuntamento)
