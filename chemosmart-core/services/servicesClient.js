@@ -104,4 +104,32 @@ async function getTerapie() {
     }
 }
 
-module.exports = { getPazienti, createAppuntamentiTerapia, updatePaziente, updateTerapia, aggiungiTerapia, getTerapie }
+async function getTerapiaById(id) {
+    try {
+        const response = await axios.get("http://localhost:3050/terapie/" + id);
+        const terapia = response.data;
+        return terapia;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Errore nel recupero della terapia");
+    }
+}
+
+async function updateTerapia(id, dato) {
+    try {
+        const response = await axios.patch("http://localhost:3050/terapie/" +id, dato);
+        return response.data;
+    } catch (error) {
+        throw new Error(`Errore nella chiamata axios: ${error.message}`);
+    }
+}
+
+async function getAppuntamentoById(id) {
+    return axios.get("http://localhost:3006/appuntamenti/" + id);
+}
+
+async function updateAppuntamento(id, data) {
+    await axios.patch("http://localhost:3006/appuntamenti/" + id, data);
+  }
+  
+module.exports = { getPazienti, createAppuntamentiTerapia, updatePaziente, updateTerapia, aggiungiTerapia, getTerapie, getTerapiaById, updateTerapia,getAppuntamentoById,updateAppuntamento}
