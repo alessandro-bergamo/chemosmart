@@ -1,12 +1,12 @@
 <div class="mt-2">
     <h2 class="fw-bold" style="color:#00407F">Gestisci comodamente gli appuntamenti del calendario</h2>
-    
+
     <ol class=" mt-3 w-50 list-group list-group-numbered">
         <span>Puoi...</span>
         <li class="list-group-item">Inserire un nuovo appuntamento cliccando su qualsiasi giorno del calendario</li>
         <li class="list-group-item">Cliccare su un appuntamento per avere maggiori info</li>
         <li class="list-group-item">Rishedulare in modo istantaneo un appuntamento tramite drag & drop</li>
-      </ol>
+    </ol>
 
 </div>
 
@@ -24,10 +24,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p id="cf"></p>
-                <p id="farmaco"></p>
-                <p id="dataDiInizio"></p>
-                <p id="dataDiFine"></p>
+                <ul class="mb-2 list-group list-group-flush">
+                    <li id="cf" class="list-group-item"></li>
+                    <li id="nomeP" class="list-group-item"></li>
+                    <li id="farmaco" class="list-group-item"></li>
+                    <li id="dataDiInizio" class="list-group-item"></li>
+                    <li id="dataDiFine" class="list-group-item"></li>
+                  </ul>
                 <p id="idHidden" hidden></p>
                 <button type="button" class="btn btn-primary" id="modificaBtn">Modifica</button>
                 <button type="button" class="btn btn-danger" id="deleteBtn">Elimina</button>
@@ -53,6 +56,15 @@
                         <div class="form-group">
                             <label for="cfPaziente">Codice Fiscale</label>
                             <input type="text" class="form-control" name="cfPaziente" id="cfPaziente"
+                                placeholder="Example input">
+                        </div>
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input type="text" class="form-control" name="nome" id="nome" placeholder="Example input">
+                        </div>
+                        <div class="form-group">
+                            <label for="cognome">Cognome</label>
+                            <input type="text" class="form-control" name="cognome" id="cognome"
                                 placeholder="Example input">
                         </div>
                         <div class="form-group">
@@ -119,7 +131,10 @@
                     type: 'GET',
                     url: 'http://localhost:3006/appuntamenti/' + id,
                     success: function (data) {
-                        $('#cf').text(data.cfPaziente);
+
+                        $('#cf').text(data.cfPaziente.toUpperCase());
+
+                        $('#nomeP').text(formattaParola(data.nome) + ' ' + formattaParola(data.cognome));
                         $('#farmaco').text(data.farmaco);
                         const options = {
                             year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric',
@@ -164,14 +179,24 @@
                     }
                 });
             },
-            
+
             initialView: 'dayGridMonth',
             timeZone: 'Europe/Rome'
         });
         calendar.render();
     });
 </script>
-
+<script>
+    function formattaParola(parola) {
+        // Converto la parola in minuscolo e ne prendo la prima lettera
+        const primaLettera = parola.charAt(0).toLowerCase();
+        // Converto la prima lettera in maiuscolo
+        const primaLetteraMaiuscola = primaLettera.toUpperCase();
+        // Concateno la prima lettera maiuscola con il resto della parola in minuscolo
+        const parolaFormattata = primaLetteraMaiuscola + parola.slice(1).toLowerCase();
+        return parolaFormattata;
+    }
+</script>
 <!-- funzione per elimina dal calendario -->
 <script>
     $("#deleteBtn").click(function () {
@@ -182,7 +207,7 @@
             type: "DELETE",
             success: function (data) {
                 alert(`Appuntamento di ${cf} eliminato correttamente`)
-                window.location.href="/calendario"
+                window.location.href = "/calendario"
             },
             error: function (error) {
 
