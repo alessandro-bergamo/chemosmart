@@ -49,7 +49,7 @@ async function createAppuntamentiTerapia(cf, farmaco, dataInizio, durata, numApp
     return appuntamenti
 }
 
-async function createAppuntamento(cf, farmaco, dataInizio, dataFine, durata) {
+async function createAppuntamento(cf, farmaco, dataInizio, dataFine) {
     try {
         const appuntamento = await axios.post('http://localhost:3006/appuntamenti/', {
             cfPaziente: cf,
