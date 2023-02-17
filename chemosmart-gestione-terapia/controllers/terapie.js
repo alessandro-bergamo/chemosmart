@@ -5,33 +5,6 @@ const Terapia = require('../models/terapia.js')
 exports.insertTerapia = async (req, res) => {
     const terapia = new Terapia(req.body)
 
-    if(!req.body.cfPaziente || !req.body.farmaco || !req.body.dataInizio || !req.body.numAppuntamenti || !req.body.frequenzaAppuntamenti || !req.body.stato){
-        res.status(400).json("Non sono stati trovati uno o più parametri")
-    }
-
-    const codiceFiscaleRegex = /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/
-    if(!codiceFiscaleRegex.test(req.body.cfPaziente)){
-        res.status(400).json("Codice Fiscale non è nel formato corretto")
-    }
-
-    const farmacoRegex = /^[\w\s\u00AD\u2010-\u2015\u2212\uFE58\uFE63\uFF0D]+$/u
-    if(!farmacoRegex.test(req.body.farmaco)){
-        res.status(400).json("Il farmaco non è nel formato corretto")
-    }
-
-    const dataInizioRegex = /^(\d{3}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}\+00:00Z)$/
-    if(!dataInizioRegex.test(req.body.dataInizio)){
-        res.status(400).json("La data non è nel formato corretto")
-    }
-
-    if(req.body.numAppuntamenti <= 0){
-        res.status(400).json("Il numero di appuntamenti è inferiore o uguale a 0")
-    }
-
-    if(!req.body.frequenzaAppuntamenti == 7 || !req.body.frequenzaAppuntamenti == 14 || !req.body.frequenzaAppuntamenti == 21 ){
-        res.status(400).json("La frequenza degli appuntamenti non è nel formato numerico che può essere scelto")
-    }
-
     try {
         await terapia.save()
         res.status(201).json(terapia)
