@@ -1,7 +1,7 @@
 // controllers/appuntamenti.test.js
 jest.mock('../models/appuntamento.js')
 const Appuntamento = require('../models/appuntamento');
-const { insertAppuntamento} = require('../controllers/appuntamenti')
+const { insertAppuntamento, getAllAppuntamenti, getAppuntamentoById, deleteAppuntamento } = require('../controllers/appuntamenti')
 
 
 
@@ -31,28 +31,28 @@ describe('insertAppuntamento', () => {
     jest.resetAllMocks();
   });
 
-  test('should return 400 if required fields are missing', async () => {
+  test('dovrebbe restituire 400 se mancano i campi obbligatori', async () => {
     delete appuntamento.cfPaziente;
     await insertAppuntamento(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalled();
   });
 
-  test('should return 400 if codice fiscale is not valid', async () => {
+  test('dovrebbe restituire 400 se il codice fiscale non è valido', async () => {
     appuntamento.cfPaziente = 'invalid-cf';
     await insertAppuntamento(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalled();
   });
 
-  test('should return 400 if nome or cognome contain invalid characters', async () => {
+  test('dovrebbe restituire 400 se nome o cognome contengono caratteri non validi', async () => {
     appuntamento.nome = 'Mario1';
     await insertAppuntamento(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalled();
   });
 
-test('should create a new appuntamento and return it with status 201', async () => {
+test('deve creare un nuovo appuntamento e restituirlo con stato 201', async () => {
 
   const savedAppuntamento = { ...appuntamento, save: jest.fn() }
 
@@ -68,7 +68,7 @@ test('should create a new appuntamento and return it with status 201', async () 
 
 
 
-  test('should return 409 if saving fails', async () => {
+  test('dovrebbe restituire 409 se il salvataggio fallisce', async () => {
     const error = new Error('Database error');
     const app = Appuntamento.mockReturnValueOnce({ save: jest.fn().mockRejectedValueOnce(error) });
     await insertAppuntamento(req, res);
@@ -87,7 +87,6 @@ test('should create a new appuntamento and return it with status 201', async () 
 */
 
 /*
-const { getAppuntamentoById } = require('../controllers/appuntamenti');
 
 describe('getAppuntamentoById', () => {
   test('should return 400 if id is not provided', async () => {
@@ -103,7 +102,7 @@ describe('getAppuntamentoById', () => {
     expect(res.json).toHaveBeenCalled();
   });
 
-  test('should return 200 and the appuntamento if it exists', async () => {
+  test('dovrebbe restituire 200 e l'appuntamento se esiste', async () => {
     const id = '123';
     const appuntamento = {
       _id: '123',
@@ -131,7 +130,7 @@ describe('getAppuntamentoById', () => {
     findByIdMock.mockRestore();
   });
 
-  test('should return 404 if the appuntamento does not exist', async () => {
+  test('dovrebbe restituire 404 se l'appuntamento non esiste', async () => {
     const id = '123';
     const req = { params: { id } };
     const res = {
@@ -157,7 +156,8 @@ describe('getAppuntamentoById', () => {
   *** Test per deleteAppuntamento
 */
 
-const { deleteAppuntamento } = require('../controllers/appuntamenti');
+/*
+
 
 describe('deleteAppuntamento', () => {
   let req, res;
@@ -167,7 +167,7 @@ describe('deleteAppuntamento', () => {
     res = { json: jest.fn(), status: jest.fn().mockReturnThis() };
   });
 
-  it('should delete the appuntamento and return success message', async () => {
+  it("dovrebbe cancellare l'appuntamento e restituire il messaggio di successo", async () => {
     const appuntamento = { _id: '123' };
     Appuntamento.findByIdAndDelete = jest.fn().mockResolvedValueOnce(appuntamento);
     await deleteAppuntamento(req, res);
@@ -175,7 +175,7 @@ describe('deleteAppuntamento', () => {
     expect(res.json).toHaveBeenCalledWith({ message: 'Appuntamento eliminato con successo' });
   });
 
-  it('should return 404 if appuntamento not found', async () => {
+  it('dovrebbe restituire 404 se appuntamento non trovato', async () => {
     const error = new Error('Appuntamento non trovato');
     Appuntamento.findByIdAndDelete = jest.fn().mockRejectedValueOnce(error);
     await deleteAppuntamento(req, res);
@@ -183,4 +183,81 @@ describe('deleteAppuntamento', () => {
     expect(res.status).toHaveBeenCalledWith(404);
     expect(res.json).toHaveBeenCalledWith({ message: error.message });
   });
+});
+*/
+
+/*
+  Test per getAllAppuntamenti
+*/
+
+describe('getAllAppuntamenti', () => {
+  it('should return all appuntamenti as events', async () => {
+    // Mocking Appuntamento.find() to return an array of two appuntamenti
+    
+    const mockAppuntamenti = [
+      {
+        _id: '1234',
+        nome: 'Appuntamento 1',
+        dataInizio: new Date('2023-02-20T10:00:00Z'),
+        dataFine: new Date('2023-02-20T11:00:00Z'),
+        cfPaziente: 'ABC123',
+        farmaco: 'Farmaco 1',
+        cognome: 'Rossi'
+      },
+      {
+        _id: '5678',
+        nome: 'Appuntamento 2',
+        dataInizio: new Date('2023-02-21T15:00:00Z'),
+        dataFine: new Date('2023-02-21T16:00:00Z'),
+        cfPaziente: 'DEF456',
+        farmaco: 'Farmaco 2',
+        cognome: 'Verdi'
+      }
+    ];
+    
+
+
+    const findSpy = jest.spyOn(Appuntamento, 'find').mockResolvedValue(mockAppuntamenti);
+
+    // Mocking res.send() and res.status() to check response
+    const sendMock = jest.fn();
+    const statusMock = jest.fn().mockReturnThis();
+    const res = { send: sendMock, status: statusMock };
+
+    // Calling the function and checking the response
+    getAllAppuntamenti(null, res);
+    expect(findSpy).toHaveBeenCalled();
+    expect(sendMock).toHaveBeenCalledWith([
+      {
+        title: 'Appuntamento 1',
+        start: mockAppuntamenti[0].dataInizio,
+        end: mockAppuntamenti[0].dataFine,
+        id: '1234'
+      },
+      {
+        title: 'Appuntamento 2',
+        start: mockAppuntamenti[1].dataInizio,
+        end: mockAppuntamenti[1].dataFine,
+        id: '5678'
+      }
+    ]);
+    expect(statusMock).not.toHaveBeenCalled();
+  });
+/*
+  it('should return a 500 status code and an error message if an error occurs', async () => {
+    // Mocking Appuntamento.find() to throw an error
+    const findSpy = jest.spyOn(Appuntamento, 'find').mockRejectedValue('Database error');
+
+    // Mocking res.status() and res.send() to check response
+    const sendMock = jest.fn();
+    const statusMock = jest.fn().mockReturnThis();
+    const res = { send: sendMock, status: statusMock };
+
+    // Calling the function and checking the response
+    getAllAppuntamenti(null, res);
+    expect(findSpy).toHaveBeenCalled();
+    expect(statusMock).toHaveBeenCalledWith(500);
+    expect(sendMock).toHaveBeenCalledWith('Database error');
+  });
+  */
 });

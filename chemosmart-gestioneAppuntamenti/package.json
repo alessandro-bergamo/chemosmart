@@ -17,6 +17,7 @@
     "nodemon": "^2.0.20"
   },
   "devDependencies": {
-    "jest": "^29.4.3"
+    "jest": "^29.4.3",
+    "sinon": "^15.0.1"
   }
 }
