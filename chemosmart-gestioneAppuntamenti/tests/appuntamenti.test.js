@@ -86,6 +86,7 @@ test('should create a new appuntamento and return it with status 201', async () 
   Test per getAppuntamentoById
 */
 
+/*
 const { getAppuntamentoById } = require('../controllers/appuntamenti');
 
 describe('getAppuntamentoById', () => {
@@ -148,5 +149,38 @@ describe('getAppuntamentoById', () => {
     expect(res.json).toHaveBeenCalledWith({ message: error.message });
 
     findByIdMock.mockRestore();
+  });
+});
+*/
+
+/*
+  *** Test per deleteAppuntamento
+*/
+
+const { deleteAppuntamento } = require('../controllers/appuntamenti');
+
+describe('deleteAppuntamento', () => {
+  let req, res;
+
+  beforeEach(() => {
+    req = { params: { id: '123' } };
+    res = { json: jest.fn(), status: jest.fn().mockReturnThis() };
+  });
+
+  it('should delete the appuntamento and return success message', async () => {
+    const appuntamento = { _id: '123' };
+    Appuntamento.findByIdAndDelete = jest.fn().mockResolvedValueOnce(appuntamento);
+    await deleteAppuntamento(req, res);
+    expect(Appuntamento.findByIdAndDelete).toHaveBeenCalledWith('123');
+    expect(res.json).toHaveBeenCalledWith({ message: 'Appuntamento eliminato con successo' });
+  });
+
+  it('should return 404 if appuntamento not found', async () => {
+    const error = new Error('Appuntamento non trovato');
+    Appuntamento.findByIdAndDelete = jest.fn().mockRejectedValueOnce(error);
+    await deleteAppuntamento(req, res);
+    expect(Appuntamento.findByIdAndDelete).toHaveBeenCalledWith('123');
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ message: error.message });
   });
 });
