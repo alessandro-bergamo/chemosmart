@@ -1,0 +1,9 @@
+.fc .fc-toolbar-title {
+    font-size: 1.5rem !important;
+    /* Modifica la grandezza dei bottoni */
+}
+
+.fc-toolbar-chunk{
+    font-size: 0.8rem !important;
+}
+
