@@ -133,20 +133,155 @@ describe('getAllPazienti', () => {
 describe('getPazienteById', () => {
   it('deve utilizzare la funzione findById e restituire il paziente il cui id è uguale a quello passato in input', async () => {
     const id = '1234'
-    const paziente = { _id: id, name: 'Mario Rossi', age: 45 }
+    const paziente = [
+        { 
+            id:id,
+            nome: 'Giuliana',
+            cognome: 'Lussu',
+            cf: 'BQNCZS77C59Z603Z',
+            sesso: 'F',
+            dataNascita: '1970-01-01T00:00:00.000Z',
+            eta: 48,
+            telefono: '3321459078',
+            email: 'g.lussu@email.it',
+            indice_inquinamento_ambientale: 6,
+            indice_uso_alcolici: 7,
+            grado_allergia: 7,
+            grado_rischio_lavorativo: 7,
+            indice_fattori_rischio_familiare: 7,
+            indice_malattie_croniche: 6,
+            indice_alimentazione_scorretta: 7,
+            indice_obesita: 7,
+            grado_esposizione_fumo_attivo: 7,
+            grado_esposizione_fumo_passivo: 8,
+            indice_dolori_localizzati: 7,
+            indice_emottisi: 7,
+            indice_astenia: 5,
+            indice_perdita_peso: 3,
+            indice_dispnea: 2,
+            indice_respiro_sibilante: 7,
+            indice_disfagia: 8,
+            stato_dita_di_Ippocrate: 2,
+            stato_immunodepressione: 4,
+            indice_tosse_secca: 5,
+            indice_russamento: 3,
+            priorita: 'Alta'
+        },
+        {
+            id:"abc12345",
+            nome: 'Marco',
+            cognome: 'Rossi',
+            cf: 'YQSCZH77C99Z603Z',
+            sesso: 'M',
+            dataNascita: '1985-01-10T00:00:00.000Z',
+            eta: 35,
+            telefono: '3421659078',
+            email: 'm.rossi@email.it',
+            indice_inquinamento_ambientale: 4,
+            indice_uso_alcolici: 7,
+            grado_allergia: 7,
+            grado_rischio_lavorativo: 7,
+            indice_fattori_rischio_familiare: 7,
+            indice_malattie_croniche: 6,
+            indice_alimentazione_scorretta: 6,
+            indice_obesita: 5,
+            grado_esposizione_fumo_attivo: 7,
+            grado_esposizione_fumo_passivo: 8,
+            indice_dolori_localizzati: 7,
+            indice_emottisi: 7,
+            indice_astenia: 5,
+            indice_perdita_peso: 4,
+            indice_dispnea: 2,
+            indice_respiro_sibilante: 7,
+            indice_disfagia: 8,
+            stato_dita_di_Ippocrate: 2,
+            stato_immunodepressione: 3,
+            indice_tosse_secca: 5,
+            indice_russamento: 3,
+            priorita: 'Media'
+        }
+    ]
     const req = { params: { id } }
     const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
     
-    jest.spyOn(Paziente, 'findById').mockResolvedValueOnce(paziente)
+    jest.spyOn(Paziente, 'findById').mockResolvedValueOnce(paziente[0])
     await getPazienteById(req, res)
     
     expect(Paziente.findById).toHaveBeenCalledWith(id)
     expect(res.status).toHaveBeenCalledWith(200)
-    expect(res.json).toHaveBeenCalledWith(paziente)
+    expect(res.json).toHaveBeenCalledWith(paziente[0])
   })
 
   it('Deve restituire una lista di pazienti vuota se nessun paziente ha id uguale a quello passato in input', async () => {
     const id = '5678'
+    const paziente = [
+        { 
+            id:id,
+            nome: 'Giuliana',
+            cognome: 'Lussu',
+            cf: 'BQNCZS77C59Z603Z',
+            sesso: 'F',
+            dataNascita: '1970-01-01T00:00:00.000Z',
+            eta: 48,
+            telefono: '3321459078',
+            email: 'g.lussu@email.it',
+            indice_inquinamento_ambientale: 6,
+            indice_uso_alcolici: 7,
+            grado_allergia: 7,
+            grado_rischio_lavorativo: 7,
+            indice_fattori_rischio_familiare: 7,
+            indice_malattie_croniche: 6,
+            indice_alimentazione_scorretta: 7,
+            indice_obesita: 7,
+            grado_esposizione_fumo_attivo: 7,
+            grado_esposizione_fumo_passivo: 8,
+            indice_dolori_localizzati: 7,
+            indice_emottisi: 7,
+            indice_astenia: 5,
+            indice_perdita_peso: 3,
+            indice_dispnea: 2,
+            indice_respiro_sibilante: 7,
+            indice_disfagia: 8,
+            stato_dita_di_Ippocrate: 2,
+            stato_immunodepressione: 4,
+            indice_tosse_secca: 5,
+            indice_russamento: 3,
+            priorita: 'Alta'
+        },
+        {
+            id:"abc12345",
+            nome: 'Marco',
+            cognome: 'Rossi',
+            cf: 'YQSCZH77C99Z603Z',
+            sesso: 'M',
+            dataNascita: '1985-01-10T00:00:00.000Z',
+            eta: 35,
+            telefono: '3421659078',
+            email: 'm.rossi@email.it',
+            indice_inquinamento_ambientale: 4,
+            indice_uso_alcolici: 7,
+            grado_allergia: 7,
+            grado_rischio_lavorativo: 7,
+            indice_fattori_rischio_familiare: 7,
+            indice_malattie_croniche: 6,
+            indice_alimentazione_scorretta: 6,
+            indice_obesita: 5,
+            grado_esposizione_fumo_attivo: 7,
+            grado_esposizione_fumo_passivo: 8,
+            indice_dolori_localizzati: 7,
+            indice_emottisi: 7,
+            indice_astenia: 5,
+            indice_perdita_peso: 4,
+            indice_dispnea: 2,
+            indice_respiro_sibilante: 7,
+            indice_disfagia: 8,
+            stato_dita_di_Ippocrate: 2,
+            stato_immunodepressione: 3,
+            indice_tosse_secca: 5,
+            indice_russamento: 3,
+            priorita: 'Media'
+        }
+    ]
     const req = { params: { id } }
     const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
     
