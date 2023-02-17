@@ -1,10 +1,15 @@
 // controllers/appuntamenti.test.js
-
-const Appuntamento = require('../models/appuntamento');
-const { insertAppuntamento } = require('../controllers/appuntamenti')
-
 jest.mock('../models/appuntamento.js')
+const Appuntamento = require('../models/appuntamento');
+const { insertAppuntamento} = require('../controllers/appuntamenti')
 
+
+
+/*
+  Test per insertAppuntamento 
+*/
+
+/*
 describe('insertAppuntamento', () => {
   let req, res, appuntamento;
 
@@ -73,4 +78,75 @@ test('should create a new appuntamento and return it with status 201', async () 
     expect(res.json).toHaveBeenCalledWith({ message: error.message });
   });
 
+});
+*/
+
+
+/*
+  Test per getAppuntamentoById
+*/
+
+const { getAppuntamentoById } = require('../controllers/appuntamenti');
+
+describe('getAppuntamentoById', () => {
+  test('should return 400 if id is not provided', async () => {
+    const req = { params: {} };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+
+    await getAppuntamentoById(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalled();
+  });
+
+  test('should return 200 and the appuntamento if it exists', async () => {
+    const id = '123';
+    const appuntamento = {
+      _id: '123',
+      nome: 'Mario',
+      cognome: 'Rossi',
+      cfPaziente: 'RSSMRA80A01F205Z',
+      dataInizio: new Date('2022-03-10T09:00:00.000Z'),
+      dataFine: new Date('2022-03-10T10:00:00.000Z'),
+      farmaco: 'Aspirina',
+    };
+    const req = { params: { id } };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+    const findByIdMock = jest.spyOn(Appuntamento, 'findById');
+    findByIdMock.mockResolvedValueOnce(appuntamento);
+
+    await getAppuntamentoById(req, res);
+
+    expect(findByIdMock).toHaveBeenCalledWith(id);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(appuntamento);
+
+    findByIdMock.mockRestore();
+  });
+
+  test('should return 404 if the appuntamento does not exist', async () => {
+    const id = '123';
+    const req = { params: { id } };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+    const error = new Error('Appuntamento not found');
+    const findByIdMock = jest.spyOn(Appuntamento, 'findById');
+    findByIdMock.mockRejectedValueOnce(error);
+
+    await getAppuntamentoById(req, res);
+
+    expect(findByIdMock).toHaveBeenCalledWith(id);
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ message: error.message });
+
+    findByIdMock.mockRestore();
+  });
 });

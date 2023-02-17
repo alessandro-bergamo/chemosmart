@@ -84,6 +84,9 @@ exports.getAllAppuntamenti = (req, res) => {
 exports.getAppuntamentoById = async (req, res) => {
     const id = req.params.id
 
+    if(!id){
+        res.status(400).json()
+    }
     try {
         const appuntamento = await Appuntamento.findById(id)
         res.status(200).json(appuntamento)
