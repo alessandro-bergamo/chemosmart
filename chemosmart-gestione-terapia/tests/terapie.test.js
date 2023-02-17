@@ -1,5 +1,5 @@
 const Terapia = require('../models/terapia')
-const { deleteTerapia,updateTerapia,getTerapiaFilter, insertTerapia } = require('../controllers/terapie')
+const { deleteTerapia,updateTerapia,getTerapiaFilter, insertTerapia, getAllTerapie } = require('../controllers/terapie')
 
 //Cancella Terapia
 describe('deleteTerapia', () => {
@@ -245,4 +245,48 @@ describe('insertTerapia', () => {
   });
 });
 
-//Restituire Tutte Le Terapie
+//Restituisce Tutte le Terapie
+describe('getAllTerapie', () => {
+    it('Dovrebbe restituire tutti le terapie', async () => {
+      const terapie = [
+        {
+            cfPaziente: 'RSSMRA85A01F205D',
+            farmaco: 'Paracetamolo',
+            dataInizio: new Date("2022-02-16"),
+            numAppuntamenti: 10,
+            frequenzaAppuntamenti: 7,
+            stato: 'In corso'
+        },
+        {
+            cfPaziente: 'RSSMRA85A01F205D',
+            farmaco: 'Aspirina',
+            dataInizio: new Date("2022-02-22"),
+            numAppuntamenti: 3,
+            frequenzaAppuntamenti: 14,
+            stato: 'Terminata'
+        }
+      ]
+      const req = {}
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
+      
+      jest.spyOn(Terapia, 'find').mockResolvedValue(terapie)
+      await getAllTerapie(req, res)
+  
+      expect(res.status).toHaveBeenCalledWith(200)
+      expect(res.json).toHaveBeenCalledWith(terapie)
+      expect(Terapia.find).toHaveBeenCalled()
+    })
+  
+    it('Dovrebbe restituire una risposta di errore con status 404 se non vengono trovate le terapie', async () => {
+      const errorMessage = 'Nessuna terapia trovata'
+      const req = {}
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
+      
+      jest.spyOn(Terapia, 'find').mockRejectedValue(new Error(errorMessage))
+      await getAllTerapie(req, res)
+  
+      expect(res.status).toHaveBeenCalledWith(404)
+      expect(res.json).toHaveBeenCalledWith({ message: errorMessage })
+      expect(Terapia.find).toHaveBeenCalled()
+    })
+  })
