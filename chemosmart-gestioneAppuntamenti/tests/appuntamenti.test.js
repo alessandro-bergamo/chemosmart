@@ -1,7 +1,7 @@
 // controllers/appuntamenti.test.js
 jest.mock('../models/appuntamento.js')
 const Appuntamento = require('../models/appuntamento');
-const { insertAppuntamento, getAllAppuntamenti, getAppuntamentoById, deleteAppuntamento } = require('../controllers/appuntamenti')
+const { insertAppuntamento, getAllAppuntamenti, getAppuntamentoById, deleteAppuntamento, updateAppuntamento } = require('../controllers/appuntamenti')
 
 
 
@@ -260,4 +260,31 @@ describe('getAllAppuntamenti', () => {
     expect(sendMock).toHaveBeenCalledWith('Database error');
   });
   */
+}); 
+
+describe('updateAppuntamento', () => {
+  const id = 'id_appuntamento';
+  const data = {cfPaziente:"NPPNTN98R24I483C",farmaco:"Aspirina"};
+  const appuntamento = { ...data, _id: id };
+  const req = { params: { id }, body: data };
+  const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
+  it('dovrebbe restituire l\'appuntamento aggiornato', async () => {
+    jest.spyOn(Appuntamento, 'findByIdAndUpdate').mockResolvedValueOnce(appuntamento);
+
+    await updateAppuntamento(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(appuntamento);
+  });
+
+  it('dovrebbe restituire un errore 404 se non viene trovato l\'appuntamento', async () => {
+    const error = { message: 'Appuntamento non trovato' };
+    jest.spyOn(Appuntamento, 'findByIdAndUpdate').mockRejectedValueOnce(error);
+
+    await updateAppuntamento(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ message: error.message });
+  });
 });
