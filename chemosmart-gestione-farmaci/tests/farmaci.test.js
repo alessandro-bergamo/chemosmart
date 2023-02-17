@@ -1,4 +1,4 @@
-const { deleteFarmaco, updateFarmaco } = require('../controllers/farmaci') 
+const { deleteFarmaco, updateFarmaco,getAllFarmaci } = require('../controllers/farmaci') 
 const Farmaco = require('../models/farmaco')
 
 describe('deleteFarmaco', () => {
@@ -95,5 +95,47 @@ describe('updateFarmaco', () => {
         expect(Farmaco.findByIdAndUpdate).toHaveBeenCalledWith(id, data, { new: true })
         expect(res.status).toHaveBeenCalledWith(404)
         expect(res.json).toHaveBeenCalledWith({ message: errorMessage })
+    })
+})
+
+//Restituisce Tutte i Farmaci
+describe('getAllFarmaci', () => {
+    it('Dovrebbe restituire tutti i Farmaci', async () => {
+        const farmaci = [
+            {
+                nome:"Docetaxel",
+                descrizione:"un agente chemioterapico, appartenente alla classe dei farmaci cosidde…",
+                dose:"200mg/ml",
+                stock:40  
+            },
+            {
+                nome:"Gemcitabina",
+                descrizione:"farmaco antineoplastico del gruppo degli antimetaboliti pirimidinici",
+                dose:"150mg",
+                stock:80  
+            }
+        ]
+        const req = {}
+        const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
+
+        jest.spyOn(Farmaco, 'find').mockResolvedValue(farmaci)
+        await getAllFarmaci(req, res)
+
+        expect(res.status).toHaveBeenCalledWith(200)
+        expect(res.json).toHaveBeenCalledWith(farmaci)
+        expect(Farmaco.find).toHaveBeenCalled()
+    })
+
+    it('Dovrebbe restituire una risposta di errore con status 404 se c\'è un errore nella restituzione di tutti i farmaci', async () => {
+        const errorMessage = 'Nessun Farmaco trovato'
+        const req = {}
+        const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
+
+        jest.spyOn(Farmaco, 'find').mockRejectedValue(new Error(errorMessage))
+        await getAllFarmaci(req, res)
+
+        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.json).toHaveBeenCalledWith({ message: errorMessage })
+        expect(Farmaco.find).toHaveBeenCalled()
     })
 })
