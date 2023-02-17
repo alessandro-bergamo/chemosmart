@@ -1,6 +1,6 @@
 //Insert paziente
 const Paziente = require('../models/Paziente.js');
-const { insertPaziente, getPazienteById, getAllPazienti, deletePaziente } = require('../controllers/pazienti_controller.js');
+const { insertPaziente, getPazienteById, getAllPazienti, deletePaziente, updatePaziente } = require('../controllers/pazienti_controller.js');
 
 describe('insertPaziente', () => {
     const mockReq = {
@@ -347,6 +347,120 @@ describe('deletePaziente', () => {
         await deletePaziente(req, res)
 
         expect(Paziente.findByIdAndDelete).toHaveBeenCalledWith(id)
+        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.json).toHaveBeenCalledWith({ message: errorMessage })
+    })
+})
+
+//updatePaziente
+describe('updatePaziente', () => {
+    test('deve aggiornare il Paziente tramite l\'id ricevuto in input e restituire il Paziente aggiornato', async () => {
+        const id = '123'
+        const data = {
+            nome: 'Marco',
+            cognome: 'Rossi',
+            cf: 'YQSCZH77C99Z603Z',
+            sesso: 'M',
+            dataNascita: new Date('1970-01-01'),
+            eta: 35,
+            telefono: '3421659078',
+            email: 'm.rossi@email.it',
+            indice_inquinamento_ambientale: 4,
+            indice_uso_alcolici: 7,
+            grado_allergia: 7,
+            grado_rischio_lavorativo: 7,
+            indice_fattori_rischio_familiare: 7,
+            indice_malattie_croniche: 6,
+            indice_alimentazione_scorretta: 6,
+            indice_obesita: 5,
+            grado_esposizione_fumo_attivo: 7,
+            grado_esposizione_fumo_passivo: 8,
+            indice_dolori_localizzati: 7,
+            indice_emottisi: 7,
+            indice_astenia: 5,
+            indice_perdita_peso: 4,
+            indice_dispnea: 2,
+            indice_respiro_sibilante: 7,
+            indice_disfagia: 8,
+            stato_dita_di_Ippocrate: 2,
+            stato_immunodepressione: 3,
+            indice_tosse_secca: 5,
+            indice_russamento: 3,
+            priorita: 'Media'
+        }
+        const req = {
+            params: {
+                id: id
+            },
+            body: data
+        }
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        }
+        const updatedPaziente = {
+            _id: id,
+            ...data
+        }
+        jest.spyOn(Paziente, 'findByIdAndUpdate').mockResolvedValueOnce(updatedPaziente)
+
+        await updatePaziente(req, res)
+
+        expect(Paziente.findByIdAndUpdate).toHaveBeenCalledWith(id, data, {new:true})
+        expect(res.status).toHaveBeenCalledWith(200)
+        expect(res.json).toHaveBeenCalledWith(updatedPaziente)
+    })
+
+    test('Se il Paziente con dato id di input non è presente, deve impostare stato della richiesta a 404 e restituire un messaggio di errore', async () => {
+        const id = '123'
+        const data = {
+            nome: 'Marco',
+            cognome: 'Rossi',
+            cf: 'YQSCZH77C99Z603Z',
+            sesso: 'M',
+            dataNascita: new Date('1970-01-01'),
+            eta: 35,
+            telefono: '3421659078',
+            email: 'm.rossi@email.it',
+            indice_inquinamento_ambientale: 4,
+            indice_uso_alcolici: 7,
+            grado_allergia: 7,
+            grado_rischio_lavorativo: 7,
+            indice_fattori_rischio_familiare: 7,
+            indice_malattie_croniche: 6,
+            indice_alimentazione_scorretta: 6,
+            indice_obesita: 5,
+            grado_esposizione_fumo_attivo: 7,
+            grado_esposizione_fumo_passivo: 8,
+            indice_dolori_localizzati: 7,
+            indice_emottisi: 7,
+            indice_astenia: 5,
+            indice_perdita_peso: 4,
+            indice_dispnea: 2,
+            indice_respiro_sibilante: 7,
+            indice_disfagia: 8,
+            stato_dita_di_Ippocrate: 2,
+            stato_immunodepressione: 3,
+            indice_tosse_secca: 5,
+            indice_russamento: 3,
+            priorita: 'Media'
+        }
+        const req = {
+            params: {
+                id: id
+            },
+            body: data
+        }
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        }
+        const errorMessage = 'Paziente non trovato'
+        jest.spyOn(Paziente, 'findByIdAndUpdate').mockRejectedValueOnce(new Error(errorMessage))
+
+        await updatePaziente(req, res)
+
+        expect(Paziente.findByIdAndUpdate).toHaveBeenCalledWith(id, data, {new:true})
         expect(res.status).toHaveBeenCalledWith(404)
         expect(res.json).toHaveBeenCalledWith({ message: errorMessage })
     })
