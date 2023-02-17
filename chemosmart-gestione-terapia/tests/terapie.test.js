@@ -1,9 +1,9 @@
 const Terapia = require('../models/terapia')
-const { deleteTerapia,updateTerapia,getTerapiaFilter, insertTerapia, getAllTerapie } = require('../controllers/terapie')
+const { deleteTerapia, updateTerapia, getTerapiaFilter, insertTerapia, getAllTerapie, getTerapiaById } = require('../controllers/terapie')
 
 //Cancella Terapia
 describe('deleteTerapia', () => {
-    test('deve cancellare una Terapia con l\'id passato e restituire un messaggio di successo', async () => {
+    test('Dovrebbe cancellare una Terapia con l\'id passato e restituire un messaggio di successo', async () => {
         const id = '123'
         const req = {
             params: {
@@ -21,7 +21,7 @@ describe('deleteTerapia', () => {
         expect(res.json).toHaveBeenCalledWith({ message: 'Terapia eliminata con successo' })
     })
 
-    test('in caso di Terapia non trovata imposta stato richiesta come 400 e restituisce errore', async () => {
+    test('Dovrebbe impostare stato richiesta come 400 e restituisce errore in caso di terapia non trovata', async () => {
         const id = '123'
         const req = {
             params: {
@@ -45,7 +45,7 @@ describe('deleteTerapia', () => {
 
 //Aggiorna Terapia
 describe('updateTerapia', () => {
-    test('deve aggiornare la Terapia tramite l\'id ricevuto in input e restituire la Terapia aggiornata', async () => {
+    test('Dovrebbe aggiornare la Terapia tramite l\'id ricevuto in input e restituire la Terapia aggiornata', async () => {
         const id = '123'
         const data = {
             farmaco: 'Aspirina',
@@ -69,12 +69,12 @@ describe('updateTerapia', () => {
 
         await updateTerapia(req, res)
 
-        expect(Terapia.findByIdAndUpdate).toHaveBeenCalledWith(id, data, {new:true})
+        expect(Terapia.findByIdAndUpdate).toHaveBeenCalledWith(id, data, { new: true })
         expect(res.status).toHaveBeenCalledWith(200)
         expect(res.json).toHaveBeenCalledWith(updatedTerapia)
     })
 
-    test('Se la Terapia con dato id di input non è presente, deve impostare stato della richiesta a 404 e restituire un messaggio di errore', async () => {
+    test('Dovrebbe impostare stato della richiesta a 404 e restituire un messaggio di errore se la Terapia con dato id di input non è presente' , async () => {
         const id = '123'
         const data = {
             farmaco: 'Aspirina',
@@ -95,7 +95,7 @@ describe('updateTerapia', () => {
 
         await updateTerapia(req, res)
 
-        expect(Terapia.findByIdAndUpdate).toHaveBeenCalledWith(id, data, {new:true})
+        expect(Terapia.findByIdAndUpdate).toHaveBeenCalledWith(id, data, { new: true })
         expect(res.status).toHaveBeenCalledWith(404)
         expect(res.json).toHaveBeenCalledWith({ message: errorMessage })
     })
@@ -103,7 +103,7 @@ describe('updateTerapia', () => {
 
 //Restituisce Terapia Filtrata
 describe('getTerapiaFilter', () => {
-    test('deve ritornare la Terapia il cui cfPaziente è uguale al cf passato in input', async () => {
+    test('Dovrebbe restiruire la Terapia il cui cfPaziente è uguale al cf passato in input', async () => {
         const cf = 'abc123'
         const req = {
             query: {
@@ -138,12 +138,12 @@ describe('getTerapiaFilter', () => {
 
         await getTerapiaFilter(req, res)
 
-        expect(Terapia.find).toHaveBeenCalledWith({cfPaziente: { $regex: new RegExp(`^${cf.toLowerCase()}`, 'i').exec()}})
+        expect(Terapia.find).toHaveBeenCalledWith({ cfPaziente: { $regex: new RegExp(`^${cf.toLowerCase()}`, 'i').exec() } })
         expect(res.status).toHaveBeenCalledWith(200)
         expect(res.json).toHaveBeenCalledWith(terapia[0])
     })
 
-    test('deve ritornare un array di Terapia vuoto se nessuna Terapia ha come cfPaziente il cf passato in input', async () => {
+    test('Dovrebbe restituire un array di Terapia vuoto se nessuna Terapia ha come cfPaziente il cf passato in input', async () => {
         const cf = 'abc123'
         const req = {
             query: {
@@ -155,24 +155,24 @@ describe('getTerapiaFilter', () => {
             json: jest.fn()
         }
         const terapia = [{
-                _id: '1',
-                cfPaziente: 'abc12345',
-                farmaco: 'Aspirina',
-                dataInizio: '2023-01-15T00:00:00.000Z',
-                numAppuntamenti: 4,
-                frequenzaAppuntamenti: 14,
-                stato: 'In corso'
+            _id: '1',
+            cfPaziente: 'abc12345',
+            farmaco: 'Aspirina',
+            dataInizio: '2023-01-15T00:00:00.000Z',
+            numAppuntamenti: 4,
+            frequenzaAppuntamenti: 14,
+            stato: 'In corso'
         }]
         jest.spyOn(Terapia, 'find').mockResolvedValueOnce([])
 
         await getTerapiaFilter(req, res)
 
-        expect(Terapia.find).toHaveBeenCalledWith({cfPaziente: { $regex: new RegExp(`^${cf.toLowerCase()}`, 'i').exec()}})
+        expect(Terapia.find).toHaveBeenCalledWith({ cfPaziente: { $regex: new RegExp(`^${cf.toLowerCase()}`, 'i').exec() } })
         expect(res.status).toHaveBeenCalledWith(200)
         expect(res.json).toHaveBeenCalledWith([])
     })
 
-    test('in caso di errore nella ricerca della Terapia, deve impostare lo stato della richiesta al codice 404 e restituire un messaggio di errore', async () => {
+    test('Dovrebbe impostare lo stato della richiesta al codice 404 e restituire un messaggio di errore in caso di errore nella ricerca della Terapia', async () => {
         const cf = 'abc123'
         const req = {
             query: {
@@ -188,7 +188,7 @@ describe('getTerapiaFilter', () => {
 
         await getTerapiaFilter(req, res)
 
-        expect(Terapia.find).toHaveBeenCalledWith({cfPaziente: { $regex: new RegExp(`^${cf.toLowerCase()}`, 'i').exec()}})
+        expect(Terapia.find).toHaveBeenCalledWith({ cfPaziente: { $regex: new RegExp(`^${cf.toLowerCase()}`, 'i').exec() } })
         expect(res.status).toHaveBeenCalledWith(404)
         expect(res.json).toHaveBeenCalledWith({ message: errorMessage })
     })
@@ -196,60 +196,108 @@ describe('getTerapiaFilter', () => {
 
 //Inserimento Nuova Terapia
 describe('insertTerapia', () => {
-  const mockReq = {
-      body: {
-        cfPaziente: 'RSSMRA85A01F205D',
-        farmaco: 'Paracetamolo',
-        dataInizio: new Date("2022-02-16"),
-        numAppuntamenti: 10,
-        frequenzaAppuntamenti: 7,
-        stato: 'In corso'
-      },
-  };
-  const mockRes = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
-  };
+    const mockReq = {
+        body: {
+            cfPaziente: 'RSSMRA85A01F205D',
+            farmaco: 'Paracetamolo',
+            dataInizio: new Date("2022-02-16"),
+            numAppuntamenti: 10,
+            frequenzaAppuntamenti: 7,
+            stato: 'In corso'
+        },
+    };
+    const mockRes = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+    };
 
-  beforeAll(() => {
-      jest.spyOn(Terapia.prototype, 'save').mockResolvedValue();
-  });
+    beforeAll(() => {
+        jest.spyOn(Terapia.prototype, 'save').mockResolvedValue();
+    });
 
-  afterEach(() => {
-      jest.clearAllMocks();
-  });
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
 
-  it('Deve inserire una nuova terapia e restituisce 201 come status code', async () => {
-      await insertTerapia(mockReq, mockRes);
+    it('Dovrebbe inserire una nuova terapia e restituisce la terapia appena creata e imposta 201 come status code della richiesta', async () => {
+        await insertTerapia(mockReq, mockRes);
 
-      expect(mockRes.status).toHaveBeenCalledWith(201);
-      expect(mockRes.json).toHaveBeenCalledWith(expect.objectContaining({
-        cfPaziente: mockReq.body.cfPaziente,
-        farmaco: mockReq.body.farmaco,
-        dataInizio: mockReq.body.dataInizio,
-        numAppuntamenti: mockReq.body.numAppuntamenti,
-        frequenzaAppuntamenti: mockReq.body.frequenzaAppuntamenti,
-        stato: mockReq.body.stato
-      }));
-      expect(Terapia.prototype.save).toHaveBeenCalledWith();
-  });
+        expect(mockRes.status).toHaveBeenCalledWith(201);
+        expect(mockRes.json).toHaveBeenCalledWith(expect.objectContaining({
+            cfPaziente: mockReq.body.cfPaziente,
+            farmaco: mockReq.body.farmaco,
+            dataInizio: mockReq.body.dataInizio,
+            numAppuntamenti: mockReq.body.numAppuntamenti,
+            frequenzaAppuntamenti: mockReq.body.frequenzaAppuntamenti,
+            stato: mockReq.body.stato
+        }));
+        expect(Terapia.prototype.save).toHaveBeenCalledWith();
+    });
 
-  it('Deve restituire 409 come status code e un messaggio di errore se è stato trovato un errore nel salvataggio', async () => {
-      const mockError = new Error('Mock save error');
-      Terapia.prototype.save.mockRejectedValueOnce(mockError);
+    it('Dovrebbe restituire 409 come status code e un messaggio di errore se è stato trovato un errore nel salvataggio', async () => {
+        const mockError = new Error('Mock save error');
+        Terapia.prototype.save.mockRejectedValueOnce(mockError);
 
-      await insertTerapia(mockReq, mockRes);
+        await insertTerapia(mockReq, mockRes);
 
-      expect(mockRes.status).toHaveBeenCalledWith(409);
-      expect(mockRes.json).toHaveBeenCalledWith({ message: mockError.message });
-  });
+        expect(mockRes.status).toHaveBeenCalledWith(409);
+        expect(mockRes.json).toHaveBeenCalledWith({ message: mockError.message });
+    });
 });
 
 //Restituisce Tutte le Terapie
 describe('getAllTerapie', () => {
-    it('Dovrebbe restituire tutti le terapie', async () => {
+    it('Dovrebbe restituire tutte le terapie', async () => {
+        const terapie = [
+            {
+                cfPaziente: 'RSSMRA85A01F205D',
+                farmaco: 'Paracetamolo',
+                dataInizio: new Date("2022-02-16"),
+                numAppuntamenti: 10,
+                frequenzaAppuntamenti: 7,
+                stato: 'In corso'
+            },
+            {
+                cfPaziente: 'RSSMRA85A01F205D',
+                farmaco: 'Aspirina',
+                dataInizio: new Date("2022-02-22"),
+                numAppuntamenti: 3,
+                frequenzaAppuntamenti: 14,
+                stato: 'Terminata'
+            }
+        ]
+        const req = {}
+        const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
+
+        jest.spyOn(Terapia, 'find').mockResolvedValue(terapie)
+        await getAllTerapie(req, res)
+
+        expect(res.status).toHaveBeenCalledWith(200)
+        expect(res.json).toHaveBeenCalledWith(terapie)
+        expect(Terapia.find).toHaveBeenCalled()
+    })
+
+    it('Dovrebbe restituire una risposta di errore con status 404 se c\'è un errore nella restituzione di tutte le terapie', async () => {
+        const errorMessage = 'Nessuna terapia trovata'
+        const req = {}
+        const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
+
+        jest.spyOn(Terapia, 'find').mockRejectedValue(new Error(errorMessage))
+        await getAllTerapie(req, res)
+
+        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.json).toHaveBeenCalledWith({ message: errorMessage })
+        expect(Terapia.find).toHaveBeenCalled()
+    })
+})
+
+//Restituisce una terapia in base al suo id
+describe('getTerapiaById', () => {
+    it('Dovrebbe utilizzare la funzione findById e restituire la terapia il cui id è uguale a quello passato in input', async () => {
+      const id = '1234'
       const terapie = [
         {
+            id: id,
             cfPaziente: 'RSSMRA85A01F205D',
             farmaco: 'Paracetamolo',
             dataInizio: new Date("2022-02-16"),
@@ -258,6 +306,7 @@ describe('getAllTerapie', () => {
             stato: 'In corso'
         },
         {
+            id: "abcd",
             cfPaziente: 'RSSMRA85A01F205D',
             farmaco: 'Aspirina',
             dataInizio: new Date("2022-02-22"),
@@ -265,28 +314,62 @@ describe('getAllTerapie', () => {
             frequenzaAppuntamenti: 14,
             stato: 'Terminata'
         }
-      ]
-      const req = {}
+    ]
+      const req = { params: { id } }
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
       
-      jest.spyOn(Terapia, 'find').mockResolvedValue(terapie)
-      await getAllTerapie(req, res)
-  
+      jest.spyOn(Terapia, 'findById').mockResolvedValueOnce(terapie[0])
+      await getTerapiaById(req, res)
+      
+      expect(Terapia.findById).toHaveBeenCalledWith(id)
       expect(res.status).toHaveBeenCalledWith(200)
-      expect(res.json).toHaveBeenCalledWith(terapie)
-      expect(Terapia.find).toHaveBeenCalled()
+      expect(res.json).toHaveBeenCalledWith(terapie[0])
     })
   
-    it('Dovrebbe restituire una risposta di errore con status 404 se non vengono trovate le terapie', async () => {
-      const errorMessage = 'Nessuna terapia trovata'
-      const req = {}
+    it('Dovrebbe restituire una lista di terapie vuota se nessuna terapia ha id uguale a quello passato in input', async () => {
+      const id = '5678'
+      const terapie = [
+        {
+            id: "abcd",
+            cfPaziente: 'RSSMRA85A01F205D',
+            farmaco: 'Paracetamolo',
+            dataInizio: new Date("2022-02-16"),
+            numAppuntamenti: 10,
+            frequenzaAppuntamenti: 7,
+            stato: 'In corso'
+        },
+        {
+            id: "1234",
+            cfPaziente: 'RSSMRA85A01F205D',
+            farmaco: 'Aspirina',
+            dataInizio: new Date("2022-02-22"),
+            numAppuntamenti: 3,
+            frequenzaAppuntamenti: 14,
+            stato: 'Terminata'
+        }
+    ]
+      const req = { params: { id } }
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
       
-      jest.spyOn(Terapia, 'find').mockRejectedValue(new Error(errorMessage))
-      await getAllTerapie(req, res)
+      jest.spyOn(Terapia, 'findById').mockResolvedValueOnce([])
+      await getTerapiaById(req, res)
   
+      expect(Terapia.findById).toHaveBeenCalledWith(id)
+      expect(res.status).toHaveBeenCalledWith(200)
+      expect(res.json).toHaveBeenCalledWith([])
+    })
+  
+    it('Dovrebbe impostare lo stato della chiamata al codice 404 e restiruire messaggio di errore', async () => {
+      const id = 'abcd'
+      const errorMessage = 'An error occurred'
+      const req = { params: { id } }
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
+      
+      jest.spyOn(Terapia, 'findById').mockRejectedValueOnce(new Error(errorMessage))
+      await getTerapiaById(req, res)
+  
+      expect(Terapia.findById).toHaveBeenCalledWith(id)
       expect(res.status).toHaveBeenCalledWith(404)
       expect(res.json).toHaveBeenCalledWith({ message: errorMessage })
-      expect(Terapia.find).toHaveBeenCalled()
     })
   })

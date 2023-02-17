@@ -24,7 +24,7 @@ exports.getAllTerapie = async (req, res) => {
     }
 }
 
-//controller per restituire una terapia in base all'id
+//controller per restituire una terapia in base all'id 
 exports.getTerapiaById = async (req, res) => {
     const id = req.params.id
 
