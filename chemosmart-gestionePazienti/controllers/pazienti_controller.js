@@ -112,7 +112,7 @@ exports.updatePaziente = async(req,res) => {
 @throws {Error} Errore generato nel caso in cui la ricerca dei pazienti fallisca.
 @precondition Le query string devono essere presenti nei parametri della richiesta HTTP.
 @postcondition Vengono restituiti i pazienti filtrati tramite le query string e viene restituita la risposta HTTP contenente i pazienti filtrati.
-@autor Giuseppe Rossi
+@autor Luigi Miranda
 */
 exports.getPazienteFilter = async(req,res) => {
     const nomeQuery = req.query.nome ? req.query.nome : ""
