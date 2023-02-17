@@ -1,5 +1,5 @@
 const Terapia = require('../models/terapia')
-const { deleteTerapia,updateTerapia,getTerapiaFilter } = require('../controllers/terapie')
+const { deleteTerapia,updateTerapia,getTerapiaFilter, insertTerapia } = require('../controllers/terapie')
 
 describe('deleteTerapia', () => {
     test('deve cancellare una Terapia con l\'id passato e restituire un messaggio di successo', async () => {
@@ -190,3 +190,53 @@ describe('getTerapiaFilter', () => {
         expect(res.json).toHaveBeenCalledWith({ message: errorMessage })
     })
 })
+
+describe('insertTerapia', () => {
+  const mockReq = {
+      body: {
+        cfPaziente: 'RSSMRA85A01F205D',
+        farmaco: 'Paracetamolo',
+        dataInizio: new Date("2022-02-16"),
+        numAppuntamenti: 10,
+        frequenzaAppuntamenti: 7,
+        stato: 'In corso'
+      },
+  };
+  const mockRes = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+  };
+
+  beforeAll(() => {
+      jest.spyOn(Terapia.prototype, 'save').mockResolvedValue();
+  });
+
+  afterEach(() => {
+      jest.clearAllMocks();
+  });
+
+  it('Deve inserire una nuova terapia e restituisce 201 come status code', async () => {
+      await insertTerapia(mockReq, mockRes);
+
+      expect(mockRes.status).toHaveBeenCalledWith(201);
+      expect(mockRes.json).toHaveBeenCalledWith(expect.objectContaining({
+        cfPaziente: mockReq.body.cfPaziente,
+        farmaco: mockReq.body.farmaco,
+        dataInizio: mockReq.body.dataInizio,
+        numAppuntamenti: mockReq.body.numAppuntamenti,
+        frequenzaAppuntamenti: mockReq.body.frequenzaAppuntamenti,
+        stato: mockReq.body.stato
+      }));
+      expect(Terapia.prototype.save).toHaveBeenCalledWith();
+  });
+
+  it('Deve restituire 409 come status code e un messaggio di errore se è stato trovato un errore nel salvataggio', async () => {
+      const mockError = new Error('Mock save error');
+      Terapia.prototype.save.mockRejectedValueOnce(mockError);
+
+      await insertTerapia(mockReq, mockRes);
+
+      expect(mockRes.status).toHaveBeenCalledWith(409);
+      expect(mockRes.json).toHaveBeenCalledWith({ message: mockError.message });
+  });
+});
