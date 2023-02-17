@@ -25,7 +25,6 @@ exports.getAllPazienti = async (req,res) => {
 //controller per restituire un paziente in base all'id
 exports.getPazienteById = async(req,res) => {
     const id = req.params.id
-
     
     try{
        const paziente = await Paziente.findById(id)

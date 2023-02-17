@@ -1,5 +1,6 @@
+//Insert paziente
 const Paziente = require('../models/Paziente.js');
-const { insertPaziente } = require('../controllers/pazienti_controller.js');
+const { insertPaziente, getPazienteById, getAllPazienti, deletePaziente } = require('../controllers/pazienti_controller.js');
 
 describe('insertPaziente', () => {
     const mockReq = {
@@ -97,3 +98,93 @@ describe('insertPaziente', () => {
         expect(mockRes.json).toHaveBeenCalledWith({ message: mockError.message });
     });
 });
+
+//getAllPazienti
+
+
+//getPazienteById
+describe('getPazienteById', () => {
+  it('deve utilizzare la funzione findById e restituire il paziente il cui id è uguale a quello passato in input', async () => {
+    const id = '1234'
+    const paziente = { _id: id, name: 'Mario Rossi', age: 45 }
+    const req = { params: { id } }
+    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
+    
+    jest.spyOn(Paziente, 'findById').mockResolvedValueOnce(paziente)
+    await getPazienteById(req, res)
+    
+    expect(Paziente.findById).toHaveBeenCalledWith(id)
+    expect(res.status).toHaveBeenCalledWith(200)
+    expect(res.json).toHaveBeenCalledWith(paziente)
+  })
+
+  it('Deve restituire una lista di pazienti vuota se nessun paziente ha id uguale a quello passato in input', async () => {
+    const id = '5678'
+    const req = { params: { id } }
+    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
+    
+    jest.spyOn(Paziente, 'findById').mockResolvedValueOnce([])
+    await getPazienteById(req, res)
+
+    expect(Paziente.findById).toHaveBeenCalledWith(id)
+    expect(res.status).toHaveBeenCalledWith(200)
+    expect(res.json).toHaveBeenCalledWith([])
+  })
+
+  it('deve impostare lo stato della chiamata al codice 404 e restiruire messaggio di errore', async () => {
+    const id = 'abcd'
+    const errorMessage = 'An error occurred'
+    const req = { params: { id } }
+    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
+    
+    jest.spyOn(Paziente, 'findById').mockRejectedValueOnce(new Error(errorMessage))
+    await getPazienteById(req, res)
+
+    expect(Paziente.findById).toHaveBeenCalledWith(id)
+    expect(res.status).toHaveBeenCalledWith(404)
+    expect(res.json).toHaveBeenCalledWith({ message: errorMessage })
+  })
+})
+
+
+//deletePaziente
+describe('deletePaziente', () => {
+    test('deve cancellare un Paziente con l\'id passato e restituire un messaggio di successo', async () => {
+        const id = '123'
+        const req = {
+            params: {
+                id: id
+            }
+        }
+        const res = {
+            json: jest.fn()
+        }
+        jest.spyOn(Paziente, 'findByIdAndDelete').mockResolvedValueOnce()
+
+        await deletePaziente(req, res)
+
+        expect(Paziente.findByIdAndDelete).toHaveBeenCalledWith(id)
+        expect(res.json).toHaveBeenCalledWith({ message: 'Paziente eliminato con successo' })
+    })
+
+    test('in caso di Paziente non trovata imposta stato richiesta come 400 e restituisce errore', async () => {
+        const id = '123'
+        const req = {
+            params: {
+                id: id
+            }
+        }
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        }
+        const errorMessage = 'Paziente non trovato'
+        jest.spyOn(Paziente, 'findByIdAndDelete').mockRejectedValueOnce(new Error(errorMessage))
+
+        await deletePaziente(req, res)
+
+        expect(Paziente.findByIdAndDelete).toHaveBeenCalledWith(id)
+        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.json).toHaveBeenCalledWith({ message: errorMessage })
+    })
+})
