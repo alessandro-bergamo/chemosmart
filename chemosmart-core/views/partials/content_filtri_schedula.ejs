@@ -1,220 +1,312 @@
 <div>
-    <div class="container-fluid">
-      <h2 class="mt-3 font weight bold text-center">Ricerca Pazienti</h2>
-    </div>
-    <form class="form-inline justify-content-center mt-3">
-      <div class="form-group">
-        <label for="codiceFiscale">Codice Fiscale:</label>
-        <input type="text" class="form-control" id="codiceFiscale" placeholder="Inserisci il tuo Codice Fiscale">
-      </div>
-      <div class="form-group">
-        <label for="nome">Nome:</label>
-        <input type="text" class="form-control" id="nome" placeholder="Inserisci il tuo nome">
-      </div>
-      <div class="form-group">
-        <label for="cognome">Cognome:</label>
-        <input type="text" class="form-control" id="cognome" placeholder="Inserisci il tuo cognome">
-      </div>
-      <div class="form-group">
-        <label for="dataNascita">Data di nascita:</label>
-        <div class="input-group date" id="dataNascita" data-target-input="nearest">
-            <input type="text" class="form-control datetimepicker-input" placeholder="Inserisci la tua data di nascita" data-target="#dataNascita"/>
-            <div class="input-group-append" data-target="#dataNascita" data-toggle="datetimepicker">
-                <div class="input-group-text"><i class='bx bxs-calendar'></i></div>
-            </div>
-        </div>
-      </div>
-    </form>
+  <div class="container-fluid">
+    <h2 class="mt-3 font weight bold text-center">Ricerca Pazienti</h2>
   </div>
-  <table class="table justify-content-center mt-3">
-    <thead>
+  <form class="form-inline justify-content-center mt-3 w-50">
+    <div class="form-group">
+      <label for="codiceFiscale">Codice Fiscale:</label>
+      <input oninput="search();" type="text" class="form-control" id="codiceFiscale"
+        placeholder="Inserisci il tuo Codice Fiscale">
+    </div>
+    <div class="form-group">
+      <label for="nome">Nome:</label>
+      <input oninput="search();" type="text" class="form-control" id="nome" placeholder="Inserisci il tuo nome">
+    </div>
+    <div class="form-group">
+      <label for="cognome">Cognome:</label>
+      <input oninput="search();" type="text" class="form-control" id="cognome" placeholder="Inserisci il tuo cognome">
+    </div>
+  </form>
+</div>
+<table class="table justify-content-center mt-3" id="tabellaPazienti">
+  <thead>
+    <tr>
+      <th scope="col" class="text-center">Cognome</th>
+      <th scope="col" class="text-center">Nome</th>
+      <th scope="col" class="text-center">Codice Fiscale</th>
+      <th scope="col" class="text-center">Sesso</th>
+      <th scope="col" class="text-center">Data di Nascita</th>
+      <th scope="col" class="text-center"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (var i=0; i<pazienti.length;i++) { if(pazienti[i].priorita=='' ) { var date=new
+      Date(pazienti[i].dataNascita); %>
       <tr>
-        <th scope="col" class="text-center" >Paziente</th>
-        <th scope="col" class="text-center">Codice Fiscale</th>
-        <th scope="col" class="text-center">Sesso</th>
-        <th scope="col" class="text-center">Data di Nascita</th>
-        <th scope="col" class="text-center"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% 
-      for (var i=0; i<pazienti.length;i++) {
-        if(pazienti[i].priorita == '') {
-        var date = new Date(pazienti[i].dataNascita);
-      %>
-          <tr>
-            <td scope="row" class="text-center"> <%= pazienti[i].nome %> </td>
-            <td scope="row" class="text-center"> <%= pazienti[i].cf %> </td>
-            <td scope="row" class="text-center"> <%= pazienti[i].sesso %> </td>
-            <td scope="row" class="text-center"> <%= date.toLocaleDateString("it-IT") %> </td>
-            <td scope="row" class="text-center">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#infoPaziente<%= pazienti[i]._id %>">
-            Altre info
-          </button></td>
-          <div class="modal fade" id="infoPaziente<%= pazienti[i]._id %>" tabindex="-1" role="dialog" aria-labelledby="infoPaziente<%= pazienti[i]._id %>Label" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="infoPaziente<%= pazienti[i]._id %>Label">Nome e cognome del paziente</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+        <td scope="row" class="text-center">
+          <%= pazienti[i].cognome %>
+        </td>
+        <td scope="row" class="text-center">
+          <%= pazienti[i].nome %>
+        </td>
+        <td scope="row" class="text-center">
+          <%= pazienti[i].cf %>
+        </td>
+        <td scope="row" class="text-center">
+          <%= pazienti[i].sesso %>
+        </td>
+        <td scope="row" class="text-center">
+          <%= date.toLocaleDateString("it-IT") %>
+        </td>
+        <td scope="row" class="text-center">
+          <button type="button" class="btn btn-primary" data-toggle="modal"
+            data-target="#infoPaziente<%= pazienti[i]._id %>">
+            Schedula
+          </button>
+        </td>
+        <div class="modal fade" id="infoPaziente<%= pazienti[i]._id %>" tabindex="-1" role="dialog"
+          aria-labelledby="infoPaziente<%= pazienti[i]._id %>Label" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="infoPaziente<%= pazienti[i]._id %>Label">Nome e cognome del paziente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body row g-3">
+                <div class="col-md-12">
+                  <label class="form-label" for="cognome-paziente" style="font-weight: bold;">Nome e cognome del
+                    paziente:</label>
+                  <p>
+                    <%= pazienti[i].nome %>
+                      <%= pazienti[i].cognome %>
+                  </p>
                 </div>
-                <div class="modal-body row g-3">
-                        <div class="col-md-12">
-                          <label class="form-label" for="nome-paziente" style="font-weight: bold;">Nome e cognome del paziente:</label>
-                          <p><%= pazienti[i].cognome %><%= pazienti[i].nome %></p>
-                        </div>
-                        <div class="col-md-12">
-                          <label class="form-label" for="cf-paziente" style="font-weight: bold;">Codice fiscale:</label>
-                          <p><%= pazienti[i].cf %></p>
-                        </div>
-                        <div class="col-md-12">
-                          <label for="sesso" class="form-label" style="font-weight: bold;">Sesso:</label>
-                          <p><%= pazienti[i].sesso %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label class="form-label" for="eta-paziente" style="font-weight: bold;">Età:</label>
-                          <p><%= pazienti[i].eta %></p>
-                        </div>
-                        <div class="col-md-8">
-                          <label for="data-nascita" class="form-label" style="font-weight: bold;">Data nascita:</label>
-                          <p><%= date.toLocaleDateString("it-IT") %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="num-tel" class="form-label" style="font-weight: bold;">Num. Telefono:</label>
-                          <p><%= pazienti[i].telefono %></p>
-                        </div>
-                        <div class="col-md-8">
-                          <label for="email" class="form-label" style="font-weight: bold;">Email:</label>
-                          <p><%= pazienti[i].email %></p>
-                        </div>
-                        <div class="col-12">
-                          <label for="priorita" class="form-label" style="font-weight: bold;">Priorità</label>
-                          <p><%= pazienti[i].priorita %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-inquinamento-ambientale" class="form-label" style="font-weight: bold;">Indice inquinamento ambientale</label>
-                          <p><%= pazienti[i].indice_inquinamento_ambientale %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-uso-alcolici" class="form-label" style="font-weight: bold;">Indice uso alcolici</label>
-                          <p><%= pazienti[i].indice_uso_alcolici %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="grado-allergia" class="form-label" style="font-weight: bold;">Grado allergia</label>
-                          <p><%= pazienti[i].grado_allergia %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="grado-rischio-lavorativo" class="form-label" style="font-weight: bold;">Grado di rischio lavorativo</label>
-                          <p><%= pazienti[i].grado_rischio_lavorativo %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-rischio-familiare" class="form-label" style="font-weight: bold;">Indice fattore di rischio familiare</label>
-                          <p><%= pazienti[i].indice_fattori_rischio_familiare %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-malattie-croniche" class="form-label" style="font-weight: bold;">Indice di malattie croniche</label>
-                          <p><%= pazienti[i].indice_malattie_croniche %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-alimentazione-scorretta" class="form-label" style="font-weight: bold;">Indice di alimentazione scorretta</label>
-                          <p><%= pazienti[i].indice_alimentazione_scorretta %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-obesita" class="form-label" style="font-weight: bold;">Indice di obesità</label>
-                          <p><%= pazienti[i].indice_obesita %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="grado-esposizione-fumo-attivo" class="form-label" style="font-weight: bold;">Grado di esposizione a fumo attivo</label>
-                          <p><%= pazienti[i].grado_esposizione_fumo_attivo %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="grado-esposizione-fumo-passivo" class="form-label" style="font-weight: bold;">Grado di esposizione a fumo passivo</label>
-                          <p><%= pazienti[i].grado_esposizione_fumo_passivo %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-dolori-localizzati" class="form-label" style="font-weight: bold;">Indice di dolori localizzati</label>
-                          <p><%= pazienti[i].indice_dolori_localizzati %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-emottisi" class="form-label" style="font-weight: bold;">Indice emottisi</label>
-                          <p><%= pazienti[i].indice_emottisi %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-astenia" class="form-label" style="font-weight: bold;">Indice astenia</label>
-                          <p><%= pazienti[i].indice_astenia %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-perdita-peso" class="form-label" style="font-weight: bold;">Indice di perdita di peso</label>
-                          <p><%= pazienti[i].indice_perdita_peso %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-dispnea" class="form-label" style="font-weight: bold;">Indice dispnea</label>
-                          <p><%= pazienti[i].indice_dispnea %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-respiro-sibilante" class="form-label" style="font-weight: bold;">Indice respiro sibilante</label>
-                          <p><%= pazienti[i].indice_respiro_sibilante %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-disfagia" class="form-label" style="font-weight: bold;">Indice disfagia</label>
-                          <p><%= pazienti[i].indice_disfagia %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="stato-dita-ippocrate" class="form-label" style="font-weight: bold;">Stato dita di Ippocrate</label>
-                          <p><%= pazienti[i].stato_dita_di_Ippocrate %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="stato-immunodepressione" class="form-label" style="font-weight: bold;">Stato di immunodepressione</label>
-                          <p><%= pazienti[i].stato_immunodepressione %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-tosse-secca" class="form-label" style="font-weight: bold;">Indice di tosse secca</label>
-                          <p><%= pazienti[i].indice_tosse_secca %></p>
-                        </div>
-                        <div class="col-md-4">
-                          <label for="indice-russamento" class="form-label" style="font-weight: bold;">Indice di russamento</label>
-                          <p><%= pazienti[i].indice_russamento %></p>
-                        </div>
-                      </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <form action="/getPriorita" method="post">
-                    <input type="hidden" name="id" value="<%= pazienti[i]._id %>">
-                    <button type="submit" class="btn btn-primary">Schedula</button>
-                  </form>
+                <div class="col-md-12">
+                  <label class="form-label" for="cf-paziente" style="font-weight: bold;">Codice fiscale:</label>
+                  <p>
+                    <%= pazienti[i].cf %>
+                  </p>
                 </div>
+                <div class="col-md-12">
+                  <label for="sesso" class="form-label" style="font-weight: bold;">Sesso:</label>
+                  <p>
+                    <%= pazienti[i].sesso %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label" for="eta-paziente" style="font-weight: bold;">Età:</label>
+                  <p>
+                    <%= pazienti[i].eta %>
+                  </p>
+                </div>
+                <div class="col-md-8">
+                  <label for="data-nascita" class="form-label" style="font-weight: bold;">Data nascita:</label>
+                  <p>
+                    <%= date.toLocaleDateString("it-IT") %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="num-tel" class="form-label" style="font-weight: bold;">Num. Telefono:</label>
+                  <p>
+                    <%= pazienti[i].telefono %>
+                  </p>
+                </div>
+                <div class="col-md-8">
+                  <label for="email" class="form-label" style="font-weight: bold;">Email:</label>
+                  <p>
+                    <%= pazienti[i].email %>
+                  </p>
+                </div>
+                <div class="col-12">
+                  <label for="priorita" class="form-label" style="font-weight: bold;">Priorità</label>
+                  <p>
+                    <%= pazienti[i].priorita %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-inquinamento-ambientale" class="form-label" style="font-weight: bold;">Indice
+                    inquinamento ambientale</label>
+                  <p>
+                    <%= pazienti[i].indice_inquinamento_ambientale %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-uso-alcolici" class="form-label" style="font-weight: bold;">Indice uso
+                    alcolici</label>
+                  <p>
+                    <%= pazienti[i].indice_uso_alcolici %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="grado-allergia" class="form-label" style="font-weight: bold;">Grado allergia</label>
+                  <p>
+                    <%= pazienti[i].grado_allergia %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="grado-rischio-lavorativo" class="form-label" style="font-weight: bold;">Grado di rischio
+                    lavorativo</label>
+                  <p>
+                    <%= pazienti[i].grado_rischio_lavorativo %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-rischio-familiare" class="form-label" style="font-weight: bold;">Indice fattore di
+                    rischio familiare</label>
+                  <p>
+                    <%= pazienti[i].indice_fattori_rischio_familiare %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-malattie-croniche" class="form-label" style="font-weight: bold;">Indice di malattie
+                    croniche</label>
+                  <p>
+                    <%= pazienti[i].indice_malattie_croniche %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-alimentazione-scorretta" class="form-label" style="font-weight: bold;">Indice di
+                    alimentazione scorretta</label>
+                  <p>
+                    <%= pazienti[i].indice_alimentazione_scorretta %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-obesita" class="form-label" style="font-weight: bold;">Indice di obesità</label>
+                  <p>
+                    <%= pazienti[i].indice_obesita %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="grado-esposizione-fumo-attivo" class="form-label" style="font-weight: bold;">Grado di
+                    esposizione a fumo attivo</label>
+                  <p>
+                    <%= pazienti[i].grado_esposizione_fumo_attivo %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="grado-esposizione-fumo-passivo" class="form-label" style="font-weight: bold;">Grado di
+                    esposizione a fumo passivo</label>
+                  <p>
+                    <%= pazienti[i].grado_esposizione_fumo_passivo %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-dolori-localizzati" class="form-label" style="font-weight: bold;">Indice di dolori
+                    localizzati</label>
+                  <p>
+                    <%= pazienti[i].indice_dolori_localizzati %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-emottisi" class="form-label" style="font-weight: bold;">Indice emottisi</label>
+                  <p>
+                    <%= pazienti[i].indice_emottisi %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-astenia" class="form-label" style="font-weight: bold;">Indice astenia</label>
+                  <p>
+                    <%= pazienti[i].indice_astenia %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-perdita-peso" class="form-label" style="font-weight: bold;">Indice di perdita di
+                    peso</label>
+                  <p>
+                    <%= pazienti[i].indice_perdita_peso %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-dispnea" class="form-label" style="font-weight: bold;">Indice dispnea</label>
+                  <p>
+                    <%= pazienti[i].indice_dispnea %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-respiro-sibilante" class="form-label" style="font-weight: bold;">Indice respiro
+                    sibilante</label>
+                  <p>
+                    <%= pazienti[i].indice_respiro_sibilante %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-disfagia" class="form-label" style="font-weight: bold;">Indice disfagia</label>
+                  <p>
+                    <%= pazienti[i].indice_disfagia %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="stato-dita-ippocrate" class="form-label" style="font-weight: bold;">Stato dita di
+                    Ippocrate</label>
+                  <p>
+                    <%= pazienti[i].stato_dita_di_Ippocrate %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="stato-immunodepressione" class="form-label" style="font-weight: bold;">Stato di
+                    immunodepressione</label>
+                  <p>
+                    <%= pazienti[i].stato_immunodepressione %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-tosse-secca" class="form-label" style="font-weight: bold;">Indice di tosse
+                    secca</label>
+                  <p>
+                    <%= pazienti[i].indice_tosse_secca %>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="indice-russamento" class="form-label" style="font-weight: bold;">Indice di
+                    russamento</label>
+                  <p>
+                    <%= pazienti[i].indice_russamento %>
+                  </p>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form action="/getPriorita" method="post">
+                  <input type="hidden" name="id" value="<%= pazienti[i]._id %>">
+                  <input type="hidden" name="cf" value="<%= pazienti[i].cf %>">
+                  <button type="submit" class="btn btn-primary">Schedula</button>
+                </form>
               </div>
             </div>
           </div>
-          </tr> 
-      <%
-      } 
-    }
-      %>
-    </tbody>
-  </table>
-  <nav>
-    <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page"></a>
-      <script>
-          $(document).ready( function () {
-              $('#patient-table').DataTable(
-                  {
-                      "pagingType": "full_numbers"
-                  });
-          });
-      </script>
-  </nav>
-  
-  </div>
-  </div> <!--Container Main end-->
-  </div>  <!--div Sidebar end-->
+        </div>
+      </tr>
+      <% } } %>
+  </tbody>
+</table>
+</div>
+</div> <!--Container Main end-->
+</div> <!--div Sidebar end-->
+
+<script>
+  function search() {
+
+    var nome = document.getElementById("nome").value;
+    var cognome = document.getElementById("cognome").value;
+    var cf = document.getElementById("codiceFiscale").value;
+    console.log(nome + '|' + cognome + '|' + cf)
+
+    $.get("http://localhost:3007/pazienti/filter", { nome: nome, cognome: cognome, cf: cf }, function (data) {
+      /*  $( ".result" ).html( data );
+        alert( "Load was performed." );
+      */
+      $('#tabellaPazienti tbody').empty();
+      data.forEach(element => {
+        if (element.priorita == '')
+          var tableRow =
+            `<tr>
+                <td scope="row" class="text-center"> ${element.cognome} </td>
+                <td scope="row" class="text-center"> ${element.nome} </td> 
+                <td scope="row" class="text-center"> ${element.cf} </td> 
+                <td scope="row" class="text-center"> ${element.sesso} </td> 
+                <td scope="row" class="text-center"> ${(new Date(element.dataNascita)).toLocaleDateString("it-IT")} </td> 
+                <td scope="row" class="text-center"> 
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#infoPaziente${element._id}">
+                          Altre info
+                  </button> 
+                </td>
+              </tr>`;
+        $("#tabellaPazienti > tbody").append(tableRow);
+      });
+
+    });
+  }
+</script>

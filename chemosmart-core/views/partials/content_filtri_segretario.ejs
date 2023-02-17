@@ -1,0 +1,171 @@
+<div>
+    <div class="container-fluid">
+      <h2 class="mt-3 font weight bold text-center">Ricerca Pazienti</h2>
+    </div>
+    <form class="form-inline justify-content-center mt-3">
+      <div class="form-group">
+        <label for="codiceFiscale">Codice Fiscale:</label>
+        <input oninput="search();" type="text" class="form-control" id="codiceFiscale"
+          placeholder="Inserisci il tuo Codice Fiscale">
+      </div>
+      <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input oninput="search();" type="text" class="form-control" id="nome" placeholder="Inserisci il tuo nome">
+      </div>
+      <div class="form-group">
+        <label for="cognome">Cognome:</label>
+        <input oninput="search();" type="text" class="form-control" id="cognome" placeholder="Inserisci il tuo cognome">
+      </div>
+    </form>
+  </div>
+  <table class="table justify-content-center mt-3" id="tabellaPazienti">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center">Cognome</th>
+        <th scope="col" class="text-center">Nome</th>
+        <th scope="col" class="text-center">Codice Fiscale</th>
+        <th scope="col" class="text-center">Sesso</th>
+        <th scope="col" class="text-center">Data di Nascita</th>
+        <th scope="col" class="text-center"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (var i=0; i<pazienti.length;i++) { var date=new Date(pazienti[i].dataNascita); %>
+        <tr>
+          <td scope="row" class="text-center">
+            <%= pazienti[i].cognome %>
+          </td>
+          <td scope="row" class="text-center">
+            <%= pazienti[i].nome %>
+          </td>
+          <td scope="row" class="text-center">
+            <%= pazienti[i].cf %>
+          </td>
+          <td scope="row" class="text-center">
+            <%= pazienti[i].sesso %>
+          </td>
+          <td scope="row" class="text-center">
+            <%= date.toLocaleDateString("it-IT") %>
+          </td>
+          <td scope="row" class="text-center">
+            <button type="button" class="btn btn-primary" data-toggle="modal"
+              data-target="#infoPaziente<%= pazienti[i]._id %>">
+              Altre info
+            </button>
+          </td>
+          <div class="modal fade" id="infoPaziente<%= pazienti[i]._id %>" tabindex="-1" role="dialog"
+            aria-labelledby="infoPaziente<%= pazienti[i]._id %>Label" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="infoPaziente<%= pazienti[i]._id %>Label">Nome e cognome del paziente</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body row g-3">
+                  <div class="col-md-12">
+                    <p id="id-paziente">
+                      <%= pazienti[i]._id %>
+                    </p>
+                    <label class="form-label" for="nome-paziente" style="font-weight: bold;">Nome e cognome del
+                      paziente:</label>
+                    <p>
+                      <%= pazienti[i].cognome %>
+                        <%= pazienti[i].nome %>
+                    </p>
+                  </div>
+                  <div class="col-md-12">
+                    <label class="form-label" for="cf-paziente" style="font-weight: bold;">Codice fiscale:</label>
+                    <p>
+                      <%= pazienti[i].cf %>
+                    </p>
+                  </div>
+                  <div class="col-md-12">
+                    <label for="sesso" class="form-label" style="font-weight: bold;">Sesso:</label>
+                    <p>
+                      <%= pazienti[i].sesso %>
+                    </p>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label" for="eta-paziente" style="font-weight: bold;">Età:</label>
+                    <p>
+                      <%= pazienti[i].eta %>
+                    </p>
+                  </div>
+                  <div class="col-md-8">
+                    <label for="data-nascita" class="form-label" style="font-weight: bold;">Data nascita:</label>
+                    <p>
+                      <%= date.toLocaleDateString("it-IT") %>
+                    </p>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="num-tel" class="form-label" style="font-weight: bold;">Num. Telefono:</label>
+                    <p>
+                      <%= pazienti[i].telefono %>
+                    </p>
+                  </div>
+                  <div class="col-md-8">
+                    <label for="email" class="form-label" style="font-weight: bold;">Email:</label>
+                    <p>
+                      <%= pazienti[i].email %>
+                    </p>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary btn-modifica" data-dismiss="modal">Chiudi</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tr>
+        <% } %>
+    </tbody>
+  </table>
+  <nav>
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page"></a>
+        <script>
+          function search() {
+  
+            var nome = document.getElementById("nome").value;
+            var cognome = document.getElementById("cognome").value;
+            var cf = document.getElementById("codiceFiscale").value;
+  
+            $.get("http://localhost:3007/pazienti/filter", { nome: nome, cognome: cognome, cf: cf }, function (data) {
+              /*  $( ".result" ).html( data );
+                alert( "Load was performed." );
+              */
+              $('#tabellaPazienti tbody').empty();
+              data.forEach(element => {
+                var tableRow =
+                  `<tr>
+                  <td scope="row" class="text-center"> ${element.cognome} </td>
+                  <td scope="row" class="text-center"> ${element.nome} </td>  
+                  <td scope="row" class="text-center"> ${element.cf} </td> 
+                  <td scope="row" class="text-center"> ${element.sesso} </td> 
+                  <td scope="row" class="text-center"> ${(new Date(element.dataNascita)).toLocaleDateString("it-IT")} </td> 
+                  <td scope="row" class="text-center"> 
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#infoPaziente${element._id}">
+                            Altre info
+                    </button> 
+                  </td>
+                </tr>`;
+                $("#tabellaPazienti > tbody").append(tableRow);
+              });
+  
+            });
+          }
+        </script>
+  </nav>
+  
+  </div>
+  </div> <!--Container Main end-->
+  </div> <!--div Sidebar end-->

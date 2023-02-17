@@ -33,8 +33,24 @@
   </div>
 </div>
 
+
+<!-- Modale bootstrap semplificato -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5 class="modal-title" id="exampleModalLabel">Farmaci pronti, invio notifica al reparto!</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Chiudi</button>
+      </div>
+    </div>
+  </div>
 </div>
-</div> <!--Container Main end-->
+
+
+
+
 </div> <!--div Sidebar end-->
 
 
@@ -61,5 +77,30 @@
     }
     return true;
   }
+
+</script>
+
+<script>
+  // seleziona il bottone "buttonFarmaci"
+  const buttonFarmaci = document.querySelector('#buttonFarmaci button');
+
+  // al click del bottone "buttonFarmaci"
+  buttonFarmaci.addEventListener('click', () => {
+    // seleziona tutte le checkbox nella tabella
+    const checkboxes = document.querySelectorAll('#table-infermiere input[type="checkbox"]');
+
+    // spunta tutte le checkbox e disabilitale
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = true;
+      checkbox.disabled = true;
+    });
+
+    // disabilita il bottone "submitBtn"
+    document.querySelector('#submitBtn').disabled = true;
+
+    // apri il modale di bootstrap con il messaggio "farmaci pronti?"
+    $('#exampleModal').modal('show');
+  });
+
 
 </script>

@@ -1,3 +1,4 @@
+process.env.TZ = 'UTC'
 const express = require('express')
 const path = require('path')
 var session = require('express-session')
@@ -7,7 +8,8 @@ const axios = require('axios')
 const bodyParser = require('body-parser')
 const converter = require('json-2-csv')
 const fs = require('fs')
-const {spawn} = require('child_process');
+const { spawn } = require('child_process');
+const api = require('./services/servicesClient.js')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -36,47 +38,49 @@ app.use(function (req, res, next) {
 });
 
 app.get('/', (req, res) => {
-    if(req.session.loggedIn == true) {
+    if (req.session.loggedIn == true) {
         res.redirect('/homepage')
     } else {
         res.render(__dirname + '/views/loginPage')
     }
 })
 
-app.post('/login',(req, res) => {
-    if(req.session.loggedIn != true) {
-        req.session.user = req.body.user_type 
+app.post('/login', (req, res) => {
+    if (req.session.loggedIn != true) {
+        req.session.user = req.body.user_type
         req.session.loggedIn = true
     }
 
-    if(req.session.user == "Infermiere"){
+    if (req.session.user == "Infermiere") {
         res.redirect('/visualizzaFarmaci')
     } else {
         res.redirect('/homepage')
     }
-    
+
 })
 
 app.get('/logout', (req, res) => {
-    req.session.destroy((err) =>{
-        if(err){
+    req.session.destroy((err) => {
+        if (err) {
             return console.log(err)
         }
         res.redirect('/')
     })
 })
 
-app.get('/homepage', async (req,res) => {
-    if(req.session.loggedIn != true){
+app.get('/homepage', async (req, res) => {
+    if (req.session.loggedIn != true) {
         res.redirect('/')
     } else {
-        if(req.session.user == 'Infermiere') {
+        if (req.session.user == 'Infermiere') {
             res.redirect('/visualizzaFarmaci')
         } else {
-            await axios.get('http://localhost:3007/pazienti')
-            .then(function (response) { let pazienti = response.data 
-                res.render(__dirname + "/views/index", {pazienti: pazienti})
-            })
+            try {
+                const pazienti = await api.getPazienti()
+                res.status(201).render(__dirname + "/views/index", { pazienti: pazienti })
+            } catch (error) {
+                res.status(404).render('/')
+            }
         }
     }
 })
@@ -84,216 +88,262 @@ app.get('/homepage', async (req,res) => {
 app.get('/filtri', async (req, res) => {
     console.log(req.session.loggedIn)
     console.log(req.session.user)
-    if(req.session.loggedIn != true){
+    if (req.session.loggedIn != true) {
         res.redirect('/')
-    } else if(req.session.user != 'Medico' && req.session.user != 'Segretario') {
+    } else if (req.session.user != 'Medico' && req.session.user != 'Segretario') {
         res.redirect('/homepage')
     } else {
-        await axios.get('http://localhost:3007/pazienti')
-            .then(function (response) { let pazienti = response.data 
-                res.render(__dirname + "/views/filtri", {pazienti: pazienti})
-        })
+        try {
+            const pazienti = await api.getPazienti()
+            res.status(201).render(__dirname + "/views/filtri", { pazienti: pazienti })
+        } catch (error) {
+            res.status(404).render('/')
+        }
     }
-}) 
+})
 
 app.get('/aggiungiTerapia', (req, res) => {
-    if(req.session.loggedIn != true || req.session.user != 'Medico'){
+    if (req.session.loggedIn != true || req.session.user != 'Medico') {
         res.redirect('/')
     } else {
         res.render(__dirname + "/views/aggiungiTerapia")
     }
 })
 
-app.post('/addTerapia', (req, res) => {
-    if(req.session.loggedIn != true || req.session.user != 'Medico'){
-        res.redirect('/')
+app.post('/addTerapia', async (req, res) => {
+    if (req.session.loggedIn != true || req.session.user != 'Medico') {
+        res.redirect('/');
     } else {
-        axios.post("http://localhost:3050/terapie", req.body)
-        .then(function (response) {
-            res.send("Terapia Aggiunta")
-        })
+        try {
+            const result = await api.aggiungiTerapia(req.body);
+            res.send("Terapia Aggiunta");
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Errore nell'aggiunta della terapia");
+        }
     }
-})
+});
 
-app.get("/gestioneTerapie", function (req, res) {
-    if(req.session.loggedIn != true || req.session.user != 'Medico'){
-        res.redirect('/')
+app.get("/gestioneTerapie", async (req, res) => {
+    if (req.session.loggedIn != true || req.session.user != 'Medico') {
+        res.redirect('/');
     } else {
-        axios.get("http://localhost:3050/terapie").then(function (response) {
-            let terapie = response.data;
+        const terapie = await api.getTerapie();
+        if (terapie) {
             res.render(__dirname + "/views/gestioneTerapie", { terapie: terapie });
-        });
+        } else {
+            res.status(500).send("Errore nel recupero delle terapie");
+        }
     }
 });
 
 //route per renderizzare pagina modifica terapia
-app.get("/modificaTerapia", function (req, res) {
-    if(req.session.loggedIn != true || req.session.user != 'Medico'){
-        res.redirect('/')
+app.get("/modificaTerapia", async (req, res) => {
+    if (req.session.loggedIn != true || req.session.user != 'Medico') {
+        res.redirect('/');
     } else {
-        const id = req.query.id
-        axios.get("http://localhost:3050/terapie/" + id).then(function (response) {
-            let terapia = response.data;
+        const id = req.query.id;
+        try {
+            const terapia = await api.getTerapiaById(id);
             res.render(__dirname + "/views/modificaTerapia", { terapia: terapia });
-        });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Errore nel recupero della terapia");
+        }
     }
 });
 
 //route per chiamare il backend tramite il submit del form
-app.post('/updateTerapia', (req, res) => {
-    if(req.session.loggedIn != true || req.session.user != 'Medico'){
-        res.redirect('/')
+app.post('/updateTerapia', async (req, res) => {
+    if (req.session.loggedIn != true || req.session.user != 'Medico') {
+        res.redirect('/');
     } else {
-        const id = req.body.id
-        axios.get("http://localhost:3050/terapie/" + id).then(function (response) {
-            let terapia = response.data;
+        const id = req.body.id;
+        try {
+            const terapia = await api.getTerapiaById(id);
+            const dato = {
+                cfPaziente: req.body.cfPaziente || terapia.cfPaziente,
+                farmaco: req.body.farmaco || terapia.farmaco,
+                dataInizio: req.body.dataInizio || terapia.dataInizio,
+                numAppuntamenti: req.body.numAppuntamenti || terapia.numAppuntamenti,
+                frequenzaAppuntamenti: Number.isInteger(parseInt(req.body.frequenzaAppuntamenti)) ? parseInt(req.body.frequenzaAppuntamenti) : terapia.frequenzaAppuntamenti
+            };
 
-        dato = {
-            cfPaziente: req.body.cfPaziente || terapia.cfPaziente,
-            farmaco: req.body.farmaco || terapia.farmaco,
-            dataInizio: req.body.dataInizio || terapia.dataInizio,
-            frequenzaAppuntamenti: req.body.frequenzaAppuntamenti || terapia.frequenzaAppuntamenti
+            await api.updateTerapia(id, dato);
+            const terapie = await api.getTerapie();
+            res.render(__dirname + "/views/gestioneTerapie", { terapie: terapie });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Errore nell'aggiornamento della terapia");
         }
-        axios.patch("http://localhost:3050/terapie/" + id, dato)
-            .then(function (response) {
-                axios.get("http://localhost:3050/terapie").then(function (response) {
-                    let terapie = response.data;
-                    res.render(__dirname + "/views/gestioneTerapie", { terapie: terapie });
-                });
-            })
-    });
-}
-})
+    }
+});
 
 //rout per renderizzare pagina modifica appuntamento
-app.get("/modificaAppuntamento", function (req, res) {
-    const id = req.query.id
-    axios.get("http://localhost:3006/appuntamenti/" + id).then(function (response) {
-        let appuntamento = response.data;
+app.get("/modificaAppuntamento", async function (req, res){
+    const id = req.query.id;
+    try {
+        const response = await api.getAppuntamentoById(id)
+        const appuntamento = response.data;
         res.render(__dirname + "/views/modificaAppuntamento", { appuntamento: appuntamento });
-    });
-
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Errore nella modifica dell'appuntamento");
+    }
 });
 
 //rout per chiamare il backend tramite il submit del form
-app.post('/updateAppuntamento', (req, res) => {
-    const id = req.body.id
-    axios.get("http://localhost:3006/appuntamenti/" + id).then(function (response) {
-        let appuntamento = response.data;
-
-        dato = {
+app.post('/updateAppuntamento', async (req, res) => {
+    const id = req.body.id;
+    try {
+        const appuntamento = await api.getAppuntamentoById(id);
+        const dato = {
             cfPaziente: req.body.cfPaziente || appuntamento.cfPaziente,
             farmaco: req.body.farmaco || appuntamento.farmaco,
             dataInizio: req.body.dataInizio || appuntamento.dataInizio,
-            dataFine: req.body.dataFine || appuntamento.dataFine
-        }
-        axios.patch("http://localhost:3006/appuntamenti/" + id, dato)
-            .then(function (response) {
-                res.render("calendario")
-            })
-    });
-})
+            dataFine: req.body.dataFine || appuntamento.dataFine,
+            durata: req.body.durata || appuntamento.durata
+        };
+        await api.updateAppuntamento(id, dato);
+        res.render("calendario");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Errore nell'aggiornamento dell'appuntamento");
+    }
+});
 
-app.get('/addNewCC', (req,res) => {
-    if(req.session.loggedIn != true || req.session.user != 'Medico'){
+app.get('/addNewCC', (req, res) => {
+    if (req.session.loggedIn != true || req.session.user != 'Medico') {
         res.redirect('/')
     } else {
         res.render(__dirname + '/views/nuova-cartella-clinica')
     }
-    
+
 })
 
-app.post('/addNewCC', (req,res) => {
+app.post('/addNewCC', (req, res) => {
     //da completare in future release
 })
 
-//Route creata da Giuseppe Basile per renderizzare il form aggiungi appuntamento
-app.get('/aggiungiAppuntamento', (req, res) => {
-    if(req.session.loggedIn != true || req.session.user != 'Medico'){
-        res.redirect('/')
-    } else {
-        res.render(__dirname + "/views/aggiungiAppuntamento")
-    }
-   
-}) 
-
 //Route creata da Giuseppe Basile per funzione post per aggiungere appuntamento
-app.post('/addAppuntamento',(req, res) => {
-    if(req.session.loggedIn != true || req.session.user != 'Medico'){
-        res.redirect('/')
-    } else {
-        axios.post("http://localhost:3006/appuntamenti" , req.body)
-            .then(function(response){
-                res.render(__dirname + "/views/calendario")
-        })
+app.post('/addAppuntamento', async (req, res) => {
+    try {
+        if (req.session.loggedIn != true || req.session.user != 'Medico') {
+            res.redirect('/')
+        } else {
+            const response = await api.addAppuntamento(req.body);
+            res.render(__dirname + "/views/calendario");
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal server error');
     }
-   
-})
+});
 
 //Route creata da Giuseppe Basile per il calendario
 app.get('/calendario', (req, res) => {
-    res.render(__dirname + "/views/calendario")
+    res.render(__dirname + "/views/calendario", { user: req.session.user })
 })
 
 //route per visualizzare i farmaci
-app.get("/visualizzaFarmaci", function (req, res) {
-    axios.get("http://localhost:3001/farmaci").then(function (response) {
-        let farmaci = response.data;
+app.get("/visualizzaFarmaci", async function (req, res) {
+    try {
+        const response = await api.getFarmaci();
+        const farmaci = response.data;
         res.render(__dirname + "/views/homepage-infermiere", { farmaci: farmaci });
-    });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Errore durante la lettura dei dati dei farmaci.");
+    }
 });
 
-app.get('/schedulaTerapia', async (req,res) => {
-    if(req.session.loggedIn != true){
+app.get('/schedulaTerapia', async (req, res) => {
+    if (req.session.loggedIn != true) {
         res.redirect('/')
     } else {
-        await axios.get('http://localhost:3007/pazienti')
-            .then(function (response) { let pazienti = response.data 
-                res.render(__dirname + "/views/schedulaTerapia", {pazienti: pazienti})
-        })
+        try {
+            const pazienti = await api.getPazienti()
+            res.render(__dirname + "/views/schedulaTerapia", { pazienti: pazienti })
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Errore durante la lettura dei dati dei pazienti.");
+        }
     }
 })
 
-app.post('/getPriorita',async (req,res,next) =>{
+app.post('/getPriorita', async (req, res, next) => {
     const id = req.body.id
-    try{
+    const cf = req.body.cf
+
+    try {
         await axios.get('http://localhost:3007/pazienti/' + id)
-        .then(function (response) {
-            let paziente = response.data
+            .then(function (response) {
+                let paziente = response.data
 
-            converter.json2csv(paziente, (err,csv) => {
-                if(err) {
-                    throw err
-                }
+                converter.json2csv(paziente, (err, csv) => {
+                    if (err) {
+                        throw err
+                    }
 
-                try{
-                    fs.writeFile('../modello_FIA/patient_to_predict.csv',csv, (err,data) => {
-                        if(err){
-                            console.log(err)
-                            return;
-                        }
+                    try {
+                        fs.writeFile('../modello_FIA/patient_to_predict.csv', csv, (err, data) => {
+                            if (err) {
+                                console.log(err)
+                                return;
+                            }
 
-                        let priorita 
-                        const python = spawn("python", ["../modello_FIA/ml_predict.py", "../modello_FIA/patient_to_predict.csv"])
+                            let priorita
+                            const python = spawn("python", ["../modello_FIA/ml_predict.py", "../modello_FIA/patient_to_predict.csv"])
 
-                        python.stdout.on("data", function(data) {
-                            priorita = data.toString()
+                            python.stdout.on("data", function (data) {
+                                priorita = data.toString()
+                            })
+
+                            python.on("close", async (code) => {
+                                await axios.get('http://localhost:3050/terapie/filter?cf=' + cf).then(function (response) {
+                                    const terapie = response.data
+
+                                    res.render(__dirname + "/views/schedulazione", { idPaziente: paziente._id, nome: paziente.nome, cognome: paziente.cognome, priorita: priorita, terapie: terapie })
+                                })
+
+                            })
                         })
-
-                        python.on("close", (code) => {
-                            res.render(__dirname + "/views/schedulazione", {priorita: priorita})
-                        })
-                    })
-                } catch(err) {
-                    console.log(err)
-                }
+                    } catch (err) {
+                        console.log(err)
+                    }
+                })
             })
-        })
     } catch (err) {
         throw err
     }
 
-    
+
+})
+
+app.post("/generateAppuntamenti", async (req, res) => {
+    const numAppuntamenti = req.body.numAppuntamenti
+    const idPaziente = req.body.idPaziente
+    const idTerapia = req.body.idTerapia
+    const frequenza = req.body.frequenza
+    const dataInizio = req.body.dataInizio
+    const cf = req.body.cf
+    const nome = req.body.nome
+    const cognome = req.body.cognome
+    const farmaco = req.body.farmaco
+    const durata = req.body.durata
+    const priorita = req.body.priorita
+    const stato = 'In corso'
+
+    try {
+        const appuntamenti = await api.createAppuntamentiTerapia(cf, nome, cognome, farmaco, dataInizio, durata, numAppuntamenti, frequenza, priorita)
+        const terapia = await api.startTerapia(idTerapia, dataInizio, stato)
+        const paziente = await api.updatePaziente(idPaziente, priorita)
+        res.status(201).json(appuntamenti)
+    } catch (error) {
+        res.status(505).send(error.message)
+    }
+
+
 })
 
 app.listen(port, () => {
