@@ -140,18 +140,18 @@ app.get("/gestioneTerapie", async (req, res) => {
 //route per renderizzare pagina modifica terapia
 app.get("/modificaTerapia", async (req, res) => {
     if (req.session.loggedIn != true || req.session.user != 'Medico') {
-      res.redirect('/');
+        res.redirect('/');
     } else {
-      const id = req.query.id;
-      try {
-        const terapia = await api.getTerapiaById(id);
-        res.render(__dirname + "/views/modificaTerapia", { terapia: terapia });
-      } catch (error) {
-        console.error(error);
-        res.status(500).send("Errore nel recupero della terapia");
-      }
+        const id = req.query.id;
+        try {
+            const terapia = await api.getTerapiaById(id);
+            res.render(__dirname + "/views/modificaTerapia", { terapia: terapia });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Errore nel recupero della terapia");
+        }
     }
-  });
+});
 
 //route per chiamare il backend tramite il submit del form
 app.post('/updateTerapia', async (req, res) => {
@@ -225,16 +225,6 @@ app.post('/addNewCC', (req, res) => {
     //da completare in future release
 })
 
-//Route creata da Giuseppe Basile per renderizzare il form aggiungi appuntamento
-app.get('/aggiungiAppuntamento', (req, res) => {
-    if (req.session.loggedIn != true || req.session.user != 'Medico') {
-        res.redirect('/')
-    } else {
-        res.render(__dirname + "/views/aggiungiAppuntamento")
-    }
-
-})
-
 //Route creata da Giuseppe Basile per funzione post per aggiungere appuntamento
 app.post('/addAppuntamento', async (req, res) => {
     try {
@@ -252,7 +242,7 @@ app.post('/addAppuntamento', async (req, res) => {
 
 //Route creata da Giuseppe Basile per il calendario
 app.get('/calendario', (req, res) => {
-    res.render(__dirname + "/views/calendario", {user: req.session.user})
+    res.render(__dirname + "/views/calendario", { user: req.session.user })
 })
 
 //route per visualizzare i farmaci
@@ -313,7 +303,7 @@ app.post('/getPriorita', async (req, res, next) => {
                                 await axios.get('http://localhost:3050/terapie/filter?cf=' + cf).then(function (response) {
                                     const terapie = response.data
 
-                                    res.render(__dirname + "/views/schedulazione", { idPaziente: paziente._id,nome:paziente.nome,cognome:paziente.cognome, priorita: priorita, terapie: terapie })
+                                    res.render(__dirname + "/views/schedulazione", { idPaziente: paziente._id, nome: paziente.nome, cognome: paziente.cognome, priorita: priorita, terapie: terapie })
                                 })
 
                             })
@@ -345,8 +335,8 @@ app.post("/generateAppuntamenti", async (req, res) => {
     const stato = 'In corso'
 
     try {
-        const appuntamenti = await api.createAppuntamentiTerapia(cf,nome, cognome, farmaco, dataInizio, durata, numAppuntamenti, frequenza, priorita)
-        const terapia = await api.startTerapia(idTerapia,dataInizio,stato)
+        const appuntamenti = await api.createAppuntamentiTerapia(cf, nome, cognome, farmaco, dataInizio, durata, numAppuntamenti, frequenza, priorita)
+        const terapia = await api.startTerapia(idTerapia, dataInizio, stato)
         const paziente = await api.updatePaziente(idPaziente, priorita)
         res.status(201).json(appuntamenti)
     } catch (error) {
