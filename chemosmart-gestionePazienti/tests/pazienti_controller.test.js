@@ -100,6 +100,33 @@ describe('insertPaziente', () => {
 });
 
 //getAllPazienti
+describe('getAllPazienti', () => {
+  it('dovrebbe restituire tutti i pazienti', async () => {
+    const pazienti = [{ id: 'abc123', nome: 'Mario', cognome: 'Rossi' }, { id: 'def456', nome: 'Luigi', cognome: 'Verdi' }]
+    const req = {}
+    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
+    
+    jest.spyOn(Paziente, 'find').mockResolvedValue(pazienti)
+    await getAllPazienti(req, res)
+
+    expect(res.status).toHaveBeenCalledWith(200)
+    expect(res.json).toHaveBeenCalledWith(pazienti)
+    expect(Paziente.find).toHaveBeenCalled()
+  })
+
+  it('dovrebbe restituire una risposta di errore con status 404 se non vengono trovati pazienti', async () => {
+    const errorMessage = 'Nessun paziente trovato'
+    const req = {}
+    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() }
+    
+    jest.spyOn(Paziente, 'find').mockRejectedValue(new Error(errorMessage))
+    await getAllPazienti(req, res)
+
+    expect(res.status).toHaveBeenCalledWith(404)
+    expect(res.json).toHaveBeenCalledWith({ message: errorMessage })
+    expect(Paziente.find).toHaveBeenCalled()
+  })
+})
 
 
 //getPazienteById
