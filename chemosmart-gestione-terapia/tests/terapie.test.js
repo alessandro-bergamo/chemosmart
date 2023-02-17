@@ -1,6 +1,7 @@
 const Terapia = require('../models/terapia')
 const { deleteTerapia,updateTerapia,getTerapiaFilter, insertTerapia } = require('../controllers/terapie')
 
+//Cancella Terapia
 describe('deleteTerapia', () => {
     test('deve cancellare una Terapia con l\'id passato e restituire un messaggio di successo', async () => {
         const id = '123'
@@ -42,6 +43,7 @@ describe('deleteTerapia', () => {
     })
 })
 
+//Aggiorna Terapia
 describe('updateTerapia', () => {
     test('deve aggiornare la Terapia tramite l\'id ricevuto in input e restituire la Terapia aggiornata', async () => {
         const id = '123'
@@ -99,6 +101,7 @@ describe('updateTerapia', () => {
     })
 })
 
+//Restituisce Terapia Filtrata
 describe('getTerapiaFilter', () => {
     test('deve ritornare la Terapia il cui cfPaziente è uguale al cf passato in input', async () => {
         const cf = 'abc123'
@@ -191,6 +194,7 @@ describe('getTerapiaFilter', () => {
     })
 })
 
+//Inserimento Nuova Terapia
 describe('insertTerapia', () => {
   const mockReq = {
       body: {
@@ -240,3 +244,5 @@ describe('insertTerapia', () => {
       expect(mockRes.json).toHaveBeenCalledWith({ message: mockError.message });
   });
 });
+
+//Restituire Tutte Le Terapie
