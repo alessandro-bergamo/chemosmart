@@ -1,0 +1,9 @@
+
+  <%= console.log(user) %>
+  <% if (user == 'Medico') { %>
+    <%- include('./homepage-medico') %>
+  <% } else if(user == 'Infermiere') { %>
+    <%- include('./homepage-infermiere') %>
+  <% } else if(user == 'Segretario') {%>
+    <%- include('./homepage-segretario') %>
+  <% } %> 

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/head') %> 
+</head>
+<body>
+  <% if (user == 'Medico') { %>
+    <%- include('./partials/sidebarMedico') %>
+    <%- include('./partials/content_filtri') %> 
+  <% } else if(user == 'Segretario') { %>
+    <%- include('./partials/sidebarSegretario') %>
+    <%- include('./partials/content_filtri_segretario') %> 
+  <% } %>
+  
+</body>
+</html>

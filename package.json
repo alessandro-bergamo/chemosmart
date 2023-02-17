@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "json-2-csv": "^3.18.0"
+  }
+}

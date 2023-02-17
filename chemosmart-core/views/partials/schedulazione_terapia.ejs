@@ -1,0 +1,175 @@
+<div id="terapie-table">
+    <p>La priorità assegnata al paziente è <%= priorita %>
+    </p>
+    <table class="table table-hover">
+        <thead style="background-color: #D6EFFF;">
+            <tr>
+                <th scope="col"> CF Paziente</th>
+                <th scope="col"> Farmaco</th>
+                <th scope="col"> Data</th>
+                <th scope="col"> Numero appuntamenti</th>
+                <th scope="col"> Stato</th>
+                <th scope="col"> Frequenza</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% terapie.forEach(terapia=> { %>
+                <input type="hidden" id="idTerapia" name="idTerapia" value="<%=  terapia._id %>">
+                <input type="hidden" id="frequenza" name="frequenza" value="<%=  terapia.frequenzaAppuntamenti %>">
+                <input type="hidden" id="numAppuntamenti" name="numAppuntamenti" value="<%= terapia.numAppuntamenti %>">
+                <input type="hidden" id="cf" name="cf" value="<%= terapia.cfPaziente %>">
+                <input type="hidden" name="farmaco" id="farmaco" value="<%= terapia.farmaco %>">
+                <input type="hidden" name="idPaziente" id="idPaziente" value="<%= idPaziente %>">
+                <input type="hidden" name="priorita" id="priorita" value="<%= priorita %>">
+                <tr>
+                    <td data-label="cfPaziente">
+                        <%= terapia.cfPaziente %>
+                    </td>
+                    <td data-label="farmaco">
+                        <%= terapia.farmaco %>
+                    </td>
+                    <td data-label="dataInizio" class="data" id="dataInizio"></td>
+                    </td>
+                    <td data-label="numAppuntamenti">
+                        <%= terapia.numAppuntamenti %>
+                    </td>
+                    <td id='statoTerapia' data-label="stato">
+                        <%= terapia.stato %>
+                    </td>
+                    <td data-label="frequenzaAppuntamenti">
+                        <%= terapia.frequenzaAppuntamenti %>
+                    </td>
+                </tr>
+                <% }) %>
+                <input type="hidden" name="nome" id="nome" value="<%= nome %>">
+                <input type="hidden" name="cognome" id="cognome" value="<%= cognome %>">
+        </tbody>
+    </table>
+    <form class="w-50">
+        <div class="row g-3">
+            <div class="col-md-6 schedulaForm">
+                <label for="datetimepicker" class="form-label">Data Inizio</label>
+                <input type="date" class="form-control datetimepicker" id="datetimepicker" name="dataInizio">
+            </div>
+            <div class="col-md-6 schedulaForm">
+                <label for="durata" class="form-label">Durata appuntamento</label>
+                <select name="durata" id="durata" class="form-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <!-- Button trigger modal -->
+            <div class="col-md-6 schedulaForm">
+                <button type="button" class="btn btn-primary" id='show-modal' data-toggle="modal"
+                    data-target="#exampleModal">
+                    Schedula
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Sei sicuro di voler schedulare? Tale operazione <b>è irreversibile</b>. <br>
+                        Continuare?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                        <button type="submit" id='schedula' class="btn btn-primary"
+                            data-dismiss="modal">Schedula</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<table style='display: none;' class="table justify-content-center mt-3" id="tabellaAppuntamenti">
+    <thead>
+        <tr>
+            <th scope="col">CF</th>
+            <th scope="col">Farmaco</th>
+            <th scope="col">Data</th>
+            <th scope="col">Ora Inizio</th>
+            <th scope="col">Ora Fine</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#schedula').click(function (e) {
+            e.preventDefault()
+            const dataInizio = $('#datetimepicker').val()
+            const numAppuntamenti = $('#numAppuntamenti').val()
+            const frequenza = $('#frequenza').val()
+            const durata = $("#durata option:selected").val()
+            const cf = $('#cf').val()
+            const nome =$('#nome').val()
+            const cognome =$('#cognome').val()
+            const farmaco = $('#farmaco').val()
+            const priorita = $.trim($('#priorita').val())
+            const idPaziente = $.trim($('#idPaziente').val())
+            const idTerapia = $('#idTerapia').val()
+            console.log(idPaziente + " " + idTerapia)
+            $.ajax({
+                url: '/generateAppuntamenti',
+                type: "POST",
+                dataType: 'json',
+                data: {
+                    cf: cf,
+                    nome:nome,
+                    cognome:cognome,
+                    farmaco: farmaco,
+                    dataInizio: dataInizio,
+                    durata: durata,
+                    numAppuntamenti: numAppuntamenti,
+                    frequenza: frequenza,
+                    priorita: priorita,
+                    idPaziente: idPaziente,
+                    idTerapia: idTerapia
+                },
+                success: function (data) {
+                    console.log(data)
+                    $('#tabellaAppuntamenti').show()
+                    $('#tabellaAppuntamenti tbody').empty();
+                    $('#statoTerapia').text('In corso')
+                    $('#dataInizio').text($('#datetimepicker').val())
+                    $('.schedulaForm').hide()
+                    $('#show-modal').hide()
+                    data.forEach(appuntamento => {
+                        var tableRow =
+                            `<tr>
+                        <td scope="row"> ${appuntamento.cfPaziente} </td> 
+                        <td scope="row"> ${appuntamento.farmaco} </td> 
+                        <td scope="row"> ${(new Date(appuntamento.dataInizio)).toLocaleDateString('it-IT')} </td> 
+                        <td scope="row"> ${(new Date(appuntamento.dataInizio)).getUTCHours()} </td>
+                        <td scope="row"> ${(new Date(appuntamento.dataFine)).getUTCHours()} </td>
+                    </tr>`;
+                        $("#tabellaAppuntamenti > tbody").append(tableRow);
+                    });
+                }
+            })
+        })
+    })
+</script>
+
+
+
+</div>
+</div>
+</div>

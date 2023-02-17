@@ -1,0 +1,109 @@
+<div class="w-50">
+    <form action="updateAppuntamento" method="post">
+        <div class="form-group mb-3">
+            <label for="cfPaziente">Codice Fiscale</label>
+            <input type="text" class="form-control" name="cfPaziente" id="cfPaziente"
+                placeholder="<%= appuntamento.cfPaziente %> ">
+        </div>
+        <div class="form-group mb-3">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" name="nome" id="nome" placeholder="Example input">
+        </div>
+        <div class="form-group mb-3">
+            <label for="cognome">Cognome</label>
+            <input type="text" class="form-control" name="cognome" id="cognome"
+                placeholder="Example input">
+        </div>
+        <div class="form-group mb-3">
+            <label for="farmaco">Farmaco</label>
+            <input type="text" class="form-control" name="farmaco" id="farmaco"
+                placeholder="<%= appuntamento.farmaco %>">
+        </div>
+        <div class="form-group mb-3">
+            <label for="datetimepicker">
+                Data e ora inizio
+            </label>
+            <input type="hidden" id="inizio" value="<%= appuntamento.dataInizio %>">
+            <input type="datetime-local" class="form-control datetimepicker " id="dataInizio" name="dataInizio">
+        </div>
+        <div class="form-group mb-3">
+            <label for="datetimepicker">
+                Data e ora fine
+            </label>
+            <input type="hidden" id="fine" value="<%= appuntamento.dataFine %>">
+            <input type="datetime-local" class="form-control datetimepicker " id="dataFine"
+                name="dataFine">
+        </div>
+        <div class="form-group mb-3">
+            <label for="durata">
+                Durata appuntamento
+            </label>
+            <% if (appuntamento.durata == 1) { %>
+                <select name="durata" id="durata" class="form-select">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            <% } else if(appuntamento.durata == 2) {%>
+            <select name="durata" id="durata" class="form-select">
+                <option value="1">1</option>
+                <option value="2" selected>2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            <% } else if (appuntamento.durata == 3) { %>
+                <select name="durata" id="durata" class="form-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3" selected>3</option>
+                    <option value="4">4</option>
+                </select>
+            <% } else if(appuntamento.durata == 4) { %>
+                <select name="durata" id="durata" class="form-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4" selected>4</option>
+                </select>
+            <% } %>
+        </div>
+        <input type="hidden" name="id" value="<%= appuntamento._id %>">
+        <button type="submit" class="btn btn-primary mt-3">Modifica</button>
+    </form>
+</div>
+
+<script>
+    const options = {
+        year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric',
+        timeZone: 'UTC'
+    };
+    const d_inizio = document.getElementById('inizio').value;
+    const di = document.getElementById('dataInizio')
+    const formattedDateInizio = d_inizio.substring(0, 16);
+    di.value = formattedDateInizio;
+
+    const d_fine = document.getElementById('fine').value;
+    const df = document.getElementById('dataFine')
+    var formattedDateFine = d_fine.substring(0, 16);
+    df.value = formattedDateFine;
+    
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+</div>
