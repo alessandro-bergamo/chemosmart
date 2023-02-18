@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+</head>
+
+<body>
+    <div class="w-75 mx-auto" id="calendar">
+        <button type="submit" id="print-button" class="mx-auto btn btn-primary mt-3">Stampa</button>
+    </div>
+
+
+    <!-- modale per evento -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                events: function (info, successCallback, failureCallback) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://localhost:3006/appuntamenti',
+                        success: function (data) {
+                            var events = [];
+                            for (var i = 0; i < data.length; i++) {
+                                events.push({
+                                    id: data[i].id,
+                                    title: data[i].title,
+                                    start: data[i].start,
+                                    end: data[i].end
+                                });
+                            }
+                            successCallback(events);
+                        },
+                        error: function () {
+                            failureCallback();
+                        }
+                    });
+                },
+
+                eventClick: function (date, jsEvent, view) {
+                    const id = date.event.id
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://localhost:3006/appuntamenti/' + id,
+                        success: function (data) {
+                            $('#cf').text(data.cfPaziente);
+                            $('#farmaco').text(data.farmaco);
+                            const options = {
+                                year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric',
+                                timeZone: 'UTC'
+                            };
+                            const d_inizio = new Date(data.dataInizio)
+                            $('#dataDiInizio').text(d_inizio.toLocaleString('it-IT', options));
+                            const d_fine = new Date(data.dataFine)
+                            $('#dataDiFine').text(d_fine.toLocaleString('it-IT', options));
+                            $('#idHidden').text(data._id);
+                            $('#infoAppuntamento').modal();
+                        },
+                        error: function () {
+                            failureCallback();
+                        }
+                    });
+                },
+                height: 600,
+                initialView: 'listWeek',
+                timeZone: 'Europe/Rome'
+            });
+            calendar.render();
+        });
+    </script>
+    <script>
+        const printButton = document.getElementById('print-button');
+
+        printButton.addEventListener('click', function () {
+            printButton.style.display = 'none'; // Rimuovi il bottone dalla pagina
+            setTimeout(function () {
+                window.print(); // Esegui la funzione window.print()
+            }, 100); // Attendi 500 millisecondi prima di eseguire la funzione di stampa
+        });
+
+        window.addEventListener('afterprint', function () {
+            location.reload(); // Ricarica la pagina dopo che la stampa è stata completata e la finestra di dialogo di stampa è stata chiusa
+        }, { once: true }); 
+    </script>
+</body>
+
+</html>

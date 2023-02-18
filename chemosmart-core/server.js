@@ -44,7 +44,9 @@ app.get('/', (req, res) => {
         res.render(__dirname + '/views/loginPage')
     }
 })
-
+app.get('/stampa', (req, res) => {
+    res.render(__dirname + "/views/stampa")
+})
 app.post('/login', (req, res) => {
     if (req.session.loggedIn != true) {
         req.session.user = req.body.user_type
