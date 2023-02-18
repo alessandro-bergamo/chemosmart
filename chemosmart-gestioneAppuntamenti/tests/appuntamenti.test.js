@@ -151,7 +151,7 @@ describe('insertAppuntamento', () => {
     })
 
     jest.spyOn(Appuntamento.prototype,'save').mockResolvedValue(appuntamentoMock)
-    const appuntamento = await insertAppuntamento(req,res)
+    await insertAppuntamento(req,res)
 
     expect(mockAppuntamentoSave).toHaveBeenCalledTimes(1)
     expect(res.status).toHaveBeenCalledWith(201)
