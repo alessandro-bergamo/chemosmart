@@ -66,7 +66,7 @@ exports.getTerapiaFilter = async(req,res) => {
     const cfQuery = req.query.cf ? req.query.cf : ""
     try{
         // const $regex = escapeStringRegexp(nomeQuery);
-        const terapia = await Terapia.find({cfPaziente: { $regex: new RegExp(`^${cfQuery.toLowerCase()}`, 'i').exec()}});
+        const terapia = await Terapia.find({cfPaziente: { $regex: new RegExp(`^${cfQuery.toLowerCase()}`, 'i')}}).exec();
         
        res.status(200).json(terapia)
 
