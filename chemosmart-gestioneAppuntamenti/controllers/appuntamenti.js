@@ -1,47 +1,60 @@
 const Appuntamento = require('../models/appuntamento.js')
-
+const {getPaziente, getFarmaco} = require('../services/apiClient')
+const axios = require('axios')
 
 //controller per inserire un appuntamento 
 exports.insertAppuntamento = async (req, res) => {
-    const appuntamento = new Appuntamento(req.body)
+    const cf = req.body.cfPaziente
 
-    if (!appuntamento.cfPaziente || !appuntamento.farmaco || !appuntamento.dataInizio || !appuntamento.dataFine || !appuntamento.nome || !appuntamento.cognome) {
-        res.status(400).json()
+    try{
+        const paziente = await getPaziente(cf)
+
+        if(!paziente){
+            res.status(409).json({message: 'errore ricerca paziente'})
+        }
+
+        if(paziente.nome != req.body.nome){
+            res.status(400).json({message: 'Nome non valido'})
+        }
+
+        if(paziente.cognome != req.body.cognome){
+            res.status(400).json({message: 'Cognome non valido'})
+        }
+
+        const dataInizio = new Date(req.body.dataInizio)
+        const dataFine = new Date(req.body.dataFine)
+        const dataOdierna = new Date()
+
+        if(dataInizio.getTime() < dataOdierna.getTime()){
+            res.status(400).json({message: 'DataInizio non valida'})
+        }
+
+        if(dataFine.getTime() < dataOdierna.getTime()){
+            res.status(400).json({message: 'DataFine non valida'})
+        }
+
+        if(dataFine.getTime() < dataInizio.getTime()){
+            res.status(400).json({message: 'Date non valide'})
+        }
+
+        const farmaco = await getFarmaco(req.body.farmaco)
+
+        if(!farmaco){
+            res.status(400).json({message: 'Farmaco non trovato'})
+        }
+
+        const appuntamento = new Appuntamento(req.body)
+
+        try {
+            await appuntamento.save()
+            res.status(201).json(appuntamento)
+        } catch (error) {
+            res.status(409).json({ message: error.message })
+        }
+    }catch(error){
+        res.status(409).json({message: error.message})
     }
-
-    /*
-        ** Implementata la regex per controllare se il codice Fiscale è valido.
-             ** Tramite il metodo test() verifichiamo se il codice Fiscale dell'appuntamento corrisponde alla regex
-    */
-    const regex = /[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]/;
-    const cf = appuntamento.cfPaziente;
-    if (regex.test(cf)) {
-        res.status(400).json("Codice fiscale valido")
-    } else {
-        res.status(400).json("Codice fiscale non valido")
-    }
-
-    /*
-        ** Implementata la regex per controllare se il nome e cognome è valido.
-             ** Tramite il metodo test() verifichiamo se il nome e cognome corrisponde alla regex
-    */
-    const regexNameSurname = /^[a-zA-Z]+$/
-    const name = appuntamento.nome
-    const surname = appuntamento.cognome
-
-    if (regex.test(name) && regex.test(surname)) {
-        res.status(400).json("Input valido")
-    } else {
-        res.status(400).json("Input non valido")
-    }
-
-
-    try {
-        await appuntamento.save()
-        res.status(201).json(appuntamento)
-    } catch (error) {
-        res.status(409).json({ message: error.message })
-    }
+    
 }
 //funzione per fromattare correttamente nome e cognome
 function formattaParole(parole) {
