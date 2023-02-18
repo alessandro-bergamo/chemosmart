@@ -8,6 +8,7 @@
 <body>
     <div class="w-75 mx-auto" id="calendar">
         <button type="submit" id="print-button" class="mx-auto btn btn-primary mt-3">Stampa</button>
+        <button type="submit" id="home" class="mx-auto btn btn-light mt-3">Torna a Calendario</button>
     </div>
 
 
@@ -82,6 +83,13 @@
         window.addEventListener('afterprint', function () {
             location.reload(); // Ricarica la pagina dopo che la stampa è stata completata e la finestra di dialogo di stampa è stata chiusa
         }, { once: true }); 
+    </script>
+    <script>
+        const home = document.getElementById('home')
+        home.addEventListener('click', function () {
+            window.location.href = "/calendario";
+        })
+        
     </script>
 </body>
 
