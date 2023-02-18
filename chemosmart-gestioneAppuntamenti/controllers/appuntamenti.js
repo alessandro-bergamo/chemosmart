@@ -5,19 +5,23 @@ const axios = require('axios')
 //controller per inserire un appuntamento 
 exports.insertAppuntamento = async (req, res) => {
     const cf = req.body.cfPaziente
-
     try{
-        const paziente = await getPaziente(cf)
-
+        const response = await getPaziente(cf)
+        const paziente = response.data[0]
+        console.log(paziente)
         if(!paziente){
+            console.log('non è arrivato nulla')
             res.status(409).json({message: 'errore ricerca paziente'})
         }
 
+        console.log(paziente.nome + ' ' + req.body.nome)
         if(paziente.nome != req.body.nome){
+            console.log('nome non valido')
             res.status(400).json({message: 'Nome non valido'})
         }
-
+        console.log(paziente.cognome + ' ' + req.body.cognome)
         if(paziente.cognome != req.body.cognome){
+            console.log("cognome no valido")
             res.status(400).json({message: 'Cognome non valido'})
         }
 
@@ -26,29 +30,35 @@ exports.insertAppuntamento = async (req, res) => {
         const dataOdierna = new Date()
 
         if(dataInizio.getTime() < dataOdierna.getTime()){
+            console.log('dataInizio non valida')
             res.status(400).json({message: 'DataInizio non valida'})
         }
 
         if(dataFine.getTime() < dataOdierna.getTime()){
+            console.log('dataFine non valida')
             res.status(400).json({message: 'DataFine non valida'})
         }
 
         if(dataFine.getTime() < dataInizio.getTime()){
+            console.log('date non vanno bene')
             res.status(400).json({message: 'Date non valide'})
         }
 
-        const farmaco = await getFarmaco(req.body.farmaco)
+        const responseFarmaco = await getFarmaco(req.body.farmaco)
+        const farmaco = responseFarmaco.data[0]
 
         if(!farmaco){
             res.status(400).json({message: 'Farmaco non trovato'})
         }
 
         const appuntamento = new Appuntamento(req.body)
-
+        console.log(appuntamento)
         try {
             await appuntamento.save()
+            console.log('salvato\n' + appuntamento)
             res.status(201).json(appuntamento)
         } catch (error) {
+            console.log('errore')
             res.status(409).json({ message: error.message })
         }
     }catch(error){
@@ -125,10 +135,37 @@ exports.deleteAppuntamento = async (req, res) => {
 exports.updateAppuntamento = async (req, res) => {
     const id = req.params.id
 
+    
     const data = { ...req.body }
 
     try {
-        const appuntamento = await Appuntamento.findByIdAndUpdate(id, data, { new: true }) //new ture serve per restituire effetivamente il json aggiornato
+        const appuntamentoOld = await Appuntamento.find(id)
+        if(!appuntamentoOld){
+            res.status(400).json({message: 'Appuntamento non trovato'})
+        }
+
+        const paziente = await getPaziente(data.cfPaziente)
+        
+        if(!paziente){
+            res.status(400).json({message: 'Paziente non trovato'})
+        }
+
+        if(paziente.nome != data.nome){
+            res.status(400).json({message: 'Nome non valido'})
+        }
+
+        if(paziente.cognome != data.cognome){
+            res.status(400).json({message: 'Cognome non valido'})
+        }
+
+
+        const farmaco = await getFarmaco(nomeFarmaco)
+
+        if(!farmaco){
+            res.status(400).json({message: 'Farmaco non valido'})
+        }
+
+        const appuntamentoMod = await Appuntamento.findByIdAndUpdate(id, data, { new: true }) //new ture serve per restituire effetivamente il json aggiornato
 
         res.status(200).json(appuntamento)
     } catch (error) {
