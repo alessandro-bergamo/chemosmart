@@ -1,5 +1,5 @@
 import os
-import psutil
+
 
 # Trova tutti i processi node.exe in esecuzione
 output = os.popen('tasklist /FI "IMAGENAME eq node.exe"').read()
