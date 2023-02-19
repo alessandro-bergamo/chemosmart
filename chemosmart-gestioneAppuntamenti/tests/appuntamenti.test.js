@@ -1,4 +1,4 @@
-const { insertAppuntamento } = require('../controllers/appuntamenti');
+const { insertAppuntamento, deleteAppuntamento } = require('../controllers/appuntamenti');
 const {getPaziente, getFarmaco} = require('../services/apiClient')
 const Appuntamento = require('../models/appuntamento');
 const axios = require('axios')
@@ -161,5 +161,74 @@ describe('insertAppuntamento', () => {
     expect(mockAppuntamentoSave).toHaveBeenCalledTimes(1)
     expect(res.status).toHaveBeenCalledWith(201)
     expect(mockAppuntamentoSave).toHaveBeenCalledWith(req.body)
+  })
+})
+
+describe('deleteAppuntamento', () => {
+  const req = {
+    params: {
+      id: '123'
+    },
+    query: {
+      cfPaziente: 'ABCD1234',
+      nome: 'Mario',
+      cognome: 'Rossi'
+    }
+  }
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn()
+  }
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
+  it('[TC_2.2_1] Appuntamento non presente nel database', async () => {
+    const findByIdMock = jest.fn().mockReturnValue(null)
+    Appuntamento.findById = findByIdMock
+    await deleteAppuntamento(req, res)
+    expect(res.status).toHaveBeenCalledWith(404)
+    expect(res.json).toHaveBeenCalled()
+    expect(findByIdMock).toHaveBeenCalledWith(req.params.id)
+  })
+
+  it('[TC_2.2_2] CF non corrisponde', async() => {
+    const findByIdMock = jest.fn().mockReturnValue({ cfPaziente: '123456' })
+    Appuntamento.findById = findByIdMock
+    await deleteAppuntamento(req, res)
+    expect(res.status).toHaveBeenCalledWith(400)
+    expect(res.json).toHaveBeenCalledWith('CF non corrisponde')
+    expect(findByIdMock).toHaveBeenCalledWith(req.params.id)
+  })
+
+  it('[TC_2.2_3] Nome non corrisponde', async () => {
+    const findByIdMock = jest.fn().mockReturnValue({ nome: 'Luca', cognome: 'Rossi' })
+    Appuntamento.findById = findByIdMock
+    await deleteAppuntamento(req, res)
+    expect(res.status).toHaveBeenCalledWith(400)
+    expect(res.json).toHaveBeenCalledWith('Nome non corrisponde')
+    expect(findByIdMock).toHaveBeenCalledWith(req.params.id)
+  })
+
+  it('[TC_2.2_4] Cognome non corrisponde', async () => {
+      const findByIdMock = jest.fn().mockReturnValue({ nome: 'Mario', cognome: 'Bianchi' })
+      Appuntamento.findById = findByIdMock
+      await deleteAppuntamento(req, res)
+      expect(res.status).toHaveBeenCalledWith(400)
+      expect(res.json).toHaveBeenCalledWith('Cognome non corrisponde')
+      expect(findByIdMock).toHaveBeenCalledWith(req.params.id)
+    })
+
+
+  it('[TC_2.2_5] Cancella l\'appuntamento e ritorna un messaggio di successo', async () => {
+    const findByIdMock = jest.fn().mockReturnValue({ nome: 'Mario', cognome: 'Rossi' })
+    Appuntamento.findById = findByIdMock
+    const findByIdAndDeleteMock = jest.fn().mockResolvedValue({})
+    Appuntamento.findByIdAndDelete = findByIdAndDeleteMock
+    await deleteAppuntamento(req, res)
+    expect(res.json).toHaveBeenCalledWith({ message: 'Appuntamento eliminato con successo' })
+    expect(findByIdMock).toHaveBeenCalledWith(req.params.id)
+    expect(findByIdAndDeleteMock).toHaveBeenCalledWith(req.params.id)
   })
 })

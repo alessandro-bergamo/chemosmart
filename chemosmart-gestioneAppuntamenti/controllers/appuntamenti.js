@@ -104,22 +104,24 @@ exports.getAppuntamentoById = async (req, res) => {
 //controller per eliminare un appuntamento  in base all'id
 exports.deleteAppuntamento = async (req, res) => {
     const id = req.params.id
-    const cf = req.params.id
-    const nome = req.params.nome
-    const cognome = req.params.cognome
-    
+    const cf = req.query.cf
+    const nome = req.query.nome
+    const cognome = req.query.cognome
     try {
-        const appuntamento = Appuntamento.findById(id)
-
+        const appuntamento =  await Appuntamento.findById(id)
+        console.log(appuntamento)
         if(appuntamento.cfPaziente != cf) {
+            console.log('errore cf')
             res.status(400).json('CF non corrisponde')
         }
 
         if(appuntamento.nome != nome){
+            console.log('errore nome')
             res.status(400).json('Nome non corrisponde')
         }
 
         if(appuntamento.cognome != cognome) {
+            console.log('errore cognome')
             res.status(400).json('Cognome non corrisponde')
         }
         await Appuntamento.findByIdAndDelete(id)
@@ -128,7 +130,6 @@ exports.deleteAppuntamento = async (req, res) => {
         res.status(404).json({ message: error.message })
     }
 }
-
 
 //controller per aggiornare un appuntamento in base all'id
 exports.updateAppuntamento = async (req, res) => {
