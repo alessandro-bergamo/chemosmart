@@ -5,20 +5,16 @@ const axios = require('axios')
 //controller per inserire un appuntamento 
 exports.insertAppuntamento = async (req, res) => {
     const cf = req.body.cfPaziente
-    console.log(cf)
+
     try{
         const response = await getPaziente(cf)
         const paziente = response.data
-        console.log(response.data)
 
-        console.log(paziente.nome + ' ' + req.body.nome)
         if(paziente.nome != req.body.nome){
-            console.log('nome non valido')
             res.status(400).json({message: 'Nome non valido'})
         }
-        console.log(paziente.cognome + ' ' + req.body.cognome)
+        
         if(paziente.cognome != req.body.cognome){
-            console.log("cognome no valido")
             res.status(400).json({message: 'Cognome non valido'})
         }
 
@@ -27,17 +23,14 @@ exports.insertAppuntamento = async (req, res) => {
         const dataOdierna = new Date()
 
         if(dataInizio.getTime() < dataOdierna.getTime()){
-            console.log('dataInizio non valida')
             res.status(400).json({message: 'DataInizio non valida'})
         }
 
         if(dataFine.getTime() < dataOdierna.getTime()){
-            console.log('dataFine non valida')
             res.status(400).json({message: 'DataFine non valida'})
         }
 
         if(dataFine.getTime() < dataInizio.getTime()){
-            console.log('date non vanno bene')
             res.status(400).json({message: 'Date non valide'})
         }
 
@@ -111,8 +104,24 @@ exports.getAppuntamentoById = async (req, res) => {
 //controller per eliminare un appuntamento  in base all'id
 exports.deleteAppuntamento = async (req, res) => {
     const id = req.params.id
-
+    const cf = req.params.id
+    const nome = req.params.nome
+    const cognome = req.params.cognome
+    
     try {
+        const appuntamento = Appuntamento.findById(id)
+
+        if(appuntamento.cfPaziente != cf) {
+            res.status(400).json('CF non corrisponde')
+        }
+
+        if(appuntamento.nome != nome){
+            res.status(400).json('Nome non corrisponde')
+        }
+
+        if(appuntamento.cognome != cognome) {
+            res.status(400).json('Cognome non corrisponde')
+        }
         await Appuntamento.findByIdAndDelete(id)
         res.json({ message: 'Appuntamento eliminato con successo' })
     } catch (error) {
