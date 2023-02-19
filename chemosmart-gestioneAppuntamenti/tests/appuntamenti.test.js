@@ -1,9 +1,11 @@
 const { insertAppuntamento } = require('../controllers/appuntamenti');
 const {getPaziente, getFarmaco} = require('../services/apiClient')
 const Appuntamento = require('../models/appuntamento');
+const axios = require('axios')
 
 jest.mock('../services/apiClient');
 jest.mock('../models/appuntamento');
+jest.mock('axios')
 
 describe('insertAppuntamento', () => {
   const req = {
@@ -22,24 +24,24 @@ describe('insertAppuntamento', () => {
       json: jest.fn()
   }
 
-  const mockGetPaziente = getPaziente.mockImplementation(() => {
-      return { 
-          cf: req.body.cfPaziente,
-          nome: req.body.nome,
-          cognome: req.body.cognome
-      }
+  const mockGetPaziente = getPaziente.mockImplementation(cf => {
+    return {
+      cf: req.body.cfPaziente,
+      nome: req.body.nome,
+      cognome: req.body.cognome
+    }
   })
 
-  const mockGetFarmaco = getFarmaco.mockImplementation(() => {
+  const mockGetFarmaco = getFarmaco.mockImplementation(farmaco => {
     return {
       nome: req.body.farmaco
     }
   })
 
   const mockAppuntamentoSave = Appuntamento.mockImplementation(() => {
-      return {
-          save: jest.fn(() => Promise.resolve())
-      }
+    return {
+        save: jest.fn(() => Promise.resolve())
+    }
   })
 
   const appuntamentoMock  = {
@@ -56,35 +58,38 @@ describe('insertAppuntamento', () => {
   })
 
   test('[TC_2.1_1] Il CF non è presente nel database pazienti', async () => {
-      mockGetPaziente.mockResolvedValue(null)
+    const invalidCF = 'ABCD123'
+    const error = 'errore ricerca paziente'
+
+      mockGetPaziente.mockRejectedValue(error)
 
       await insertAppuntamento(req, res)
 
       expect(res.status).toHaveBeenCalledWith(409)
-      expect(res.json).toHaveBeenCalledWith({ message: 'errore ricerca paziente' })
+      expect(res.json).toHaveBeenCalledWith({message: error.message})
   })
 
   test('[TC_2.1_2] Il nome non corrisponde al paziente selezionato', async () => {
       const invalidNome = 'Luigi'
-      mockGetPaziente.mockResolvedValue({
+      mockGetPaziente.mockResolvedValue({data: {
           cf: req.body.cfPaziente,
           nome: invalidNome,
           cognome: req.body.cognome
-      })
-
+      }})
+      const error = 'Nome non valido'
       await insertAppuntamento(req, res)
 
       expect(res.status).toHaveBeenCalledWith(400)
-      expect(res.json).toHaveBeenCalledWith({ message: 'Nome non valido' })
+      expect(res.json).toHaveBeenCalledWith({ message: error })
   })
 
   test('[TC_2.1_3] Il cognome non corrisponde al paziente selezionato', async () => {
       const invalidCognome = 'Bianchi'
-      mockGetPaziente.mockResolvedValue({
+      mockGetPaziente.mockResolvedValue({data: {
           cf: req.body.cfPaziente,
           nome: req.body.nome,
           cognome: invalidCognome
-      })
+      }})
 
       await insertAppuntamento(req, res)
 
@@ -125,32 +130,32 @@ describe('insertAppuntamento', () => {
   })
 
   test('[TC_2.1_7] Il farmaco inserito non è presente nel database', async () => {
-    mockGetPaziente.mockResolvedValue({
+    mockGetPaziente.mockResolvedValue({data:{
         cf: req.body.cfPaziente,
         nome: req.body.nome,
         cognome: req.body.cognome,
-    })
+    }})
 
-    mockGetFarmaco.mockResolvedValue(null)
+    const error = 'Farmaco non trovato'
+    mockGetFarmaco.mockRejectedValue(error)
 
     await insertAppuntamento(req,res)
 
-    expect(res.status).toHaveBeenCalledWith(400)
-    expect(res.json).toHaveBeenCalledWith({message: 'Farmaco non trovato'})
+    expect(res.status).toHaveBeenCalledWith(409)
+    expect(res.json).toHaveBeenCalledWith({message: error.message})
   })
 
   test('[TC_2.1_8] L\'inserimento va a buon fine', async () => {
-    mockGetPaziente.mockResolvedValue({
+    mockGetPaziente.mockResolvedValue({data: {
         cf: req.body.cfPaziente,
         nome: req.body.nome,
         cognome: req.body.cognome,
-    })
+    }})
 
-    mockGetFarmaco.mockResolvedValue({
+    mockGetFarmaco.mockResolvedValue({data:{
         nome: req.body.farmaco
-    })
+    }})
 
-    jest.spyOn(Appuntamento.prototype,'save').mockResolvedValue(appuntamentoMock)
     await insertAppuntamento(req,res)
 
     expect(mockAppuntamentoSave).toHaveBeenCalledTimes(1)

@@ -5,14 +5,11 @@ const axios = require('axios')
 //controller per inserire un appuntamento 
 exports.insertAppuntamento = async (req, res) => {
     const cf = req.body.cfPaziente
+    console.log(cf)
     try{
         const response = await getPaziente(cf)
-        const paziente = response.data[0]
-        console.log(paziente)
-        if(!paziente){
-            console.log('non è arrivato nulla')
-            res.status(409).json({message: 'errore ricerca paziente'})
-        }
+        const paziente = response.data
+        console.log(response.data)
 
         console.log(paziente.nome + ' ' + req.body.nome)
         if(paziente.nome != req.body.nome){
@@ -45,20 +42,13 @@ exports.insertAppuntamento = async (req, res) => {
         }
 
         const responseFarmaco = await getFarmaco(req.body.farmaco)
-        const farmaco = responseFarmaco.data[0]
-
-        if(!farmaco){
-            res.status(400).json({message: 'Farmaco non trovato'})
-        }
+        const farmaco = responseFarmaco.data
 
         const appuntamento = new Appuntamento(req.body)
-        console.log(appuntamento)
         try {
             await appuntamento.save()
-            console.log('salvato\n' + appuntamento)
             res.status(201).json(appuntamento)
         } catch (error) {
-            console.log('errore')
             res.status(409).json({ message: error.message })
         }
     }catch(error){

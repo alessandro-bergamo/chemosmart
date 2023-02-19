@@ -95,7 +95,7 @@ exports.getFarmacoByNome = async (req,res) => {
     const nome = req.params.nome
 
     try{
-        const farmaco = await Farmaco.find({nome: {$regex: new RegExp("^" + nome.toLowerCase(), "i")}}).exec()
+        const farmaco = await Farmaco.findOne({nome: {$regex: new RegExp("^" + nome.toLowerCase(), "i")}}).exec()
 
         res.status(200).json(farmaco)
     } catch (error) {
