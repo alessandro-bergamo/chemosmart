@@ -72,9 +72,11 @@
     </script>
     <script>
         const printButton = document.getElementById('print-button');
-
+        const homebtn = document.getElementById('home')
         printButton.addEventListener('click', function () {
             printButton.style.display = 'none'; // Rimuovi il bottone dalla pagina
+            homebtn.style.display = 'none'
+
             setTimeout(function () {
                 window.print(); // Esegui la funzione window.print()
             }, 100); // Attendi 500 millisecondi prima di eseguire la funzione di stampa
