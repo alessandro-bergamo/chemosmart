@@ -79,7 +79,10 @@ app.get('/homepage', async (req, res) => {
         } else {
             try {
                 const pazienti = await api.getPazienti()
-                res.status(201).render(__dirname + "/views/index", { pazienti: pazienti })
+                const terapie = await api.getTerapie()
+                const terapieNonProgrammate = terapie.filter((terapia) => terapia.stato === 'Non schedulata');
+
+                res.status(201).render(__dirname + "/views/index", { pazienti: pazienti, terapie: terapieNonProgrammate })
             } catch (error) {
                 res.status(404).render('/')
             }
@@ -182,7 +185,7 @@ app.post('/updateTerapia', async (req, res) => {
 });
 
 //rout per renderizzare pagina modifica appuntamento
-app.get("/modificaAppuntamento", async function (req, res){
+app.get("/modificaAppuntamento", async function (req, res) {
     const id = req.query.id;
     try {
         const response = await api.getAppuntamentoById(id)
