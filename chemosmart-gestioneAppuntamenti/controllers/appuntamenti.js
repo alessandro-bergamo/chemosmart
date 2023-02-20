@@ -75,7 +75,11 @@ exports.getAllAppuntamenti = (req, res) => {
                     title: formattaParole(appuntamento.nome + ' ' + appuntamento.cognome),
                     start: appuntamento.dataInizio,
                     end: appuntamento.dataFine,
-                    id: appuntamento._id
+                    id: appuntamento._id,
+                    cfPaziente: appuntamento.cfPaziente,
+                    farmaco:appuntamento.farmaco,
+                    nome: appuntamento.nome,
+                    cognome: appuntamento.cognome
                 });
             }
             res.send(events);
@@ -136,7 +140,7 @@ exports.updateAppuntamento = async (req, res) => {
     const id = req.params.id
 
     const data = { ...req.body }
-    console.log(data)
+    console.log("------",data)
     try {
         const appuntamentoOld = await Appuntamento.findById(id)
 
