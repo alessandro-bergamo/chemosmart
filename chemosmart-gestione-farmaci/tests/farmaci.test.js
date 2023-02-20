@@ -44,5 +44,5 @@ describe('updateFarmaco', () => {
         expect(Farmaco.findByIdAndUpdate).toHaveBeenCalledWith(id, req.body, { new: true });
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith(mockFarmaco);
-    });
+    });
 });
