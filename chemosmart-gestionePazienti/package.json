@@ -4,7 +4,7 @@
   "description": "Microservizio per la gestione pazienti del sistema ChemoSmart",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "nodemon index.js"
   },
   "author": "",
@@ -14,5 +14,8 @@
     "express": "^4.18.2",
     "moongose": "^1.0.0",
     "nodemon": "^2.0.20"
+  },
+  "devDependencies": {
+    "jest": "^29.4.3"
   }
 }
