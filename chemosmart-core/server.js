@@ -198,14 +198,17 @@ app.get("/modificaAppuntamento", async function (req, res){
 app.post('/updateAppuntamento', async (req, res) => {
     const id = req.body.id;
     try {
-        const appuntamento = await api.getAppuntamentoById(id);
+        const response = await api.getAppuntamentoById(id);
+        const appuntamento = response.data
         const dato = {
             cfPaziente: req.body.cfPaziente || appuntamento.cfPaziente,
             farmaco: req.body.farmaco || appuntamento.farmaco,
             dataInizio: req.body.dataInizio || appuntamento.dataInizio,
             dataFine: req.body.dataFine || appuntamento.dataFine,
-            durata: req.body.durata || appuntamento.durata
+            nome: req.body.nome || appuntamento.nome,
+            cognome: req.body.cognome || appuntamento.cognome
         };
+        console.log(dato)
         await api.updateAppuntamento(id, dato);
         res.render("calendario");
     } catch (error) {
@@ -351,3 +354,4 @@ app.post("/generateAppuntamenti", async (req, res) => {
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`)
 })
+

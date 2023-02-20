@@ -135,39 +135,59 @@ exports.deleteAppuntamento = async (req, res) => {
 exports.updateAppuntamento = async (req, res) => {
     const id = req.params.id
 
-    
     const data = { ...req.body }
-
+    console.log(data)
     try {
-        const appuntamentoOld = await Appuntamento.find(id)
-        if(!appuntamentoOld){
-            res.status(400).json({message: 'Appuntamento non trovato'})
-        }
+        const appuntamentoOld = await Appuntamento.findById(id)
 
-        const paziente = await getPaziente(data.cfPaziente)
-        
+        const response = await getPaziente(req.body.cfPaziente)
+        const paziente = response.data
         if(!paziente){
             res.status(400).json({message: 'Paziente non trovato'})
+            return
+        }
+
+        if(paziente.cf != data.cfPaziente){
+            res.status(400).json({message: 'CF non valido'})
         }
 
         if(paziente.nome != data.nome){
             res.status(400).json({message: 'Nome non valido'})
+            return
         }
 
         if(paziente.cognome != data.cognome){
             res.status(400).json({message: 'Cognome non valido'})
+            return
         }
 
+        const dataInizio = new Date(req.body.dataInizio)
+        const dataFine = new Date(req.body.dataFine)
+        const dataOdierna = new Date()
 
-        const farmaco = await getFarmaco(nomeFarmaco)
-
-        if(!farmaco){
-            res.status(400).json({message: 'Farmaco non valido'})
+        if(dataInizio.getTime() < dataOdierna.getTime()){
+            res.status(400).json({message: 'DataInizio non valida'})
+            return
         }
 
+        if(dataFine.getTime() < dataOdierna.getTime()){
+            res.status(400).json({message: 'DataFine non valida'})
+            return
+        }
+
+        if(dataFine.getTime() < dataInizio.getTime()){
+            res.status(400).json({message: 'Date non valide'})
+            return
+        }
+
+        const responseFarmaco = await getFarmaco(req.body.farmaco)
+        const farmaco = responseFarmaco.data
+       if(!farmaco){
+        res.status(400).json('Farmaco non trovato')
+        return
+       }
         const appuntamentoMod = await Appuntamento.findByIdAndUpdate(id, data, { new: true }) //new ture serve per restituire effetivamente il json aggiornato
-
-        res.status(200).json(appuntamento)
+        res.status(200).json(appuntamentoMod)
     } catch (error) {
         res.status(404).json({ message: error.message })
     }

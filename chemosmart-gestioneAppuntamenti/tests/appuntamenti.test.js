@@ -1,4 +1,4 @@
-const { insertAppuntamento, deleteAppuntamento } = require('../controllers/appuntamenti');
+const { insertAppuntamento, deleteAppuntamento, updateAppuntamento} = require('../controllers/appuntamenti');
 const {getPaziente, getFarmaco} = require('../services/apiClient')
 const Appuntamento = require('../models/appuntamento');
 const axios = require('axios')
@@ -231,4 +231,239 @@ describe('deleteAppuntamento', () => {
     expect(findByIdMock).toHaveBeenCalledWith(req.params.id)
     expect(findByIdAndDeleteMock).toHaveBeenCalledWith(req.params.id)
   })
+})
+
+describe('updateAppuntamento', () => {
+  const req = {
+    params: {
+      id: '1234'
+    },
+    body: {
+        cfPaziente: 'ABCDEF01G1234567',
+        farmaco: 'Aspirina',
+        dataFine: new Date(Date.now() + 180 * 60 * 1000),
+        dataInizio: new Date(Date.now() + 120 * 60 * 1000),
+        nome: 'Mario',
+        cognome: 'Rossi',
+    }
+}
+
+const res = {
+    status: jest.fn(() => res),
+    json: jest.fn()
+}
+
+const mockUpdateGetPaziente = getPaziente.mockImplementation(cf => {
+  return {
+    cf: req.body.cfPaziente,
+    nome: req.body.nome,
+    cognome: req.body.cognome
+  }
+})
+
+const mockUpdateGetFarmaco = getFarmaco.mockImplementation(farmaco => {
+  return {
+    nome: req.body.farmaco
+  }
+})
+
+afterEach(() => {
+  const req = {
+    params: {
+      id: '1234'
+    },
+    body: {
+        cfPaziente: 'ABCDEF01G1234567',
+        farmaco: 'Aspirina',
+        dataFine: new Date(Date.now() + 180 * 60 * 1000),
+        dataInizio: new Date(Date.now() + 120 * 60 * 1000),
+        nome: 'Mario',
+        cognome: 'Rossi',
+    }
+  }
+    jest.clearAllMocks()
+})
+
+it('[TC_2.3_1] Appuntamento non presente nel database', async () => {
+  const findByIdMock = jest.fn().mockRejectedValue([])
+  Appuntamento.findById = findByIdMock
+  await updateAppuntamento(req, res)
+  expect(res.status).toHaveBeenCalledWith(404)
+  expect(res.json).toHaveBeenCalled()
+  expect(findByIdMock).toHaveBeenCalledWith(req.params.id)
+})
+
+test('[TC_2.3_2] Il CF non corrisponde al paziente selezionato', async () => {
+  const invalidCF = '12343'
+  const findByIdMock = jest.fn().mockReturnValue(req.body)
+  Appuntamento.findById = findByIdMock
+  mockUpdateGetPaziente.mockResolvedValue({data: {
+      cf: invalidCF,
+      nome: req.body.nome,
+      cognome: req.body.cognome
+  }})
+  const error = 'CF non valido'
+  await updateAppuntamento(req, res)
+
+  expect(res.status).toHaveBeenCalledWith(400)
+  expect(res.json).toHaveBeenCalledWith({ message: error })
+})
+
+test('[TC_2.3_3] Il nome non corrisponde al paziente selezionato', async () => {
+    const invalidNome = 'Luigi'
+    const findByIdMock = jest.fn().mockReturnValue(req.body)
+    Appuntamento.findById = findByIdMock
+    mockUpdateGetPaziente.mockResolvedValue({data: {
+        cf: req.body.cfPaziente,
+        nome: invalidNome,
+        cognome: req.body.cognome
+    }})
+    const error = 'Nome non valido'
+    await updateAppuntamento(req, res)
+
+    expect(res.status).toHaveBeenCalledWith(400)
+    expect(res.json).toHaveBeenCalledWith({ message: error })
+})
+
+test('[TC_2.3_4] Il cognome non corrisponde al paziente selezionato', async () => {
+    const invalidCognome = 'Bianchi'
+    const findByIdMock = jest.fn().mockReturnValue(req.body)
+    Appuntamento.findById = findByIdMock
+    mockUpdateGetPaziente.mockResolvedValue({data: {
+        cf: req.body.cfPaziente,
+        nome: req.body.nome,
+        cognome: invalidCognome
+    }})
+
+    const error = 'Cognome non valido'
+    await updateAppuntamento(req, res)
+
+    expect(res.status).toHaveBeenCalledWith(400)
+    expect(res.json).toHaveBeenCalledWith({ message: error })
+})
+
+test('[TC_2.3_5] Restituisce errore se dataInizio invalida', async () => {
+    const invalidDataInizio = new Date('2023-02-17T09:00:00.000Z')
+    const invalidReq = {
+      params: {
+        id: '1234'
+      },
+      body: {
+          cfPaziente: 'ABCDEF01G1234567',
+          farmaco: 'Aspirina',
+          dataFine: req.body.dataFine,
+          dataInizio: invalidDataInizio,
+          nome: 'Mario',
+          cognome: 'Rossi',
+      }
+    }
+    const findByIdMock = jest.fn().mockReturnValue(req.body)
+    Appuntamento.findById = findByIdMock
+    mockUpdateGetPaziente.mockResolvedValue({data: {
+        cf: req.body.cfPaziente,
+        nome: req.body.nome,
+        cognome: req.body.cognome
+    }})
+
+    const error = 'DataInizio non valida'
+    await updateAppuntamento(invalidReq, res)
+
+    expect(res.status).toHaveBeenCalledWith(400)
+    expect(res.json).toHaveBeenCalledWith({ message: error })
+})
+
+test('[TC_2.3_6] Restituisce errore se dataFine invalida', async () => {
+  const invalidDataFine = new Date('2023-02-17T09:00:00.000Z')
+  const validDataInizio = new Date(Date.now() + 120 * 60 * 1000)
+  const invalidReq = {
+    params: {
+      id: '1234'
+    },
+    body: {
+        cfPaziente: 'ABCDEF01G1234567',
+        farmaco: 'Aspirina',
+        dataFine: invalidDataFine,
+        dataInizio: validDataInizio,
+        nome: 'Mario',
+        cognome: 'Rossi',
+    }
+  }
+  const findByIdMock = jest.fn().mockReturnValue(req.body)
+  Appuntamento.findById = findByIdMock
+  mockUpdateGetPaziente.mockResolvedValue({data: {
+      cf: req.body.cfPaziente,
+      nome: req.body.nome,
+      cognome: req.body.cognome
+  }})
+  const error = 'DataFine non valida'
+  await updateAppuntamento(invalidReq, res)
+
+  expect(res.status).toHaveBeenCalledWith(400)
+  expect(res.json).toHaveBeenCalledWith({message: error})
+})
+
+test('[TC_2.3_7] Restituisce errore se la dataFine è minore della dataInizio', async () => {
+  const dataInizioValida = new Date(Date.now() + 180 * 60 * 1000)
+  const invalidDateFine = new Date(Date.now() + 120 * 60 * 1000)
+  const invalidReq = {
+    params: {
+      id: '1234'
+    },
+    body: {
+        cfPaziente: 'ABCDEF01G1234567',
+        farmaco: 'Aspirina',
+        dataFine: invalidDateFine,
+        dataInizio: dataInizioValida,
+        nome: 'Mario',
+        cognome: 'Rossi',
+    }
+  }
+
+  const findByIdMock = jest.fn().mockReturnValue(req.body)
+  Appuntamento.findById = findByIdMock
+  mockUpdateGetPaziente.mockResolvedValue({data: {
+      cf: req.body.cfPaziente,
+      nome: req.body.nome,
+      cognome: req.body.cognome
+  }})
+  const error = 'Date non valide'
+
+  await updateAppuntamento(invalidReq,res)
+  
+  expect(res.status).toHaveBeenCalledWith(400)
+  expect(res.json).toHaveBeenCalledWith({message: error})
+})
+
+test('[TC_2.3_8] Il farmaco inserito non è presente nel database', async () => {
+  const findByIdMock = jest.fn().mockReturnValue(req.body)
+  Appuntamento.findById = findByIdMock
+  mockUpdateGetPaziente.mockResolvedValue({data:{
+      cf: req.body.cfPaziente,
+      nome: req.body.nome,
+      cognome: req.body.cognome,
+  }})
+  
+  const error = 'Farmaco non trovato'
+  mockUpdateGetFarmaco.mockRejectedValue(error)
+  await insertAppuntamento(req,res)
+  expect(res.status).toHaveBeenCalledWith(409)
+})
+
+test('[TC_2.3_9] L\'updateAppuntamento va a buon fine', async () => {
+  const findByIdMock = jest.fn().mockReturnValue(req.body)
+  Appuntamento.findById = findByIdMock
+  mockUpdateGetPaziente.mockResolvedValue({data: {
+      cf: req.body.cfPaziente,
+      nome: req.body.nome,
+      cognome: req.body.cognome,
+  }})
+
+  mockUpdateGetFarmaco.mockResolvedValue({data:{
+      nome: req.body.farmaco
+  }})
+
+  await updateAppuntamento(req,res)
+
+  expect(res.status).toHaveBeenCalledWith(200)
+})
 })
