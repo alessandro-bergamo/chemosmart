@@ -31,45 +31,44 @@
 </script>
 <div class="container">
   <div class="row p-5">
-    <div class="col-sm-7">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7">
       <h3>Terapia ancora non schedulate</h3>
       <table class="table table-hover" id="terapie-table">
         <thead style="background-color: #D6EFFF;">
           <tr>
-            <th scope="col"> CF Paziente</th>
-            <th scope="col"> Farmaco</th>
-            <th scope="col"> Data</th>
-            <th scope="col"> Numero appuntamenti</th>
-            <th scope="col"> Stato</th>
-            <th scope="col"> Frequenza</th>
+            <th class="text-center" scope="col"> CF Paziente</th>
+            <th class="text-center" scope="col"> Farmaco</th>
+            <th class="text-center" scope="col"> Numero appuntamenti</th>
+            <th class="text-center" scope="col"> Frequenza</th>
           </tr>
         </thead>
         <tbody>
           <% terapie.forEach(terapia=> { %>
             <tr>
-              <td data-label="cfPaziente">
+              <td class="text-center" data-label="cfPaziente">
                 <%= terapia.cfPaziente %>
               </td>
-              <td data-label="farmaco">
+              <td class="text-center" data-label="farmaco">
                 <%= terapia.farmaco %>
               </td>
-              <td data-label="dataInizio" class="data" data-date="<%= terapia.dataInizio %>"></td>
-              </td>
-              <td data-label="numAppuntamenti">
+              <td class="text-center" data-label="numAppuntamenti">
                 <%= terapia.numAppuntamenti %>
               </td>
-              <td data-label="stato">
-                <%= terapia.stato %>
-              </td>
-              <td data-label="frequenzaAppuntamenti">
+              <td class="text-center" data-label="frequenzaAppuntamenti">
                 <%= terapia.frequenzaAppuntamenti %>
               </td>
             </tr>
             <% }) %>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button type="button" class=" text-center btn-modifica btn btn-sm btn-primary">Visualizza altre</button></td>
+              </tr>
         </tbody>
       </table>
     </div>
-    <div class="col-sm-12 col-md-4">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5">
       <!-- Secondo elemento - 12 colonne su dispositivi piccoli, 5 colonne su dispositivi di dimensioni medie e più grandi -->
       <div id="calendar">
       </div>
