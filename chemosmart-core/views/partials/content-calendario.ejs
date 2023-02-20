@@ -30,7 +30,7 @@
                     <li id="farmaco" class="list-group-item"></li>
                     <li id="dataDiInizio" class="list-group-item"></li>
                     <li id="dataDiFine" class="list-group-item"></li>
-                  </ul>
+                </ul>
                 <p id="idHidden" hidden></p>
                 <p id="hiddenNome" hidden></p>
                 <p id="hiddenCognome" hidden></p>
@@ -113,9 +113,14 @@
                                 id: data[i].id,
                                 title: data[i].title,
                                 start: data[i].start,
-                                end: data[i].end
+                                end: data[i].end,
+                                cfPaziente: data[i].cfPaziente,
+                                farmaco: data[i].farmaco,
+                                nome: data[i].nome,
+                                cognome: data[i].cognome
                             });
                         }
+                        console.log(events)
                         successCallback(events);
                     },
                     error: function () {
@@ -162,17 +167,16 @@
                     year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric',
                     timeZone: 'UTC'
                 };
-                const x = {
-                    id: event.event.id,
-                    start: event.event.start.toISOString(),
-                    end: event.event.end.toISOString()
-                }
-                console.log(x)
+                console.log(event.event.extendedProps.cfPaziente)
                 $.ajax({
                     url: 'http://localhost:3006/appuntamenti/' + event.event.id,
                     data: JSON.stringify({
+                        cfPaziente: event.event.extendedProps.cfPaziente,
+                        farmaco: event.event.extendedProps.farmaco,
                         dataInizio: event.event.start.toISOString(),
-                        dataFine: event.event.end.toISOString()
+                        dataFine: event.event.end.toISOString(),
+                        nome: event.event.extendedProps.nome,
+                        cognome: event.event.extendedProps.cognome
                     }),
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
