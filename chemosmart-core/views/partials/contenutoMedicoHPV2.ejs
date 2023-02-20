@@ -22,16 +22,13 @@
           }
         });
       },
-      aspectRatio: 1,
       initialView: 'dayGridDay',
       timeZone: 'Europe/Rome'
     });
     calendar.render();
+    calendar.updateSize()
   });
 </script>
-
-
-
 <div class="container">
   <div class="row p-5">
     <div class="col-sm-7">
@@ -71,18 +68,16 @@
             <% }) %>
         </tbody>
       </table>
-
     </div>
-    <div class="col-sm-5">
-
+    <div class="col-sm-12 col-md-4">
+      <!-- Secondo elemento - 12 colonne su dispositivi piccoli, 5 colonne su dispositivi di dimensioni medie e più grandi -->
       <div id="calendar">
       </div>
-
     </div>
   </div>
   <div class="row">
-    <h3>Pazienti</h3>
-    <div class="col-sm">
+    <div class="col-sm-12">
+      <!-- Terzo elemento - 12 colonne su dispositivi piccoli e medi e più grandi -->
       <table class="table table-hover">
         <thead style="background-color: #D6EFFF;">
           <tr>
@@ -333,6 +328,9 @@
     </div>
   </div>
 </div>
+
+
+
 
 </div>
 </div>

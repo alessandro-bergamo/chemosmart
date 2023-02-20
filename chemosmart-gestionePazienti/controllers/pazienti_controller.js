@@ -1,6 +1,15 @@
 const Paziente = require('../models/Paziente.js')
 
-//controller per inserire un paziente
+/**
+@desc Inserisce un nuovo paziente nel database.
+@param {Object} req - Oggetto contenente i dati della richiesta HTTP.
+@param {Object} res - Oggetto utilizzato per inviare la risposta HTTP.
+@returns {Promise} Promessa che rappresenta l'esito dell'operazione di inserimento.
+@throws {Error} Errore generato nel caso in cui la creazione del paziente fallisca.
+@precondition I dati del paziente devono essere presenti nel corpo della richiesta HTTP.
+@postcondition Viene inserito un nuovo paziente nel database e viene restituita la risposta HTTP contenente il paziente creato.
+@autor Giuseppe Basile
+*/
 exports.insertPaziente = async(req, res) => {
     const paziente = new Paziente(req.body)
 
@@ -12,7 +21,16 @@ exports.insertPaziente = async(req, res) => {
     }
 }
 
-//controller per restituire tutti i pazienti
+/**
+@desc Recupera tutti i pazienti presenti nel database.
+@param {Object} req - Oggetto contenente i dati della richiesta HTTP.
+@param {Object} res - Oggetto utilizzato per inviare la risposta HTTP.
+@returns {Promise} Promessa che rappresenta l'elenco dei pazienti presenti nel database.
+@throws {Error} Errore generato nel caso in cui il recupero dei pazienti fallisca.
+@precondition Nessuna.
+@postcondition Vengono recuperati tutti i pazienti presenti nel database e viene restituita la risposta HTTP contenente l'elenco dei pazienti.
+@autor Giuseppe Basile
+*/
 exports.getAllPazienti = async (req,res) => {
     try {
         const pazienti = await Paziente.find()
@@ -22,10 +40,18 @@ exports.getAllPazienti = async (req,res) => {
     }
 }
 
-//controller per restituire un paziente in base all'id
+/**
+@desc Recupera un paziente dal database tramite il suo ID.
+@param {Object} req - Oggetto contenente i dati della richiesta HTTP.
+@param {Object} res - Oggetto utilizzato per inviare la risposta HTTP.
+@returns {Promise} Promessa che rappresenta il paziente recuperato dal database.
+@throws {Error} Errore generato nel caso in cui il recupero del paziente fallisca.
+@precondition L'ID del paziente deve essere presente nei parametri della richiesta HTTP.
+@postcondition Viene recuperato un paziente dal database tramite il suo ID e viene restituita la risposta HTTP contenente il paziente.
+@autor Giuseppe Basile
+*/
 exports.getPazienteById = async(req,res) => {
     const id = req.params.id
-
     
     try{
        const paziente = await Paziente.findById(id)
@@ -35,7 +61,16 @@ exports.getPazienteById = async(req,res) => {
     }
 }
 
-//controller per cancellare un paziente in base all'id
+/**
+@desc Elimina un paziente tramite il suo ID
+@param {Object} req - la richiesta HTTP
+@param {Object} res - la risposta HTTP
+@pre deve essere stato creato un paziente con l'ID specificato
+@post il paziente con l'ID specificato è stato eliminato
+@returns {Object} un messaggio di successo
+@throws {Object} Errore HTTP con messaggio di errore specificato
+@auth Giuseppe Basile
+*/
 exports.deletePaziente = async(req,res) => {
     const id = req.params.id
 
@@ -47,11 +82,19 @@ exports.deletePaziente = async(req,res) => {
     }
 }
 
-//controller per aggiornare un paziente in base all'id
+/**
+@desc Aggiorna un paziente nel database tramite il suo ID.
+@param {Object} req - Oggetto contenente i dati della richiesta HTTP.
+@param {Object} res - Oggetto utilizzato per inviare la risposta HTTP.
+@returns {Promise} Promessa che rappresenta il paziente aggiornato nel database.
+@throws {Error} Errore generato nel caso in cui l'aggiornamento del paziente fallisca.
+@precondition L'ID del paziente e i dati da aggiornare devono essere presenti nei parametri della richiesta HTTP.
+@postcondition Viene aggiornato un paziente nel database tramite il suo ID e viene restituita la risposta HTTP contenente il paziente aggiornato.
+@autor Giuseppe Basile
+*/
 exports.updatePaziente = async(req,res) => {
     const id = req.params.id
     const data = {...req.body}
-    console.log(req.body)
 
     try {
         const paziente = await Paziente.findByIdAndUpdate(id, data, {new:true})
@@ -61,20 +104,49 @@ exports.updatePaziente = async(req,res) => {
     }
 }
 
+/**
+@desc Restituisce i pazienti filtrati tramite una o più query string passate come parametri della richiesta HTTP.
+@param {Object} req - Oggetto contenente i dati della richiesta HTTP.
+@param {Object} res - Oggetto utilizzato per inviare la risposta HTTP.
+@returns {Promise} Promessa che rappresenta i pazienti filtrati tramite le query string.
+@throws {Error} Errore generato nel caso in cui la ricerca dei pazienti fallisca.
+@precondition Le query string devono essere presenti nei parametri della richiesta HTTP.
+@postcondition Vengono restituiti i pazienti filtrati tramite le query string e viene restituita la risposta HTTP contenente i pazienti filtrati.
+@autor Giuseppe Basile
+*/
 exports.getPazienteFilter = async(req,res) => {
     const nomeQuery = req.query.nome ? req.query.nome : ""
     const cognomeQuery = req.query.cognome ? req.query.cognome : ""
     const cfQuery = req.query.cf ? req.query.cf : ""
-    const dataNascitaQuery = req.query.dataNascita ? req.query.dataNascita : ""
 
-    console.log(dataNascitaQuery);
-    console.log(req.body)
     try{
         // const $regex = escapeStringRegexp(nomeQuery);
-        const paziente = await Paziente.find({ nome: { $regex: new RegExp("^" + nomeQuery.toLowerCase(), "i")}, cognome: {$regex: new RegExp("^" + cognomeQuery.toLowerCase(), "i")}, cf: {$regex: new RegExp("^" + cfQuery.toLowerCase(), "i")}, /*dataNascita: { $lt: date }*/ }).exec()
+        const paziente = await Paziente.find({ nome: { $regex: new RegExp("^" + nomeQuery.toLowerCase(), "i")}, cognome: {$regex: new RegExp("^" + cognomeQuery.toLowerCase(), "i")}, cf: {$regex: new RegExp("^" + cfQuery.toLowerCase(), "i")}}).exec()
         console.log(paziente)
         res.status(200).json(paziente)
     } catch (error) {
+        res.status(404).json({message: error.message})
+    }
+}
+
+/**
+
+Ottiene un oggetto paziente dalla collezione Paziente nel database in base al codice fiscale.
+@param {Object} req - L'oggetto di richiesta HTTP.
+@param {Object} res - L'oggetto di risposta HTTP.
+@returns {Promise<void>} - Una promessa che rappresenta l'esito della ricerca dell'oggetto paziente.
+@throws {Object} - Un oggetto contenente il messaggio di errore in caso di fallimento dell'operazione.
+@precondition Il parametro "cf" deve essere presente nell'oggetto di richiesta.
+@postcondition Se l'oggetto paziente è stato trovato, viene inviato come risposta con status code 200. Altrimenti, viene inviato un oggetto JSON contenente il messaggio di errore con status code 404.
+@autor Giuseppe Basile
+*/
+exports.getPazienteByCf = async(req,res) => {
+    const cf = req.params.cf
+    try{
+        const paziente = await Paziente.findOne({cf: {$regex: new RegExp("^" + cf.toLowerCase(), "i")}}).exec()
+        console.log(paziente)
+        res.status(200).json(paziente)
+    }catch(error){
         res.status(404).json({message: error.message})
     }
 }
