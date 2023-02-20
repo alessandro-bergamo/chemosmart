@@ -205,7 +205,6 @@ exports.updateAppuntamento = async (req, res) => {
     const id = req.params.id
 
     const data = { ...req.body }
-    console.log("------",data)
     try {
         const appuntamentoOld = await Appuntamento.findById(id)
 

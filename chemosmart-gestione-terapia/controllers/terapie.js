@@ -1,5 +1,5 @@
 const Terapia = require('../models/terapia.js')
-
+const { getPaziente, getFarmaco } = require('../services/apiClient.js')
 
 //controller per inserire terapia
 exports.insertTerapia = async (req, res) => {
@@ -53,11 +53,57 @@ exports.deleteTerapia = async (req, res) => {
 exports.updateTerapia = async (req, res) => {
     const id = req.params.id
     const data = { ...req.body }
-    try {
-        const terapia = await Terapia.findByIdAndUpdate(id, data, {new:true}) //new ture serve per restituire effetivamente il json aggiornato
-        res.status(200).json(terapia)
-    } catch (error) {
-        res.status(404).json({ message: error.message })
+    
+    try{
+        const terapiaOld = await Terapia.findById(id)
+
+        if(!terapiaOld){
+            res.status(400).json("Terapia non trovata")
+            return;
+        }  
+
+        if(data.numAppuntamenti <= 0){
+            res.status(400).json('Numero appuntamenti non valido')
+            return;
+        }
+
+        if(data.frequenzaAppuntamenti != 7 && data.frequenzaAppuntamenti != 14 && data.frequenzaAppuntamenti != 21){
+            res.status(400).json('Frequenza appuntamenti non valida')
+            return;
+        }
+
+        if(data.stato != 'In corso' && data.stato != 'Non schedulata' && data.stato != 'Terminata'){
+            res.status(400).json('Stato della terapia non valido')
+            return;
+        }
+        const response =  await getPaziente(data.cfPaziente)
+        const paziente = response.data
+        console.log(response)
+        console.log(paziente)
+        
+        if(!paziente){
+            console.log('paziente 404')
+            res.status(400).json("Paziente non trovato")
+            return;
+        }
+        
+        const responseFarmaco = await getFarmaco(data.farmaco)
+        const farmaco = responseFarmaco.data
+
+        if(!farmaco){
+            console.log('farmaco 404')
+            res.status(400).json('Farmaco non valido')
+            return;
+        }
+
+        try {
+            const terapia = await Terapia.findByIdAndUpdate(id, data, {new:true}) //new ture serve per restituire effetivamente il json aggiornato
+            res.status(200).json(terapia)
+        } catch (error) {
+            res.status(404).json({ message: error.message })
+        }
+    } catch (error){
+        res.status(409).json({ message: error.message })
     }
 }
 

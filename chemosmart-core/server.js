@@ -159,7 +159,6 @@ app.post('/updateTerapia', async (req, res) => {
         res.redirect('/');
     } else {
         const id = req.body.id;
-        console.log('.....' + req.body.stato)
         try {
             const terapia = await api.getTerapiaById(id);
             const dato = {
@@ -170,7 +169,6 @@ app.post('/updateTerapia', async (req, res) => {
                 stato: req.body.stato || terapia.stato,
                 frequenzaAppuntamenti: Number.isInteger(parseInt(req.body.frequenzaAppuntamenti)) ? parseInt(req.body.frequenzaAppuntamenti) : terapia.frequenzaAppuntamenti
             };
-            console.log(dato)
             await api.updateTerapia(id, dato);
             const terapie = await api.getTerapie();
             res.render(__dirname + "/views/gestioneTerapie", { terapie: terapie });
