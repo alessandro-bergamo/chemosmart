@@ -63,7 +63,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><button type="button" class=" text-center btn-modifica btn btn-sm btn-primary">Visualizza altre</button></td>
+                <td><button type="button" id="btn-terapie" class=" text-center btn-modifica btn btn-sm btn-primary">Visualizza tutte</button></td>
               </tr>
         </tbody>
       </table>
@@ -334,3 +334,10 @@
 </div>
 </div>
 </div>
+
+<script>
+  const btn = document.getElementById('btn-terapie')
+    btn.addEventListener('click', event => {
+      window.location.href = "/gestioneTerapie";
+    });
+</script>
