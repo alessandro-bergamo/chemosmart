@@ -90,3 +90,15 @@ exports.updateFarmaco = async (req, res) => {
         res.status(404).json({ message: error.message })
     }
 }
+
+exports.getFarmacoByNome = async (req,res) => {
+    const nome = req.params.nome
+
+    try{
+        const farmaco = await Farmaco.findOne({nome: {$regex: new RegExp("^" + nome.toLowerCase(), "i")}}).exec()
+
+        res.status(200).json(farmaco)
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
+}
