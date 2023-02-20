@@ -104,7 +104,7 @@
     
 
     
-    <h4 class="name" id="createAppuntamento"><span class="type-signature"></span>createAppuntamento<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="deleteTerapia"><span class="type-signature"></span>deleteTerapia<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span></h4>
     
 
     
@@ -112,7 +112,7 @@
 
 
 <div class="description">
-    Crea un nuovo appuntamento
+    Questa funzione elimina una terapia dal database tramite l'ID fornito come parametro nella richiesta. Se l'ID non corrisponde ad alcuna terapia nel database, viene restituito un errore 404.
 </div>
 
 
@@ -164,7 +164,7 @@
 
             
 
-            <td class="description last">Oggetto della richiesta HTTP</td>
+            <td class="description last">L'oggetto della richiesta HTTP.</td>
         </tr>
 
     
@@ -187,218 +187,7 @@
 
             
 
-            <td class="description last">Oggetto della risposta HTTP</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="appuntamenti.js.html">appuntamenti.js</a>, <a href="appuntamenti.js.html#line265">line 265</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        Errore HTTP 505 se si verifica un errore durante la creazione dell'appuntamento
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">Object</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    L'oggetto JSON dell'appuntamento creato
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="deleteAppuntamento"><span class="type-signature">(async) </span>deleteAppuntamento<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Elimina un appuntamento dal database controllando che i dati inseriti siano corretti
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Oggetto della richiesta HTTP</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Oggetto della risposta HTTP</td>
+            <td class="description last">L'oggetto della risposta HTTP.</td>
         </tr>
 
     
@@ -432,7 +221,7 @@
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Luigi Miranda</li>
+            <li>[Giuseppe Basile]</li>
         </ul>
     </dd>
     
@@ -446,7 +235,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="appuntamenti.js.html">appuntamenti.js</a>, <a href="appuntamenti.js.html#line149">line 149</a>
+        <a href="terapie.js.html">terapie.js</a>, <a href="terapie.js.html#line70">line 70</a>
     </li></ul></dd>
     
 
@@ -476,7 +265,7 @@
 <dl>
     <dt>
         <div class="param-desc">
-        404 - Appuntamento non trovato
+        404 - Errore di not found se l'ID non corrisponde ad alcuna terapia nel database.
         </div>
     </dt>
     <dd></dd>
@@ -504,7 +293,7 @@
 
         
 <div class="param-desc">
-    - Messaggio di successo con HTTP status code 200
+    Un oggetto con il messaggio di successo.
 </div>
 
 
@@ -533,7 +322,7 @@
     
 
     
-    <h4 class="name" id="formattaParole"><span class="type-signature"></span>formattaParole<span class="signature">(parole)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="getAllTerapie"><span class="type-signature"></span>getAllTerapie<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {array}</span></h4>
     
 
     
@@ -541,7 +330,7 @@
 
 
 <div class="description">
-    Formatta una stringa di parole in modo che ogni parola inizi con la maiuscola e poi abbia tutte le altre lettere in minuscolo.
+    Questa funzione recupera tutte le terapie presenti nel database e le restituisce come un array. Se non ci sono terapie presenti nel database, viene restituito un errore 404.
 </div>
 
 
@@ -577,7 +366,271 @@
 
         <tr>
             
-                <td class="name"><code>parole</code></td>
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">L'oggetto della richiesta HTTP.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">L'oggetto della risposta HTTP.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>[Giuseppe Basile]</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="terapie.js.html">terapie.js</a>, <a href="terapie.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        404 - Errore di not found se non ci sono terapie nel database.
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">object</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Un array contenente tutte le terapie presenti nel database.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getTerapiaById"><span class="type-signature"></span>getTerapiaById<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Questa funzione recupera una terapia dal database tramite l'ID fornito come parametro nella richiesta e la restituisce come un oggetto. Se l'ID non corrisponde ad alcuna terapia nel database, viene restituito un errore 404.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">L'oggetto della richiesta HTTP.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">L'oggetto della risposta HTTP.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.id</code></td>
             
 
             <td class="type">
@@ -593,7 +646,7 @@
 
             
 
-            <td class="description last">La stringa di parole da formattare.</td>
+            <td class="description last">L'ID della terapia da recuperare.</td>
         </tr>
 
     
@@ -627,7 +680,7 @@
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Luigi Miranda</li>
+            <li>[Giuseppe Basile]</li>
         </ul>
     </dd>
     
@@ -641,7 +694,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="appuntamenti.js.html">appuntamenti.js</a>, <a href="appuntamenti.js.html#line64">line 64</a>
+        <a href="terapie.js.html">terapie.js</a>, <a href="terapie.js.html#line47">line 47</a>
     </li></ul></dd>
     
 
@@ -671,7 +724,7 @@
 <dl>
     <dt>
         <div class="param-desc">
-        Se il parametro parole non è una stringa.
+        404 - Errore di not found se l'ID non corrisponde ad alcuna terapia nel database.
         </div>
     </dt>
     <dd></dd>
@@ -682,7 +735,7 @@
             </dt>
             <dd>
                 
-<span class="param-type">TypeError</span>
+<span class="param-type">object</span>
 
 
             </dd>
@@ -699,7 +752,7 @@
 
         
 <div class="param-desc">
-    La stringa di parole formattate.
+    L'oggetto della terapia corrispondente all'ID fornito.
 </div>
 
 
@@ -710,9 +763,250 @@
     </dt>
     <dd>
         
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getTerapiaFilter"><span class="type-signature"></span>getTerapiaFilter<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Restituisce le terapie filtrate per codice fiscale del paziente.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Oggetto della richiesta HTTP.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Oggetto della risposta HTTP.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.query.cf</code></td>
+            
+
+            <td class="type">
+            
+                
 <span class="param-type">string</span>
 
 
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Codice fiscale del paziente per il quale filtrare le terapie (opzionale).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>[Giuseppe Basile]</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="terapie.js.html">terapie.js</a>, <a href="terapie.js.html#line163">line 163</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        Errore di tipo Object in caso di fallimento della ricerca.
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">Object</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Un array di oggetti Terapia.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
     </dd>
 </dl>
 
@@ -728,7 +1022,7 @@
     
 
     
-    <h4 class="name" id="getAllAppuntamenti"><span class="type-signature"></span>getAllAppuntamenti<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="insertTerapia"><span class="type-signature"></span>insertTerapia<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -736,7 +1030,225 @@
 
 
 <div class="description">
-    Funzione per ottenere tutti gli appuntamenti salvati nel database e formattarli come eventi per il calendario.
+    Inserisce una nuova terapia nel database.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">L'oggetto della richiesta HTTP.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">L'oggetto della risposta HTTP.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>[Giuseppe Basile]</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="terapie.js.html">terapie.js</a>, <a href="terapie.js.html#line4">line 4</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        409 - Errore di conflitto se ci sono problemi nell'inserimento della terapia.
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">object</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    L'oggetto della terapia appena inserita.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateTerapia"><span class="type-signature"></span>updateTerapia<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Questa funzione aggiorna una terapia nel database tramite l'ID fornito come parametro nella richiesta. Se l'ID non corrisponde ad alcuna terapia nel database, viene restituito un errore 404. Viene eseguita anche una serie di controlli sui dati forniti per l'aggiornamento, come il controllo sulla validità del numero di appuntamenti, della frequenza degli appuntamenti, dello stato della terapia, del codice fiscale del paziente e del nome del farmaco.
 </div>
 
 
@@ -788,7 +1300,7 @@
 
             
 
-            <td class="description last">Oggetto contenente la richiesta HTTP.</td>
+            <td class="description last">L'oggetto della richiesta HTTP.</td>
         </tr>
 
     
@@ -811,7 +1323,7 @@
 
             
 
-            <td class="description last">Oggetto contenente la risposta HTTP.</td>
+            <td class="description last">L'oggetto della risposta HTTP.</td>
         </tr>
 
     
@@ -845,7 +1357,7 @@
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Luigi Miranda</li>
+            <li>[Giuseppe Basile]</li>
         </ul>
     </dd>
     
@@ -859,7 +1371,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="appuntamenti.js.html">appuntamenti.js</a>, <a href="appuntamenti.js.html#line89">line 89</a>
+        <a href="terapie.js.html">terapie.js</a>, <a href="terapie.js.html#line93">line 93</a>
     </li></ul></dd>
     
 
@@ -889,7 +1401,7 @@
 <dl>
     <dt>
         <div class="param-desc">
-        - Ritorna un oggetto contenente un messaggio di errore nel caso in cui ci sia un problema con la query al database.
+        404 - Errore di not found se l'ID non corrisponde ad alcuna terapia nel database.
         </div>
     </dt>
     <dd></dd>
@@ -917,685 +1429,7 @@
 
         
 <div class="param-desc">
-    - Ritorna un oggetto contenente gli eventi degli appuntamenti formattati come richiesto per il calendario.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getAppuntamentoById"><span class="type-signature">(async) </span>getAppuntamentoById<span class="signature">(id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Restituisce l'appuntamento associato all'id passato come parametro
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">L'id dell'appuntamento</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Luigi Miranda</li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="appuntamenti.js.html">appuntamenti.js</a>, <a href="appuntamenti.js.html#line124">line 124</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        - Se l'appuntamento con l'id passato non esiste
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">404</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    - L'appuntamento associato all'id passato
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="insertAppuntamento"><span class="type-signature"></span>insertAppuntamento<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Questa funzione permette di inserire un nuovo appuntamento
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Request object</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Response object</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Luigi Miranda</li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="appuntamenti.js.html">appuntamenti.js</a>, <a href="appuntamenti.js.html#line5">line 5</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-<ul>
-        <li>
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        400 - Il nome, il cognome, la data di inizio, la data di fine o le date non sono valide
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">Object</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-</li>
-    
-        <li>
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        409 - Paziente o farmaco non trovato, oppure errore nella creazione dell'appuntamento
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">Object</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-</li>
-    </ul>
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    - L'appuntamento appena creato
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="updateAppuntamento"><span class="type-signature">(async) </span>updateAppuntamento<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Questa funzione permette di aggiornare un appuntamento esistente verificando che il paziente sia presente nella base di dati, che i dati siano completi e validi e che il farmaco sia presente nella base di dati. Restituisce l'appuntamento aggiornato.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">la richiesta HTTP</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">la risposta HTTP</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="appuntamenti.js.html">appuntamenti.js</a>, <a href="appuntamenti.js.html#line190">line 190</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-<ul>
-        <li>
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        400 - se il paziente non viene trovato, i dati sono incompleti o non validi, il farmaco non viene trovato
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">Object</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-</li>
-    
-        <li>
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        404 - se l'appuntamento non viene trovato
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">Object</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-</li>
-    </ul>
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    - restituisce l'appuntamento aggiornato
+    L'oggetto della terapia aggiornata.
 </div>
 
 
@@ -1634,13 +1468,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createAppuntamento">createAppuntamento</a></li><li><a href="global.html#deleteAppuntamento">deleteAppuntamento</a></li><li><a href="global.html#formattaParole">formattaParole</a></li><li><a href="global.html#getAllAppuntamenti">getAllAppuntamenti</a></li><li><a href="global.html#getAppuntamentoById">getAppuntamentoById</a></li><li><a href="global.html#insertAppuntamento">insertAppuntamento</a></li><li><a href="global.html#updateAppuntamento">updateAppuntamento</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#deleteTerapia">deleteTerapia</a></li><li><a href="global.html#getAllTerapie">getAllTerapie</a></li><li><a href="global.html#getTerapiaById">getTerapiaById</a></li><li><a href="global.html#getTerapiaFilter">getTerapiaFilter</a></li><li><a href="global.html#insertTerapia">insertTerapia</a></li><li><a href="global.html#updateTerapia">updateTerapia</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.1</a> on Mon Feb 20 2023 12:36:43 GMT+0100 (Ora standard dell’Europa centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Feb 20 2023 17:40:49 GMT+0100 (Ora standard dell’Europa centrale)
 </footer>
 
 <script> prettyPrint(); </script>
