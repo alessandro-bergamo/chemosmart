@@ -78,3 +78,14 @@ exports.getPazienteFilter = async(req,res) => {
         res.status(404).json({message: error.message})
     }
 }
+
+exports.getPazienteByCf = async(req,res) => {
+    const cf = req.params.cf
+    try{
+        const paziente = await Paziente.findOne({cf: {$regex: new RegExp("^" + cf.toLowerCase(), "i")}}).exec()
+        console.log(paziente)
+        res.status(200).json(paziente)
+    }catch(error){
+        res.status(404).json({message: error.message})
+    }
+}

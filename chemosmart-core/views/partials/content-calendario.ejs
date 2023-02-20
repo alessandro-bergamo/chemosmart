@@ -32,6 +32,8 @@
                     <li id="dataDiFine" class="list-group-item"></li>
                   </ul>
                 <p id="idHidden" hidden></p>
+                <p id="hiddenNome" hidden></p>
+                <p id="hiddenCognome" hidden></p>
                 <button type="button" class="btn btn-primary" id="modificaBtn">Modifica</button>
                 <button type="button" class="btn btn-danger" id="deleteBtn">Elimina</button>
             </div>
@@ -144,6 +146,8 @@
                         const d_fine = new Date(data.dataFine)
                         $('#dataDiFine').text(d_fine.toLocaleString('it-IT', options));
                         $('#idHidden').text(data._id);
+                        $('#hiddenNome').text(data.nome)
+                        $('#hiddenCognome').text(data.cognome)
                         $('#infoAppuntamento').modal();
                     },
                     error: function () {
@@ -201,8 +205,10 @@
     $("#deleteBtn").click(function () {
         const id = $('#idHidden').text()
         const cf = $('#cf').text()
+        const nome = $('#hiddenNome').text()
+        const cognome = $('#hiddenCognome').text()
         $.ajax({
-            url: "http://localhost:3006/appuntamenti/" + id,
+            url: "http://localhost:3006/appuntamenti/" + id + "?cf=" + encodeURIComponent(cf) + "&nome=" + encodeURIComponent(nome) + "&cognome=" + encodeURIComponent(cognome),
             type: "DELETE",
             success: function (data) {
                 alert(`Appuntamento di ${cf} eliminato correttamente`)

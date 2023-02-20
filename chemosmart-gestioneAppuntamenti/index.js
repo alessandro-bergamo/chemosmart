@@ -29,7 +29,11 @@ app.get('/', (req,res)=>{
 
 //connesione a mongo
 /* mongoose.set('strictQuery', false) */    //questo serve per eliminare il warning quando esegui il progetto, però per adesso non lo voglio gestire
-mongoose.connect(CONNECTION_DB_URL)
+mongoose.connect(CONNECTION_DB_URL, {
+      socketTimeoutMS: 30000, // Timeout di 30 secondi
+      connectTimeoutMS: 30000,
+      serverSelectionTimeoutMS: 30000
+  })
 .then(()=>{
     console.log('connessione al db...')
     app.listen(PORT, () =>console.log(`Server running on port: http://localhost:${PORT}`));
