@@ -115,17 +115,27 @@ exports.updateFarmaco = async (req, res) => {
     const id = req.params.id
     const data = { ...req.body }
 
-    if(req.body.stock < 0){
-        res.status(400).json("Stock negativo")
-        return
-    }
+    try{
+        const farmaco = await Farmaco.findById(id)
 
-    try {
-        const farmaco = await Farmaco.findByIdAndUpdate(id, data, {new:true}) //new ture serve per restituire effetivamente il json aggiornato
-        res.status(200).json(farmaco)
-    } catch (error) {
-        res.status(404).json({ message: error.message })
-    }
+        if(!farmaco){
+            res.status(400).json('Farmaco non trovato')
+        }
+        
+        if(req.body.stock < 0){
+            res.status(400).json("Stock negativo")
+            return
+        }
+
+        try {
+            const farmaco = await Farmaco.findByIdAndUpdate(id, data, {new:true}) //new ture serve per restituire effetivamente il json aggiornato
+            res.status(200).json(farmaco)
+        } catch (error) {
+            res.status(404).json({ message: error.message })
+        }
+    } catch(error){
+        res.status(404).json({message: error.message})
+    }
 }
 
 
