@@ -24,7 +24,7 @@ exports.getAllTerapie = async (req, res) => {
     }
 }
 
-//controller per restituire una terapia in base all'id
+//controller per restituire una terapia in base all'id 
 exports.getTerapiaById = async (req, res) => {
     const id = req.params.id
 
@@ -53,7 +53,6 @@ exports.deleteTerapia = async (req, res) => {
 exports.updateTerapia = async (req, res) => {
     const id = req.params.id
     const data = { ...req.body }
-    console.log('ho ricevuto come parametri', req.body)
     try {
         const terapia = await Terapia.findByIdAndUpdate(id, data, {new:true}) //new ture serve per restituire effetivamente il json aggiornato
         res.status(200).json(terapia)
