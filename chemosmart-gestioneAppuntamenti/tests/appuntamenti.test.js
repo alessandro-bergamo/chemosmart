@@ -7,6 +7,14 @@ jest.mock('../services/apiClient');
 jest.mock('../models/appuntamento');
 jest.mock('axios')
 
+/*Inserisce un appuntamento
+
+Author: Ciro Troiano
+
+Description:
+
+
+*/
 describe('insertAppuntamento', () => {
   const req = {
       body: {
