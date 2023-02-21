@@ -11,9 +11,6 @@ jest.mock('axios')
 
 Author: Ciro Troiano
 
-Description:
-
-
 */
 describe('insertAppuntamento', () => {
   const req = {
