@@ -1,5 +1,7 @@
 .fc .fc-toolbar-title {
     font-size: 1.5rem !important;
+    font-weight: bolder;
+    
     /* Modifica la grandezza dei bottoni */
 }
 
