@@ -17,38 +17,38 @@
     <div class="col-sm-10">
       <h5>Tutte le Terapie</h5>
       <table class="table table-hover" id="terapie-table">
-        <thead style="background-color: #D6EFFF;">
+        <thead class="text-center" style="background-color: #D6EFFF;">
           <tr>
-            <th scope="col"> CF Paziente</th>
-            <th scope="col"> Farmaco</th>
-            <th scope="col"> Data</th>
-            <th scope="col"> Numero appuntamenti</th>
-            <th scope="col"> Stato</th>
-            <th scope="col"> Frequenza</th>
-            <th scope="col"> Gestisci</th>
+            <th class="text-center" scope="col"> CF Paziente</th>
+            <th class="text-center" scope="col"> Farmaco</th>
+            <th class="text-center" scope="col"> Data</th>
+            <th class="text-center" scope="col"> Numero appuntamenti</th>
+            <th class="text-center" scope="col"> Stato</th>
+            <th class="text-center" scope="col"> Frequenza</th>
+            <th class="text-center" scope="col"> Gestisci</th>
           </tr>
         </thead>
         <tbody>
           <% terapie.forEach(terapia=> { %>
             <tr>
-              <td data-label="cfPaziente">
+              <td class="text-center" data-label="cfPaziente">
                 <%= terapia.cfPaziente %>
               </td>
-              <td data-label="farmaco">
+              <td class="text-center" data-label="farmaco">
                 <%= terapia.farmaco %>
               </td>
-              <td data-label="dataInizio" class="data" data-date="<%= terapia.dataInizio %>"></td>
+              <td class="text-center" data-label="dataInizio" class="data" data-date="<%= terapia.dataInizio %>"></td>
               </td>
-              <td data-label="numAppuntamenti">
+              <td class="text-center" data-label="numAppuntamenti">
                 <%= terapia.numAppuntamenti %>
               </td>
-              <td data-label="stato">
+              <td class="text-center" data-label="stato">
                 <%= terapia.stato %>
               </td>
-              <td data-label="frequenzaAppuntamenti">
+              <td class="text-center" data-label="frequenzaAppuntamenti">
                 <%= terapia.frequenzaAppuntamenti %>
               </td>
-              <td data-label=""><button type="button" data-id="<%= terapia._id%>"
+              <td class="text-center" data-label=""><button type="button" data-id="<%= terapia._id%>"
                   class="btn-modifica btn btn-sm btn-primary">Modifica</button></td>
 
             </tr>
@@ -97,13 +97,13 @@
       data.forEach(element => {
         var tableRow =
           `<tr>
-          <td scope="row"> ${element.cfPaziente} </td> 
-          <td scope="row"> ${element.farmaco} </td>
-          <td scope="row"> ${element.dataInizio.slice(0,10)} </td>
-          <td scope="row"> ${element.numAppuntamenti} </td>
-          <td scope="row"> ${element.stato} </td>
-          <td scope="row"> ${element.frequenzaAppuntamenti} </td>
-          <td scope="row"> 
+          <td class="text-center" scope="row"> ${element.cfPaziente} </td> 
+          <td class="text-center" scope="row"> ${element.farmaco} </td>
+          <td class="text-center" scope="row"> ${element.dataInizio.slice(0,10)} </td>
+          <td class="text-center" class="text-center" scope="row"> ${element.numAppuntamenti} </td>
+          <td class="text-center" scope="row"> ${element.stato} </td>
+          <td class="text-center" scope="row"> ${element.frequenzaAppuntamenti} </td>
+          <td class="text-center" scope="row"> 
             <button type="button" data-id="${element._id}" class="btn-modifica btn btn-sm btn-primary">Modifica</button>
           </td>
         </tr>`;
