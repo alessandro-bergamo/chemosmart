@@ -7,7 +7,19 @@ jest.mock('../services/apiClient');
 jest.mock('../models/terapia');
 jest.mock('axios')
 
-//Restituisce Terapia Filtrata
+/*Restituisce Terapia Filtrata
+
+Author: Antonio Nappi
+
+Description:
+
+Il primo test (TC1.1_1) verifica il comportamento in caso di errore nella ricerca della terapia, 
+impostando lo stato della risposta a 404 e restituendo un messaggio di errore. Il test utilizza Jest per simulare l'errore nella chiamata al metodo find di Terapia.
+
+Il secondo test (TC_1.1_2) verifica che la funzione restituisca un array vuoto se non viene trovata alcuna terapia con il codice fiscale del paziente passato in input.
+
+Il terzo test (TC_1.1_3) verifica che la funzione restituisca la terapia corretta se viene trovata una corrispondenza con il codice fiscale del paziente passato in input.
+*/
 describe('getTerapiaFilter', () => {
     test('[TC1.1_1] Dovrebbe impostare lo stato della richiesta al codice 404 e restituire un messaggio di errore in caso di errore nella ricerca della Terapia', async () => {
         const cf = 'abc123'
@@ -99,7 +111,33 @@ describe('getTerapiaFilter', () => {
     })
 })
 
-//update terapia
+/* Update Terapia 
+
+Author: Luigi Miranda
+
+Description:
+[TC_2.1_1] Il Paziente non è presente all'interno del database: questo test verifica il comportamento della funzione se il paziente fornito 
+non è presente nel database. La funzione dovrebbe rispondere con un codice di stato 409 Conflict.
+
+[TC_2.1_2] Il Farmaco non è presente nel database: 
+questo test verifica il comportamento della funzione se il farmaco fornito non è presente nel database. 
+La funzione dovrebbe rispondere con un codice di stato 409 Conflict.
+
+[TC_2.1_3] Il numero degli Appuntamenti non è valido: questo test verifica il comportamento della funzione se il numero degli appuntamenti fornito non è valido (ad esempio, è un valore negativo). 
+La funzione dovrebbe rispondere con un codice di stato 400 Bad Request.
+
+[TC_2.1_4] La frequenza degli Appuntamenti non è valida: questo test verifica il comportamento della funzione se la frequenza degli appuntamenti fornita non è valida (ad esempio, è un valore troppo basso). 
+La funzione dovrebbe rispondere con un codice di stato 400 Bad Request.
+
+[TC_2.1_5] Lo stato della Terapia non è valido: questo test verifica il comportamento della funzione se lo stato della terapia fornito non è valido (ad esempio, non è tra gli stati accettati). 
+La funzione dovrebbe rispondere con un codice di stato 400 Bad Request.
+
+[TC_2.1_6] Terapia non trovata: questo test verifica il comportamento della funzione se la terapia richiesta non è presente nel database. La funzione dovrebbe rispondere con un codice di stato 400 Bad Request.
+
+[TC_2.1_7] La Terapia è aggiornata con successo: questo test verifica il comportamento della funzione se tutti i dati forniti sono validi e la terapia viene aggiornata con successo.
+ La funzione dovrebbe rispondere con un codice di stato 200 OK.
+
+ */
 describe('updateTerapia', () => {
     const req = {
         params: {
