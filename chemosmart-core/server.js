@@ -75,7 +75,7 @@ app.get('/homepage', async (req, res) => {
         res.redirect('/')
     } else {
         if (req.session.user == 'Infermiere') {
-            res.redirect('/visualizzaFarmaci')
+            res.status(200).redirect('/visualizzaFarmaci')
         } else {
             try {
                 const pazienti = await api.getPazienti()
@@ -96,7 +96,7 @@ app.get('/filtri', async (req, res) => {
     if (req.session.loggedIn != true) {
         res.redirect('/')
     } else if (req.session.user != 'Medico' && req.session.user != 'Segretario') {
-        res.redirect('/homepage')
+        res.status(200).redirect('/homepage')
     } else {
         try {
             const pazienti = await api.getPazienti()
@@ -111,7 +111,7 @@ app.get('/aggiungiTerapia', (req, res) => {
     if (req.session.loggedIn != true || req.session.user != 'Medico') {
         res.redirect('/')
     } else {
-        res.render(__dirname + "/views/aggiungiTerapia")
+        res.status(200).render(__dirname + "/views/aggiungiTerapia")
     }
 })
 
@@ -135,7 +135,7 @@ app.get("/gestioneTerapie", async (req, res) => {
     } else {
         const terapie = await api.getTerapie();
         if (terapie) {
-            res.render(__dirname + "/views/gestioneTerapie", { terapie: terapie });
+            res.status(200).render(__dirname + "/views/gestioneTerapie", { terapie: terapie });
         } else {
             res.status(500).send("Errore nel recupero delle terapie");
         }
@@ -150,7 +150,7 @@ app.get("/modificaTerapia", async (req, res) => {
         const id = req.query.id;
         try {
             const terapia = await api.getTerapiaById(id);
-            res.render(__dirname + "/views/modificaTerapia", { terapia: terapia });
+            res.status(200).render(__dirname + "/views/modificaTerapia", { terapia: terapia });
         } catch (error) {
             console.error(error);
             res.status(500).send("Errore nel recupero della terapia");
