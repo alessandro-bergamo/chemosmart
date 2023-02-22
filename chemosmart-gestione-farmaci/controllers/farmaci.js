@@ -115,27 +115,27 @@ exports.updateFarmaco = async (req, res) => {
     const id = req.params.id
     const data = { ...req.body }
 
-    try{
+    try {
         const farmaco = await Farmaco.findById(id)
 
-        if(!farmaco){
+        if (!farmaco) {
             res.status(400).json('Farmaco non trovato')
         }
-        
-        if(req.body.stock < 0){
+
+        if (req.body.stock < 0) {
             res.status(400).json("Stock negativo")
             return
         }
 
         try {
-            const farmaco = await Farmaco.findByIdAndUpdate(id, data, {new:true}) //new ture serve per restituire effetivamente il json aggiornato
+            const farmaco = await Farmaco.findByIdAndUpdate(id, data, { new: true }) //new ture serve per restituire effetivamente il json aggiornato
             res.status(200).json(farmaco)
         } catch (error) {
             res.status(404).json({ message: error.message })
         }
-    } catch(error){
-        res.status(404).json({message: error.message})
-    }
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+    }
 }
 
 
@@ -152,14 +152,14 @@ Questa funzione restituisce un oggetto Farmaco cercato per nome.
 @description Questa funzione riceve una richiesta HTTP contenente il nome di un farmaco e restituisce l'oggetto Farmaco corrispondente.
 @author Mihail Purice
 */
-exports.getFarmacoByNome = async (req,res) => {
+exports.getFarmacoByNome = async (req, res) => {
     const nome = req.params.nome
 
-    try{
-        const farmaco = await Farmaco.findOne({nome: {$regex: new RegExp("^" + nome.toLowerCase(), "i")}}).exec()
+    try {
+        const farmaco = await Farmaco.findOne({ nome: { $regex: new RegExp("^" + nome.toLowerCase(), "i") } }).exec()
 
         res.status(200).json(farmaco)
     } catch (error) {
-        res.status(400).json({message: error.message})
+        res.status(400).json({ message: error.message })
     }
 }

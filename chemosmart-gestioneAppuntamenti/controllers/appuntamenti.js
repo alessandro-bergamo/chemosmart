@@ -1,5 +1,5 @@
 const Appuntamento = require('../models/appuntamento.js')
-const {getPaziente, getFarmaco} = require('../services/apiClient')
+const { getPaziente, getFarmaco } = require('../services/apiClient')
 const axios = require('axios')
 
 /**
@@ -17,32 +17,32 @@ Questa funzione permette di inserire un nuovo appuntamento
 exports.insertAppuntamento = async (req, res) => {
     const cf = req.body.cfPaziente
 
-    try{
+    try {
         const response = await getPaziente(cf)
         const paziente = response.data
 
-        if(paziente.nome != req.body.nome){
-            res.status(400).json({message: 'Nome non valido'})
+        if (paziente.nome != req.body.nome) {
+            res.status(400).json({ message: 'Nome non valido' })
         }
-        
-        if(paziente.cognome != req.body.cognome){
-            res.status(400).json({message: 'Cognome non valido'})
+
+        if (paziente.cognome != req.body.cognome) {
+            res.status(400).json({ message: 'Cognome non valido' })
         }
 
         const dataInizio = new Date(req.body.dataInizio)
         const dataFine = new Date(req.body.dataFine)
         const dataOdierna = new Date()
 
-        if(dataInizio.getTime() < dataOdierna.getTime()){
-            res.status(400).json({message: 'DataInizio non valida'})
+        if (dataInizio.getTime() < dataOdierna.getTime()) {
+            res.status(400).json({ message: 'DataInizio non valida' })
         }
 
-        if(dataFine.getTime() < dataOdierna.getTime()){
-            res.status(400).json({message: 'DataFine non valida'})
+        if (dataFine.getTime() < dataOdierna.getTime()) {
+            res.status(400).json({ message: 'DataFine non valida' })
         }
 
-        if(dataFine.getTime() < dataInizio.getTime()){
-            res.status(400).json({message: 'Date non valide'})
+        if (dataFine.getTime() < dataInizio.getTime()) {
+            res.status(400).json({ message: 'Date non valide' })
         }
 
         const responseFarmaco = await getFarmaco(req.body.farmaco)
@@ -55,10 +55,10 @@ exports.insertAppuntamento = async (req, res) => {
         } catch (error) {
             res.status(409).json({ message: error.message })
         }
-    }catch(error){
-        res.status(409).json({message: error.message})
+    } catch (error) {
+        res.status(409).json({ message: error.message })
     }
-    
+
 }
 
 /**
@@ -108,7 +108,7 @@ exports.getAllAppuntamenti = (req, res) => {
                     end: appuntamento.dataFine,
                     id: appuntamento._id,
                     cfPaziente: appuntamento.cfPaziente,
-                    farmaco:appuntamento.farmaco,
+                    farmaco: appuntamento.farmaco,
                     nome: appuntamento.nome,
                     cognome: appuntamento.cognome
                 });
@@ -135,7 +135,7 @@ exports.getAllAppuntamenti = (req, res) => {
 exports.getAppuntamentoById = async (req, res) => {
     const id = req.params.id
 
-    if(!id){
+    if (!id) {
         res.status(400).json()
     }
     try {
@@ -164,19 +164,19 @@ exports.deleteAppuntamento = async (req, res) => {
     const nome = req.query.nome
     const cognome = req.query.cognome
     try {
-        const appuntamento =  await Appuntamento.findById(id)
+        const appuntamento = await Appuntamento.findById(id)
         console.log(appuntamento)
-        if(appuntamento.cfPaziente != cf) {
+        if (appuntamento.cfPaziente != cf) {
             console.log('errore cf')
             res.status(400).json('CF non corrisponde')
         }
 
-        if(appuntamento.nome != nome){
+        if (appuntamento.nome != nome) {
             console.log('errore nome')
             res.status(400).json('Nome non corrisponde')
         }
 
-        if(appuntamento.cognome != cognome) {
+        if (appuntamento.cognome != cognome) {
             console.log('errore cognome')
             res.status(400).json('Cognome non corrisponde')
         }
@@ -210,22 +210,22 @@ exports.updateAppuntamento = async (req, res) => {
 
         const response = await getPaziente(req.body.cfPaziente)
         const paziente = response.data
-        if(!paziente){
-            res.status(400).json({message: 'Paziente non trovato'})
+        if (!paziente) {
+            res.status(400).json({ message: 'Paziente non trovato' })
             return
         }
 
-        if(paziente.cf != data.cfPaziente){
-            res.status(400).json({message: 'CF non valido'})
+        if (paziente.cf != data.cfPaziente) {
+            res.status(400).json({ message: 'CF non valido' })
         }
 
-        if(paziente.nome != data.nome){
-            res.status(400).json({message: 'Nome non valido'})
+        if (paziente.nome != data.nome) {
+            res.status(400).json({ message: 'Nome non valido' })
             return
         }
 
-        if(paziente.cognome != data.cognome){
-            res.status(400).json({message: 'Cognome non valido'})
+        if (paziente.cognome != data.cognome) {
+            res.status(400).json({ message: 'Cognome non valido' })
             return
         }
 
@@ -233,27 +233,27 @@ exports.updateAppuntamento = async (req, res) => {
         const dataFine = new Date(req.body.dataFine)
         const dataOdierna = new Date()
 
-        if(dataInizio.getTime() < dataOdierna.getTime()){
-            res.status(400).json({message: 'DataInizio non valida'})
+        if (dataInizio.getTime() < dataOdierna.getTime()) {
+            res.status(400).json({ message: 'DataInizio non valida' })
             return
         }
 
-        if(dataFine.getTime() < dataOdierna.getTime()){
-            res.status(400).json({message: 'DataFine non valida'})
+        if (dataFine.getTime() < dataOdierna.getTime()) {
+            res.status(400).json({ message: 'DataFine non valida' })
             return
         }
 
-        if(dataFine.getTime() < dataInizio.getTime()){
-            res.status(400).json({message: 'Date non valide'})
+        if (dataFine.getTime() < dataInizio.getTime()) {
+            res.status(400).json({ message: 'Date non valide' })
             return
         }
 
         const responseFarmaco = await getFarmaco(req.body.farmaco)
         const farmaco = responseFarmaco.data
-       if(!farmaco){
-        res.status(400).json('Farmaco non trovato')
-        return
-       }
+        if (!farmaco) {
+            res.status(400).json('Farmaco non trovato')
+            return
+        }
         const appuntamentoMod = await Appuntamento.findByIdAndUpdate(id, data, { new: true }) //new ture serve per restituire effetivamente il json aggiornato
         res.status(200).json(appuntamentoMod)
     } catch (error) {

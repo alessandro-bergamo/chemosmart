@@ -1,11 +1,11 @@
-process.env.TZ='UTC'
+process.env.TZ = 'UTC'
 const express = require("express");
 const mongoose = require("mongoose");
 
 //prendiamo le routes
 const pazientiRoutes = require('./routes/pazienti_routes.js')
 
-const cors= require('cors')
+const cors = require('cors')
 const app = express()
 const PORT = process.env.PORT || 3007
 
@@ -17,20 +17,20 @@ app.use(express.json())
 app.use(cors())
 
 //settiamo le routes
-app.use('/pazienti',pazientiRoutes)
+app.use('/pazienti', pazientiRoutes)
 
-app.get('/',(req,res) => {
+app.get('/', (req, res) => {
     res.send("ok")
 })
 
 //connessione al database
 mongoose.connect(uri)
-.then(() => {
-    console.log('connessione al db...')
-    app.listen(PORT, () => console.log(`Server running on port: http://localhost:${PORT}`))
-})
-.catch(error => console.log(error))
-const insertUser = async(obj) =>{
+    .then(() => {
+        console.log('connessione al db...')
+        app.listen(PORT, () => console.log(`Server running on port: http://localhost:${PORT}`))
+    })
+    .catch(error => console.log(error))
+const insertUser = async (obj) => {
     const user = new Pazienti(obj);
     await user.save();
 }
