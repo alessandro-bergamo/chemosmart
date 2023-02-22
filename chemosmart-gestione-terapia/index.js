@@ -22,17 +22,17 @@ app.use(cors())
 //usa le routes
 app.use('/terapie', terapieRoutes)
 
-app.get('/', (req,res)=>{
+app.get('/', (req, res) => {
     res.send("funziona")
 })
 
 //connesione a mongo
 /* mongoose.set('strictQuery', false) */    //questo serve per eliminare il warning quando esegui il progetto, però per adesso non lo voglio gestire
 mongoose.connect(CONNECTION_DB_URL)
-.then(()=>{
-    console.log('connessione al db...')
-    app.listen(PORT, () =>console.log(`Server running on port: http://localhost:${PORT}`));
-})
-.catch(error => console.error(error))
+    .then(() => {
+        console.log('connessione al db...')
+        app.listen(PORT, () => console.log(`Server running on port: http://localhost:${PORT}`));
+    })
+    .catch(error => console.error(error))
 
 

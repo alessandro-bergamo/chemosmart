@@ -10,14 +10,14 @@ const Paziente = require('../models/Paziente.js')
 @postcondition Viene inserito un nuovo paziente nel database e viene restituita la risposta HTTP contenente il paziente creato.
 @autor Giuseppe Basile
 */
-exports.insertPaziente = async(req, res) => {
+exports.insertPaziente = async (req, res) => {
     const paziente = new Paziente(req.body)
 
     try {
         await paziente.save()
         res.status(201).json(paziente)
     } catch (error) {
-        res.status(409).json({message: error.message})
+        res.status(409).json({ message: error.message })
     }
 }
 
@@ -31,7 +31,7 @@ exports.insertPaziente = async(req, res) => {
 @postcondition Vengono recuperati tutti i pazienti presenti nel database e viene restituita la risposta HTTP contenente l'elenco dei pazienti.
 @autor Giuseppe Basile
 */
-exports.getAllPazienti = async (req,res) => {
+exports.getAllPazienti = async (req, res) => {
     try {
         const pazienti = await Paziente.find()
         res.status(200).json(pazienti)
@@ -50,14 +50,14 @@ exports.getAllPazienti = async (req,res) => {
 @postcondition Viene recuperato un paziente dal database tramite il suo ID e viene restituita la risposta HTTP contenente il paziente.
 @autor Giuseppe Basile
 */
-exports.getPazienteById = async(req,res) => {
+exports.getPazienteById = async (req, res) => {
     const id = req.params.id
-    
-    try{
-       const paziente = await Paziente.findById(id)
-       res.status(200).json(paziente)
+
+    try {
+        const paziente = await Paziente.findById(id)
+        res.status(200).json(paziente)
     } catch (error) {
-        res.status(404).json({message: error.message})
+        res.status(404).json({ message: error.message })
     }
 }
 
@@ -71,14 +71,14 @@ exports.getPazienteById = async(req,res) => {
 @throws {Object} Errore HTTP con messaggio di errore specificato
 @auth Giuseppe Basile
 */
-exports.deletePaziente = async(req,res) => {
+exports.deletePaziente = async (req, res) => {
     const id = req.params.id
 
     try {
         await Paziente.findByIdAndDelete(id)
-        res.json({message : 'Paziente eliminato con successo'})
+        res.json({ message: 'Paziente eliminato con successo' })
     } catch (error) {
-        res.status(404).json({message: error.message})
+        res.status(404).json({ message: error.message })
     }
 }
 
@@ -92,15 +92,15 @@ exports.deletePaziente = async(req,res) => {
 @postcondition Viene aggiornato un paziente nel database tramite il suo ID e viene restituita la risposta HTTP contenente il paziente aggiornato.
 @autor Giuseppe Basile
 */
-exports.updatePaziente = async(req,res) => {
+exports.updatePaziente = async (req, res) => {
     const id = req.params.id
-    const data = {...req.body}
+    const data = { ...req.body }
 
     try {
-        const paziente = await Paziente.findByIdAndUpdate(id, data, {new:true})
+        const paziente = await Paziente.findByIdAndUpdate(id, data, { new: true })
         res.status(200).json(paziente)
     } catch (error) {
-        res.status(404).json({message: error.message})
+        res.status(404).json({ message: error.message })
     }
 }
 
@@ -114,18 +114,18 @@ exports.updatePaziente = async(req,res) => {
 @postcondition Vengono restituiti i pazienti filtrati tramite le query string e viene restituita la risposta HTTP contenente i pazienti filtrati.
 @autor Giuseppe Basile
 */
-exports.getPazienteFilter = async(req,res) => {
+exports.getPazienteFilter = async (req, res) => {
     const nomeQuery = req.query.nome ? req.query.nome : ""
     const cognomeQuery = req.query.cognome ? req.query.cognome : ""
     const cfQuery = req.query.cf ? req.query.cf : ""
 
-    try{
+    try {
         // const $regex = escapeStringRegexp(nomeQuery);
-        const paziente = await Paziente.find({ nome: { $regex: new RegExp("^" + nomeQuery.toLowerCase(), "i")}, cognome: {$regex: new RegExp("^" + cognomeQuery.toLowerCase(), "i")}, cf: {$regex: new RegExp("^" + cfQuery.toLowerCase(), "i")}}).exec()
+        const paziente = await Paziente.find({ nome: { $regex: new RegExp("^" + nomeQuery.toLowerCase(), "i") }, cognome: { $regex: new RegExp("^" + cognomeQuery.toLowerCase(), "i") }, cf: { $regex: new RegExp("^" + cfQuery.toLowerCase(), "i") } }).exec()
         console.log(paziente)
         res.status(200).json(paziente)
     } catch (error) {
-        res.status(404).json({message: error.message})
+        res.status(404).json({ message: error.message })
     }
 }
 
@@ -140,13 +140,13 @@ Ottiene un oggetto paziente dalla collezione Paziente nel database in base al co
 @postcondition Se l'oggetto paziente è stato trovato, viene inviato come risposta con status code 200. Altrimenti, viene inviato un oggetto JSON contenente il messaggio di errore con status code 404.
 @autor Giuseppe Basile
 */
-exports.getPazienteByCf = async(req,res) => {
+exports.getPazienteByCf = async (req, res) => {
     const cf = req.params.cf
-    try{
-        const paziente = await Paziente.findOne({cf: {$regex: new RegExp("^" + cf.toLowerCase(), "i")}}).exec()
+    try {
+        const paziente = await Paziente.findOne({ cf: { $regex: new RegExp("^" + cf.toLowerCase(), "i") } }).exec()
         console.log(paziente)
         res.status(200).json(paziente)
-    }catch(error){
-        res.status(404).json({message: error.message})
+    } catch (error) {
+        res.status(404).json({ message: error.message })
     }
 }

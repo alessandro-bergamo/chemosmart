@@ -24,7 +24,7 @@ const terapiaSchema = mongoose.Schema({
         require: true,
         enum: ['Non schedulata', 'In corso', 'Terminata']
     }
-}, {timestamps: true})
+}, { timestamps: true })
 
-const Terapia = mongoose.model("Terapia",terapiaSchema)
+const Terapia = mongoose.model("Terapia", terapiaSchema)
 module.exports = Terapia

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>JSDoc: Global</title>
@@ -15,1472 +16,1523 @@
 
 <body>
 
-<div id="main">
+    <div id="main">
 
-    <h1 class="page-title">Global</h1>
-
-    
+        <h1 class="page-title">Global</h1>
 
 
 
 
-<section>
-
-<header>
-    
-        <h2></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
 
 
-<dl class="details">
+        <section>
 
-    
+            <header>
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
+                <h2></h2>
 
 
-        
-    
+            </header>
+
+            <article>
+                <div class="container-overview">
+
+
+
+
+
+
+                    <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </dl>
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h3 class="subsection-title">Methods</h3>
+
+
+
+
+
+
+
+                <h4 class="name" id="deleteFarmaco"><span class="type-signature">(async) </span>deleteFarmaco<span
+                        class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Questa funzione gestisce la richiesta di eliminazione di un farmaco dal database in base all'id
+                    fornito. Dopo aver verificato che l'utente sia autenticato e autorizzato, la funzione cerca il
+                    farmaco nel database tramite l'id fornito e lo elimina. In caso di successo, viene restituito un
+                    messaggio di conferma.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>req</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">Object</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">L'oggetto della richiesta HTTP</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>res</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">Object</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">L'oggetto della risposta HTTP.</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-author">Author:</dt>
+                    <dd class="tag-author">
+                        <ul>
+                            <li>Mihail Purice</li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="farmaci.js.html">farmaci.js</a>, <a href="farmaci.js.html#line71">line 71</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Throws:</h5>
+
+
+
+                <dl>
+                    <dt>
+                        <div class="param-desc">
+                            Messaggio di errore nel caso in cui il farmaco non venga trovato
+                        </div>
+                    </dt>
+                    <dd></dd>
+                    <dt>
+                        <dl>
+                            <dt>
+                                Type
+                            </dt>
+                            <dd>
+
+                                <span class="param-type">Object</span>
+
+
+                            </dd>
+                        </dl>
+                    </dt>
+                    <dd></dd>
+                </dl>
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    Messaggio di conferma
+                </div>
+
+
+
+                <dl>
+                    <dt>
+                        Type
+                    </dt>
+                    <dd>
+
+                        <span class="param-type">Object</span>
+
+
+                    </dd>
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getAllFarmaci"><span class="type-signature"></span>getAllFarmaci<span
+                        class="signature">(req, res)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Restituisce tutti i farmaci presenti nel database
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>req</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">Object</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">Oggetto richiesta HTTP</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>res</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">Object</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">Oggetto risposta HTTP</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-author">Author:</dt>
+                    <dd class="tag-author">
+                        <ul>
+                            <li>Mihail Purice</li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="farmaci.js.html">farmaci.js</a>, <a href="farmaci.js.html#line26">line 26</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Throws:</h5>
+
+
+
+                <dl>
+                    <dt>
+                        <div class="param-desc">
+                            - Errore generato dal database o dal server
+                        </div>
+                    </dt>
+                    <dd></dd>
+                    <dt>
+                        <dl>
+                            <dt>
+                                Type
+                            </dt>
+                            <dd>
+
+                                <span class="param-type">Object</span>
+
+
+                            </dd>
+                        </dl>
+                    </dt>
+                    <dd></dd>
+                </dl>
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    - Array di oggetti contenenti tutti i dati dei farmaci
+                </div>
+
+
+
+                <dl>
+                    <dt>
+                        Type
+                    </dt>
+                    <dd>
+
+                        <span class="param-type">Array</span>
+
+
+                    </dd>
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getFarmacoById"><span class="type-signature"></span>getFarmacoById<span
+                        class="signature">(req, res, id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Restituisce il farmaco corrispondente all'ID fornito.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>req</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">Object</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">Oggetto richiesta HTTP.</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>res</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">Object</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">Oggetto risposta HTTP.</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>id</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">String</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">ID del farmaco da cercare.</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-author">Author:</dt>
+                    <dd class="tag-author">
+                        <ul>
+                            <li>Mihail Purice</li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="farmaci.js.html">farmaci.js</a>, <a href="farmaci.js.html#line47">line 47</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Throws:</h5>
+
+
+
+                <dl>
+                    <dt>
+                        <div class="param-desc">
+                            - Se non esiste un farmaco con l'ID fornito.
+                        </div>
+                    </dt>
+                    <dd></dd>
+                    <dt>
+                        <dl>
+                            <dt>
+                                Type
+                            </dt>
+                            <dd>
+
+                                <span class="param-type">404</span>
+
+
+                            </dd>
+                        </dl>
+                    </dt>
+                    <dd></dd>
+                </dl>
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    - Oggetto contenente le informazioni del farmaco cercato.
+                </div>
+
+
+
+                <dl>
+                    <dt>
+                        Type
+                    </dt>
+                    <dd>
+
+                        <span class="param-type">Object</span>
+
+
+                    </dd>
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getFarmacoByNome"><span class="type-signature"></span>getFarmacoByNome<span
+                        class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Questa funzione riceve una richiesta HTTP contenente il nome di un farmaco e restituisce l'oggetto
+                    Farmaco corrispondente.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>req</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">Object</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">L'oggetto contenente la richiesta HTTP.</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>res</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">Object</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">L'oggetto contenente la risposta HTTP.</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>req.params.nome</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">string</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">Il nome del farmaco da cercare.</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-author">Author:</dt>
+                    <dd class="tag-author">
+                        <ul>
+                            <li>Mihail Purice</li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="farmaci.js.html">farmaci.js</a>, <a href="farmaci.js.html#line132">line 132</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Throws:</h5>
+
+
+
+                <dl>
+                    <dt>
+                        <div class="param-desc">
+                            Se si verificano problemi durante la ricerca del farmaco.
+                        </div>
+                    </dt>
+                    <dd></dd>
+                    <dt>
+                        <dl>
+                            <dt>
+                                Type
+                            </dt>
+                            <dd>
+
+                                <span class="param-type">Error</span>
+
+
+                            </dd>
+                        </dl>
+                    </dt>
+                    <dd></dd>
+                </dl>
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    L'oggetto Farmaco trovato.
+                </div>
+
+
+
+                <dl>
+                    <dt>
+                        Type
+                    </dt>
+                    <dd>
+
+                        <span class="param-type">Object</span>
+
+
+                    </dd>
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="insertFarmaco"><span class="type-signature"></span>insertFarmaco<span
+                        class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    - Questa funzione consente di inserire un nuovo farmaco nel database.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>req</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">Object</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">Oggetto richiesta HTTP.</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>res</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">Object</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">Oggetto richiesta HTTP.</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-author">Author:</dt>
+                    <dd class="tag-author">
+                        <ul>
+                            <li>Mihail Purice</li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="farmaci.js.html">farmaci.js</a>, <a href="farmaci.js.html#line3">line 3</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Throws:</h5>
+
+
+
+                <dl>
+                    <dt>
+                        <div class="param-desc">
+                            409 - Errore nel caso in cui il farmaco non possa essere salvato.
+                        </div>
+                    </dt>
+                    <dd></dd>
+                    <dt>
+                        <dl>
+                            <dt>
+                                Type
+                            </dt>
+                            <dd>
+
+                                <span class="param-type">Object</span>
+
+
+                            </dd>
+                        </dl>
+                    </dt>
+                    <dd></dd>
+                </dl>
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    - Restituisce un oggetto JSON rappresentante il farmaco aggiunto.
+                </div>
+
+
+
+                <dl>
+                    <dt>
+                        Type
+                    </dt>
+                    <dd>
+
+                        <span class="param-type">Object</span>
+
+
+                    </dd>
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="updateFarmaco"><span class="type-signature">(async) </span>updateFarmaco<span
+                        class="signature">(req, res)</span><span class="type-signature"> &rarr;
+                        {Promise.&lt;void>}</span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Questa funzione riceve una richiesta HTTP per aggiornare le informazioni di un farmaco nel database.
+                    Se il valore di 'stock' nei nuovi dati del farmaco è un numero negativo, la funzione invia una
+                    risposta HTTP con uno stato 400 (Bad Request) e un messaggio di errore.
+                    Altrimenti, la funzione cerca il farmaco con l'ID specificato nel database e aggiorna i suoi dati
+                    con i nuovi dati forniti nella richiesta. La funzione quindi invia una risposta HTTP con lo stato
+                    200 (OK) e i nuovi dati del farmaco aggiornato.
+                    Se si verifica un errore durante l'aggiornamento, la funzione invia una risposta HTTP con lo stato
+                    404 (Not Found) e un messaggio di errore.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>req</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">Object</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">L'oggetto della richiesta HTTP.</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>res</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">Object</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">L'oggetto della risposta HTTP.</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-author">Author:</dt>
+                    <dd class="tag-author">
+                        <ul>
+                            <li>Antonio Nappi</li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="farmaci.js.html">farmaci.js</a>, <a href="farmaci.js.html#line96">line 96</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Throws:</h5>
+
+
+
+                <dl>
+                    <dt>
+                        <div class="param-desc">
+                            Ritorna un oggetto con un messaggio di errore se si verifica un errore durante
+                            l'aggiornamento.
+                        </div>
+                    </dt>
+                    <dd></dd>
+                    <dt>
+                        <dl>
+                            <dt>
+                                Type
+                            </dt>
+                            <dd>
+
+                                <span class="param-type">Object</span>
+
+
+                            </dd>
+                        </dl>
+                    </dt>
+                    <dd></dd>
+                </dl>
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    Non restituisce alcun valore, ma invia una risposta HTTP.
+                </div>
+
+
+
+                <dl>
+                    <dt>
+                        Type
+                    </dt>
+                    <dd>
+
+                        <span class="param-type">Promise.&lt;void></span>
+
+
+                    </dd>
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </article>
+
+        </section>
+
+
+
+
     </div>
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="deleteFarmaco"><span class="type-signature">(async) </span>deleteFarmaco<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Questa funzione gestisce la richiesta di eliminazione di un farmaco dal database in base all'id fornito. Dopo aver verificato che l'utente sia autenticato e autorizzato, la funzione cerca il farmaco nel database tramite l'id fornito e lo elimina. In caso di successo, viene restituito un messaggio di conferma.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">L'oggetto della richiesta HTTP</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">L'oggetto della risposta HTTP.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
+    <nav>
+        <h2><a href="index.html">Home</a></h2>
+        <h3>Global</h3>
         <ul>
-            <li>Mihail Purice</li>
+            <li><a href="global.html#deleteFarmaco">deleteFarmaco</a></li>
+            <li><a href="global.html#getAllFarmaci">getAllFarmaci</a></li>
+            <li><a href="global.html#getFarmacoById">getFarmacoById</a></li>
+            <li><a href="global.html#getFarmacoByNome">getFarmacoByNome</a></li>
+            <li><a href="global.html#insertFarmaco">insertFarmaco</a></li>
+            <li><a href="global.html#updateFarmaco">updateFarmaco</a></li>
         </ul>
-    </dd>
-    
+    </nav>
 
-    
+    <br class="clear">
 
-    
+    <footer>
+        Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Feb 20 2023 17:44:45
+        GMT+0100 (Ora standard dell’Europa centrale)
+    </footer>
 
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="farmaci.js.html">farmaci.js</a>, <a href="farmaci.js.html#line71">line 71</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        Messaggio di errore nel caso in cui il farmaco non venga trovato
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">Object</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    Messaggio di conferma
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getAllFarmaci"><span class="type-signature"></span>getAllFarmaci<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Array}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Restituisce tutti i farmaci presenti nel database
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Oggetto richiesta HTTP</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Oggetto risposta HTTP</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Mihail Purice</li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="farmaci.js.html">farmaci.js</a>, <a href="farmaci.js.html#line26">line 26</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        - Errore generato dal database o dal server
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">Object</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    - Array di oggetti contenenti tutti i dati dei farmaci
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getFarmacoById"><span class="type-signature"></span>getFarmacoById<span class="signature">(req, res, id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Restituisce il farmaco corrispondente all'ID fornito.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Oggetto richiesta HTTP.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Oggetto risposta HTTP.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">ID del farmaco da cercare.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Mihail Purice</li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="farmaci.js.html">farmaci.js</a>, <a href="farmaci.js.html#line47">line 47</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        - Se non esiste un farmaco con l'ID fornito.
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">404</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    - Oggetto contenente le informazioni del farmaco cercato.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getFarmacoByNome"><span class="type-signature"></span>getFarmacoByNome<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Questa funzione riceve una richiesta HTTP contenente il nome di un farmaco e restituisce l'oggetto Farmaco corrispondente.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">L'oggetto contenente la richiesta HTTP.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">L'oggetto contenente la risposta HTTP.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>req.params.nome</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Il nome del farmaco da cercare.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Mihail Purice</li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="farmaci.js.html">farmaci.js</a>, <a href="farmaci.js.html#line132">line 132</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        Se si verificano problemi durante la ricerca del farmaco.
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">Error</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    L'oggetto Farmaco trovato.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="insertFarmaco"><span class="type-signature"></span>insertFarmaco<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    - Questa funzione consente di inserire un nuovo farmaco nel database.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Oggetto richiesta HTTP.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Oggetto richiesta HTTP.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Mihail Purice</li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="farmaci.js.html">farmaci.js</a>, <a href="farmaci.js.html#line3">line 3</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        409 - Errore nel caso in cui il farmaco non possa essere salvato.
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">Object</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    - Restituisce un oggetto JSON rappresentante il farmaco aggiunto.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="updateFarmaco"><span class="type-signature">(async) </span>updateFarmaco<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Questa funzione riceve una richiesta HTTP per aggiornare le informazioni di un farmaco nel database.
-Se il valore di 'stock' nei nuovi dati del farmaco è un numero negativo, la funzione invia una risposta HTTP con uno stato 400 (Bad Request) e un messaggio di errore.
-Altrimenti, la funzione cerca il farmaco con l'ID specificato nel database e aggiorna i suoi dati con i nuovi dati forniti nella richiesta. La funzione quindi invia una risposta HTTP con lo stato 200 (OK) e i nuovi dati del farmaco aggiornato.
-Se si verifica un errore durante l'aggiornamento, la funzione invia una risposta HTTP con lo stato 404 (Not Found) e un messaggio di errore.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">L'oggetto della richiesta HTTP.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">L'oggetto della risposta HTTP.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Antonio Nappi</li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="farmaci.js.html">farmaci.js</a>, <a href="farmaci.js.html#line96">line 96</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        Ritorna un oggetto con un messaggio di errore se si verifica un errore durante l'aggiornamento.
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">Object</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    Non restituisce alcun valore, ma invia una risposta HTTP.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
-
-
-
-
-</div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#deleteFarmaco">deleteFarmaco</a></li><li><a href="global.html#getAllFarmaci">getAllFarmaci</a></li><li><a href="global.html#getFarmacoById">getFarmacoById</a></li><li><a href="global.html#getFarmacoByNome">getFarmacoByNome</a></li><li><a href="global.html#insertFarmaco">insertFarmaco</a></li><li><a href="global.html#updateFarmaco">updateFarmaco</a></li></ul>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Feb 20 2023 17:44:45 GMT+0100 (Ora standard dell’Europa centrale)
-</footer>
-
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+    <script> prettyPrint(); </script>
+    <script src="scripts/linenumber.js"> </script>
 </body>
+
 </html>
