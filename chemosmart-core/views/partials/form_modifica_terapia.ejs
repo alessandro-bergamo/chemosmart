@@ -1,26 +1,26 @@
-<div class="w-50">
+<div class="w-25">
     <form action="updateTerapia" method="post">
         <div class="form-group">
-            <label for="cfPaziente">Codice Fiscale</label>
+            <label style="font-weight: bolder;"class="mb-2" for="cfPaziente">Codice Fiscale</label>
             <input type="text" class="form-control" name="cfPaziente" id="cfPaziente"
                 placeholder="<%= terapia.cfPaziente %> ">
         </div>
         <div class="form-group">
-            <label for="farmaco">Farmaco</label>
+            <label style="font-weight: bolder;"class="mb-2 mt-2" for="farmaco">Farmaco</label>
             <input type="text" class="form-control" name="farmaco" id="farmaco" placeholder="<%= terapia.farmaco %>">
         </div>
         <div class="form-group">
-            <label for="datetimepicker">Data</label>
+            <label style="font-weight: bolder;"class="mb-2 mt-2" for="datetimepicker">Data</label>
             <input type="hidden" id="inizio" value="<%= terapia.dataInizio %>">
             <input type="datetime-local" class="form-control datetimepicker " id="dataInizio" name="dataInizio">
         </div>
         <div class="form-group">
-            <label for="numAppuntamenti">Numero Appuntamenti</label>
+            <label style="font-weight: bolder;"class="mb-2 mt-2" for="numAppuntamenti">Numero Appuntamenti</label>
             <input type="number" class="form-control" id="numAppuntamenti" placeholder="<%= terapia.numAppuntamenti %>"
                 name="numAppuntamenti">
         </div>
         <div class="form-group">
-            <label for="stato">Stato</label>
+            <label style="font-weight: bolder;"class="mb-2 mt-2" for="stato">Stato</label>
 
             <% if (terapia.stato=='In corso' ) { %>
                 <select class="form-select" name="stato" id="stato">
@@ -43,7 +43,7 @@
                         <% } %>
         </div>
         <div class="form-group">
-            <label for="frequenzaAppuntamenti">Frequenza</label>
+            <label style="font-weight: bolder;"class="mb-2 mt-2" for="frequenzaAppuntamenti">Frequenza</label>
 
             <% if (terapia.frequenzaAppuntamenti==7) { %>
                 <select class="form-select" name="frequenzaAppuntamenti" id="frequenzaAppuntamenti">
