@@ -224,7 +224,7 @@ app.get('/addNewCC', (req, res) => {
     if (req.session.loggedIn != true || req.session.user != 'Medico') {
         res.redirect('/')
     } else {
-        res.render(__dirname + '/views/nuova-cartella-clinica')
+        res.status(200).render(__dirname + '/views/nuova-cartella-clinica')
     }
 
 })
@@ -240,7 +240,7 @@ app.post('/addAppuntamento', async (req, res) => {
             res.redirect('/')
         } else {
             const response = await api.addAppuntamento(req.body);
-            res.render(__dirname + "/views/calendario");
+            res.status(200).render(__dirname + "/views/calendario");
         }
     } catch (err) {
         console.error(err);
@@ -258,7 +258,7 @@ app.get("/visualizzaFarmaci", async function (req, res) {
     try {
         const response = await api.getFarmaci();
         const farmaci = response.data;
-        res.render(__dirname + "/views/homepage-infermiere", { farmaci: farmaci });
+        res.status(200).render(__dirname + "/views/homepage-infermiere", { farmaci: farmaci });
     } catch (error) {
         console.error(error);
         res.status(500).send("Errore durante la lettura dei dati dei farmaci.");
