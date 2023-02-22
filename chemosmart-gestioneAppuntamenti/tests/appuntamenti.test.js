@@ -49,15 +49,6 @@ describe('insertAppuntamento', () => {
     }
   })
 
-  const appuntamentoMock  = {
-    cfPaziente: req.body.cfPaziente,
-    farmaco: req.body.farmaco,
-    dataInizio: req.body.dataInizio,
-    dataFine: req.body.dataFine,
-    nome: req.body.nome,
-    cognome: req.body.cognome
-  }
-
   afterEach(() => {
       jest.clearAllMocks()
   })
