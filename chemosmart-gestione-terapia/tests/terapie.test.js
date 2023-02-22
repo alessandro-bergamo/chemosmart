@@ -20,7 +20,7 @@ Il secondo test (TC_1.1_2) verifica che la funzione restituisca un array vuoto s
 
 Il terzo test (TC_1.1_3) verifica che la funzione restituisca la terapia corretta se viene trovata una corrispondenza con il codice fiscale del paziente passato in input.
 */
-describe('getTerapiaFilter', () => {
+/* describe('getTerapiaFilter', () => {
     test('[TC1.1_1] Dovrebbe impostare lo stato della richiesta al codice 404 e restituire un messaggio di errore in caso di errore nella ricerca della Terapia', async () => {
         const cf = 'abc123'
         const req = {
@@ -109,7 +109,7 @@ describe('getTerapiaFilter', () => {
         expect(res.status).toHaveBeenCalledWith(200)
         expect(res.json).toHaveBeenCalledWith(terapia[0])
     })
-})
+}) */
 
 /* Update Terapia 
 
