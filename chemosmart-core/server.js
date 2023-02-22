@@ -39,13 +39,13 @@ app.use(function (req, res, next) {
 
 app.get('/', (req, res) => {
     if (req.session.loggedIn == true) {
-        res.redirect('/homepage')
+        res.status(200).redirect('/homepage')
     } else {
-        res.render(__dirname + '/views/loginPage')
+        res.status(200).render(__dirname + '/views/loginPage')
     }
 })
 app.get('/stampa', (req, res) => {
-    res.render(__dirname + "/views/stampa")
+    res.status(200).render(__dirname + "/views/stampa")
 })
 app.post('/login', (req, res) => {
     if (req.session.loggedIn != true) {
@@ -54,9 +54,9 @@ app.post('/login', (req, res) => {
     }
 
     if (req.session.user == "Infermiere") {
-        res.redirect('/visualizzaFarmaci')
+        res.status(200).redirect('/visualizzaFarmaci')
     } else {
-        res.redirect('/homepage')
+        res.status(200).redirect('/homepage')
     }
 
 })
@@ -66,7 +66,7 @@ app.get('/logout', (req, res) => {
         if (err) {
             return console.log(err)
         }
-        res.redirect('/')
+        res.status(200).redirect('/')
     })
 })
 
