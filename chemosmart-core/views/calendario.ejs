@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <%- include('./partials/head') %> 
+  <%- include('./partials/head') %>
 </head>
+
 <body>
-    <% if(user == 'Medico') {%>
+  <% if(user=='Medico' ) {%>
     <%- include('./partials/sidebarMedico') %>
-    <%- include('./partials/content-calendario') %>
-    <% } else if(user == 'Segretario'){ %>
-    <%- include('./partials/sidebarSegretario') %>
-    <%- include('./partials/content-calendario-segretario') %>
-    <% } %>
+      <%- include('./partials/content-calendario') %>
+        <% } else if(user=='Segretario' ){ %>
+          <%- include('./partials/sidebarSegretario') %>
+            <%- include('./partials/content-calendario-segretario') %>
+              <% } %>
 </body>
+
 </html>

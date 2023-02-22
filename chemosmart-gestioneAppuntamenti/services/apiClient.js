@@ -1,10 +1,10 @@
 const axios = require('axios')
 
 async function getPaziente(cf) {
-    try{
+    try {
         const response = axios.get('http://localhost:3007/pazienti/getPaziente/' + cf)
         return response
-    } catch(err){
+    } catch (err) {
         return err.message
     }
 }
@@ -18,4 +18,4 @@ async function getFarmaco(nome) {
         return error.message
     }
 }
-module.exports = {getPaziente, getFarmaco}
+module.exports = { getPaziente, getFarmaco }

@@ -24,7 +24,7 @@ const appuntamentoSchema = mongoose.Schema({
         type: String,
         require: true
     }
-}, {timestamps: true})
+}, { timestamps: true })
 
-const Appuntamento = mongoose.model("Appuntamento",appuntamentoSchema)
+const Appuntamento = mongoose.model("Appuntamento", appuntamentoSchema)
 module.exports = Appuntamento
