@@ -344,7 +344,7 @@ app.post("/generateAppuntamenti", async (req, res) => {
 
     try {
         const appuntamenti = await api.createAppuntamentiTerapia(cf, nome, cognome, farmaco, dataInizio, durata, numAppuntamenti, frequenza, priorita)
-        const terapia = await api.startTerapia(idTerapia, dataInizio, stato)
+        const terapia = await api.startTerapia(idTerapia, dataInizio, cf, stato, farmaco, numAppuntamenti, frequenza)
         const paziente = await api.updatePaziente(idPaziente, priorita)
         res.status(201).json(appuntamenti)
     } catch (error) {

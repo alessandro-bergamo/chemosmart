@@ -77,10 +77,10 @@ async function updatePaziente(id, priorita) {
     }
 }
 
-async function startTerapia(id,dataInizio, stato) {
+async function startTerapia(id, dataInizio, cf, stato, farmaco, numAppuntamenti, frequenza) {
     const data = new Date(dataInizio)
     try {
-        const terapia = await axios.patch('http://localhost:3050/terapie/' + id, {dataInizio: data, stato: stato })
+        const terapia = await axios.patch('http://localhost:3050/terapie/' + id, {dataInizio: data, cfPaziente: cf, stato: stato, farmaco: farmaco, numAppuntamenti: numAppuntamenti, frequenzaAppuntamenti: frequenza })
         return terapia
     } catch (error) {
         return error

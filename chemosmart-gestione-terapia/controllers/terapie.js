@@ -106,7 +106,7 @@ Aggiorna una terapia nel database tramite ID.
 exports.updateTerapia = async (req, res) => {
     const id = req.params.id
     const data = { ...req.body }
-    
+    console.log(data)
     try{
         const terapiaOld = await Terapia.findById(id)
 
